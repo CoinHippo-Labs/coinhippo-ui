@@ -85,7 +85,7 @@ export default () => {
                 accessor: 'name',
                 disableSortBy: true,
                 Cell: props => (
-                  <div className="flex flex-col items-start space-y-1">
+                  <div className="flex flex-col items-start space-y-1 -mt-0.5 mb-2">
                     <span className="font-bold">
                       {props.value}
                     </span>
