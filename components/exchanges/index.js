@@ -107,7 +107,6 @@ export default () => {
               {
                 Header: '#',
                 accessor: 'i',
-                disableSortBy: true,
                 Cell: props => (
                   <span className="font-mono font-semibold">
                     {number_format((props.flatRows?.indexOf(props.row) > -1 ?
@@ -324,7 +323,7 @@ export default () => {
             ].filter(c => !((exchange_type === 'derivatives' ? ['trust_score'] : ['open_interest_btc', 'number_of_perpetual_pairs', 'number_of_futures_pairs']).includes(c?.accessor)))
               .filter(c => is_widget ? ['i', 'name', 'trade_volume_24h_btc', 'url'].includes(c?.accessor) : true)
             }
-            data={data}
+            data={_.slice(data, 0, n ? Number(n) : undefined)}
             noPagination={data.length <= 10}
             defaultPageSize={[10, 25, 50, 100].includes(Number(n)) ? Number(n) : 50}
             className="no-border striped"

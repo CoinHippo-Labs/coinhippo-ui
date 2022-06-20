@@ -1,64 +1,75 @@
 import { useRouter } from 'next/router'
 import { useSelector, shallowEqual } from 'react-redux'
 import _ from 'lodash'
-import { currency, currency_btc } from '../../lib/object/currency'
-import { numberFormat } from '../../lib/utils'
+import { TailSpin } from 'react-loader-spinner'
 
-export default ({ derivativesData }) => {
-  const { rates } = useSelector(state => ({ rates: state.rates }), shallowEqual)
-  const { rates_data } = { ...rates }
+import { currency_symbol } from '../../lib/object/currency'
+import { number_format, loader_color } from '../../lib/utils'
+
+export default ({ data }) => {
+  const { preferences } = useSelector(state => ({ preferences: state.preferences }), shallowEqual)
+  const { theme } = { ...preferences }
 
   const router = useRouter()
   const { query } = { ...router }
   const { derivative_type } = { ...query }
 
+  const metricClassName = 'bg-white dark:bg-black border hover:border-transparent dark:border-slate-900 hover:dark:border-transparent shadow hover:shadow-lg dark:shadow-slate-400 rounded-lg space-y-0.5 py-4 px-5'
+
   return (
-    <div className="flex flex-col sm:flex-row items-start space-y-1 sm:space-y-0 space-x-0 sm:space-x-4 mb-2 ml-0.5">
-      {derivativesData && derivative_type === derivativesData.derivative_type ?
-        <>
-          <span className="flex items-center space-x-1">
-            <span className="text-gray-400 dark:text-gray-600 font-normal">Contracts:</span>
-            <span className="text-gray-700 dark:text-gray-300 font-medium">{numberFormat(derivativesData.data.length, '0,0')}</span>
-          </span>
-          <span className="flex flex-wrap items-center justify-start sm:justify-end space-x-1">
-            <span className="text-gray-400 dark:text-gray-600 font-normal">Open Interest:</span>
-            <span className="text-gray-700 dark:text-gray-300 font-medium space-x-1">
-              {(rates_data ? currency : currencyUSD).symbol}
-              <span>{numberFormat(_.sumBy(derivativesData.data.filter(derivativeData => derivativeData.open_interest > 0), 'open_interest') * (rates_data ? rates_data[currency.id].value / rates_data[currencyUSD.id].value : 1), '0,0')}</span>
-              {!((rates_data ? currency : currencyUSD).symbol) && (<span className="uppercase">{(rates_data ? currency : currencyUSD).id}</span>)}
-            </span>
-            {rates_data && currency.id !== currencyUSD.id && (
-              <div className="text-gray-400 dark:text-gray-600 text-xs font-medium space-x-1">
-                (
-                <span>{numberFormat(_.sumBy(derivativesData.data.filter(derivativeData => derivativeData.open_interest > 0), 'open_interest'), '0,0')}</span>
-                <span className="uppercase">{currencyUSD.id}</span>
-                )
-              </div>
-            )}
-          </span>
-          <span className="flex flex-wrap items-center justify-start sm:justify-end space-x-1">
-            <span className="text-gray-400 dark:text-gray-600 font-normal">24h Vol:</span>
-            <span className="text-gray-700 dark:text-gray-300 font-medium space-x-1">
-              {(rates_data ? currency : currencyUSD).symbol}
-              <span>{numberFormat(_.sumBy(derivativesData.data.filter(derivativeData => derivativeData.volume_24h > 0), 'volume_24h') * (rates_data ? rates_data[currency.id].value / rates_data[currencyUSD.id].value : 1), '0,0')}</span>
-              {!((rates_data ? currency : currencyUSD).symbol) && (<span className="uppercase">{(rates_data ? currency : currencyUSD).id}</span>)}
-            </span>
-            {rates_data && currency.id !== currencyUSD.id && (
-              <div className="text-gray-400 dark:text-gray-600 text-xs font-medium space-x-1">
-                (
-                <span>{numberFormat(_.sumBy(derivativesData.data.filter(derivativeData => derivativeData.volume_24h > 0), 'volume_24h'), '0,0')}</span>
-                <span className="uppercase">{currencyUSD.id}</span>
-                )
-              </div>
-            )}
-          </span>
-        </>
-        :
-        <>
-          <div className="skeleton w-24 h-4 rounded mr-0 sm:mr-2 mb-0.5" />
-          <div className="skeleton w-48 h-4 rounded mb-0.5" />
-        </>
-      }
+    <div className="w-full grid grid-flow-row grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className={`${metricClassName}`}>
+        <span className="text-slate-500 dark:text-slate-300 text-base font-semibold">
+          Contracts
+        </span>
+        <div className="text-3xl font-bold">
+          {data ?
+            number_format(data.length, '0,0') :
+            <TailSpin color={loader_color(theme)} width="36" height="36" />
+          }
+        </div>
+        <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
+          Number of derivatives contracts
+        </span>
+      </div>
+      <div className={`${metricClassName}`}>
+        <span className="text-slate-500 dark:text-slate-300 text-base font-semibold">
+          Open Interest 24h
+        </span>
+        <div className="text-3xl font-bold">
+          {data ?
+            <div className="flex items-center uppercase font-semibold space-x-2">
+              <span>
+                {currency_symbol}
+                {number_format(_.sumBy(data.filter(d => d?.open_interest > 0), 'open_interest'), '0,0')}
+              </span>
+            </div> :
+            <TailSpin color={loader_color(theme)} width="36" height="36" />
+          }
+        </div>
+        <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
+          Total 24h open interest in USD
+        </span>
+      </div>
+      <div className={`${metricClassName}`}>
+        <span className="text-slate-500 dark:text-slate-300 text-base font-semibold">
+          Volume 24h
+        </span>
+        <div className="text-3xl font-bold">
+          {data ?
+            <div className="flex items-center uppercase font-semibold space-x-2">
+              <span>
+                {currency_symbol}
+                {number_format(_.sumBy(data.filter(d => d?.volume_24h > 0), 'volume_24h'), '0,0')}
+              </span>
+            </div> :
+            <TailSpin color={loader_color(theme)} width="36" height="36" />
+          }
+        </div>
+        <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
+          Total 24h volume in USD
+        </span>
+      </div>
     </div>
   )
 }
