@@ -1,0 +1,117 @@
+@media (max-width: 767px) {
+  .arrow {
+    transform: rotate(90deg);
+    transition: transform 0.15s ease-in-out;
+  }
+
+  .hidden-sibling {
+    + ul {
+      @apply hidden;
+    }
+    &.sidebar-item {
+      .arrow {
+        transform: rotate(-90deg) !important;
+      }
+    }
+  }
+
+  .sidebar-1 {
+    .logo {
+      @apply uppercase font-semibold text-base tracking-wider flex flex-row items-center justify-start h-16 w-full whitespace-nowrap pl-4;
+      max-width: calc(theme('spacing.1') * 64);
+      @apply text-blue-500;
+      span {
+        @apply block;
+      }
+    }
+
+    [data-collapsed="true"] & {
+      @apply hidden -translate-x-0;
+    }
+
+    [data-collapsed="false"] & {
+      --tw-translate-x: 0 !important;
+    }
+  }
+
+  .sidebar-item {
+    @apply flex flex-row h-10 items-center justify-start relative whitespace-nowrap;
+    min-width: calc(theme('spacing.1') * 16);
+    max-width: calc(theme('spacing.1') * 64);
+    width: calc(theme('spacing.1') * 64);
+    > svg {
+      width: calc(theme('spacing.1') * 16);
+    }
+    &.open-sibling {
+      @apply text-blue-500;
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 4px;
+        @apply bg-blue-500;
+      }
+    }
+    &:after {
+      content: "";
+      display: none;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 4px;
+      @apply bg-blue-500;
+    }
+    &:hover,
+    &.active {
+      @apply text-blue-500;
+      &:after {
+        display: block;
+      }
+    }
+  }
+
+  .l0 {
+    > .sidebar-item {
+      > .title {
+        @apply visible opacity-100;
+      }
+    }
+  }
+
+  .sidebar-title {
+    @apply uppercase font-normal text-xs tracking-wider flex flex-row items-center justify-start h-16 w-full px-4;
+    @apply visible opacity-100;
+  }
+
+  ul ul .sidebar-item {
+    padding-left: calc(theme('spacing.1') * 16);
+  }
+  ul ul ul .sidebar-item {
+    padding-left: calc(theme('spacing.1') * 20);
+  }
+  ul ul ul ul .sidebar-item {
+    padding-left: calc(theme('spacing.1') * 24);
+  }
+  ul ul ul ul ul .sidebar-item {
+    padding-left: calc(theme('spacing.1') * 28);
+  }
+
+  .sidebar-1 {
+    @apply text-sm shadow-lg;
+    [data-sidebar="light"] & {
+      @apply bg-white border-b border-r border-slate-200 text-slate-900;
+    }
+    [data-sidebar="dark"] & {
+      @apply border-b border-r text-white;
+      background: color(theme('colors.slate.900') tint(0%));
+      border-color: color(theme('colors.slate.900') tint(1%));
+    }
+    .badge {
+      @apply hidden !important;
+    }
+  }
+}
