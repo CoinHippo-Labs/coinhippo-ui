@@ -1,67 +1,88 @@
-import { useRouter } from 'next/router'
 import { useSelector, shallowEqual } from 'react-redux'
 import _ from 'lodash'
-import { currencies } from '../../lib/menus'
-import { numberFormat } from '../../lib/utils'
+import { TailSpin } from 'react-loader-spinner'
 
-export default ({ coinsData, page }) => {
-  const { preferences, data } = useSelector(state => ({ preferences: state.preferences, data: state.data }), shallowEqual)
-  const { vs_currency } = { ...preferences }
-  const { exchange_rates_data } = { ...data }
-  const currency = currencies[currencies.findIndex(c => c.id === vs_currency)] || currencies[0]
-  const currencyBTC = currencies[currencies.findIndex(c => c.id === 'btc')]
+import Categories from './categories'
+import { currency, currency_symbol, currency_btc } from '../../lib/object/currency'
+import { number_format, loader_color } from '../../lib/utils'
 
-  const router = useRouter()
-  const { query } = { ...router }
-  const { category } = { ...query }
+export default ({ data }) => {
+  const { preferences, cryptos } = useSelector(state => ({ preferences: state.preferences, cryptos: state.cryptos }), shallowEqual)
+  const { theme } = { ...preferences }
+  const { cryptos_data } = { ...cryptos }
+
+  const metricClassName = 'bg-white dark:bg-black border hover:border-transparent dark:border-slate-900 hover:dark:border-transparent shadow hover:shadow-lg dark:shadow-slate-400 rounded-lg space-y-0.5 py-4 px-5'
 
   return (
-    <div className="flex flex-col sm:flex-row items-start space-y-1 sm:space-y-0 space-x-0 sm:space-x-4 mb-2 ml-0.5">
-      {coinsData && coinsData.vs_currency === vs_currency && category === coinsData.category && page === coinsData.page ?
-        <>
-          <span className="flex items-center space-x-1">
-            <span className="text-gray-400 dark:text-gray-600 font-normal">Coins:</span>
-            <span className="text-gray-700 dark:text-gray-300 font-medium">{numberFormat(coinsData.data.length, '0,0')}</span>
-          </span>
-          <span className="flex flex-wrap items-center justify-start sm:justify-end space-x-1">
-            <span className="text-gray-400 dark:text-gray-600 font-normal">Market Cap:</span>
-            <span className="text-gray-700 dark:text-gray-300 font-medium space-x-1">
-              {(exchange_rates_data ? currency : currencyBTC).symbol}
-              <span>{numberFormat(_.sumBy(coinsData.data.filter(coinData => coinData.market_cap > 0), 'market_cap'), '0,0')}</span>
-              {!((exchange_rates_data ? currency : currencyBTC).symbol) && (<span className="uppercase">{(exchange_rates_data ? currency : currencyBTC).id}</span>)}
-            </span>
-            {exchange_rates_data && currency.id !== currencyBTC.id && (
-              <div className="text-gray-400 dark:text-gray-600 text-xs font-medium space-x-1">
-                (
-                <span>{numberFormat(_.sumBy(coinsData.data.filter(coinData => coinData.market_cap > 0), 'market_cap') * (exchange_rates_data ? exchange_rates_data[currencyBTC.id].value / exchange_rates_data[currency.id].value : 1), '0,0')}</span>
-                <span className="uppercase">{currencyBTC.id}</span>
-                )
-              </div>
-            )}
-          </span>
-          <span className="flex flex-wrap items-center justify-start sm:justify-end space-x-1">
-            <span className="text-gray-400 dark:text-gray-600 font-normal">24h Vol:</span>
-            <span className="text-gray-700 dark:text-gray-300 font-medium space-x-1">
-              {(exchange_rates_data ? currency : currencyBTC).symbol}
-              <span>{numberFormat(_.sumBy(coinsData.data.filter(coinData => coinData.total_volume > 0), 'total_volume'), '0,0')}</span>
-              {!((exchange_rates_data ? currency : currencyBTC).symbol) && (<span className="uppercase">{(exchange_rates_data ? currency : currencyBTC).id}</span>)}
-            </span>
-            {exchange_rates_data && currency.id !== currencyBTC.id && (
-              <div className="text-gray-400 dark:text-gray-600 text-xs font-medium space-x-1">
-                (
-                <span>{numberFormat(_.sumBy(coinsData.data.filter(coinData => coinData.total_volume > 0), 'total_volume') * (exchange_rates_data ? exchange_rates_data[currencyBTC.id].value / exchange_rates_data[currency.id].value : 1), '0,0')}</span>
-                <span className="uppercase">{currencyBTC.id}</span>
-                )
-              </div>
-            )}
-          </span>
-        </>
-        :
-        <>
-          <div className="skeleton w-24 h-4 rounded mr-0 sm:mr-2 mb-0.5" />
-          <div className="skeleton w-48 h-4 rounded mb-0.5" />
-        </>
-      }
+    <div className="w-full grid grid-flow-row grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className={`${metricClassName}`}>
+        <span className="text-slate-500 dark:text-slate-300 text-base font-semibold">
+          Tokens
+        </span>
+        <div className="text-3xl font-bold">
+          {data ?
+            number_format(data.length, '0,0') :
+            <TailSpin color={loader_color(theme)} width="36" height="36" />
+          }
+        </div>
+        <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
+          Number of tokens
+        </span>
+      </div>
+      <div className={`${metricClassName}`}>
+        <span className="text-slate-500 dark:text-slate-300 text-base font-semibold">
+          Market Cap
+        </span>
+        <div className="text-3xl font-bold">
+          {data ?
+            <div className="flex items-center uppercase font-semibold space-x-2">
+              <span>
+                {currency_symbol}
+                {number_format(_.sumBy(data.filter(d => d?.market_cap > 0), 'market_cap'), '0,0')}
+              </span>
+            </div> :
+            <TailSpin color={loader_color(theme)} width="36" height="36" />
+          }
+        </div>
+        <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
+          Total market cap in USD
+        </span>
+      </div>
+      <div className={`${metricClassName}`}>
+        <span className="text-slate-500 dark:text-slate-300 text-base font-semibold">
+          Volume 24h
+        </span>
+        <div className="text-3xl font-bold">
+          {data ?
+            <div className="flex items-center uppercase font-semibold space-x-2">
+              <span>
+                {currency_symbol}
+                {number_format(_.sumBy(data.filter(d => d?.volume_24h > 0), 'volume_24h'), '0,0')}
+              </span>
+            </div> :
+            <TailSpin color={loader_color(theme)} width="36" height="36" />
+          }
+        </div>
+        <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
+          Total 24h volume in USD
+        </span>
+      </div>
+      <div className={`${metricClassName}`}>
+        <span className="text-slate-500 dark:text-slate-300 text-base font-semibold">
+          Select category
+        </span>
+        <div className="text-3xl font-bold">
+          {cryptos_data?.categories ?
+            <div className="-mt-1">
+              <Categories />
+            </div>:
+            <TailSpin color={loader_color(theme)} width="36" height="36" />
+          }
+        </div>
+        <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
+          Categories
+        </span>
+      </div>
     </div>
   )
 }

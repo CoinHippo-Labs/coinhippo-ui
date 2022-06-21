@@ -324,7 +324,7 @@ export default () => {
               .filter(c => is_widget ? ['i', 'name', 'trade_volume_24h_btc', 'url'].includes(c?.accessor) : true)
             }
             data={_.slice(data, 0, n ? Number(n) : undefined)}
-            noPagination={data.length <= 10}
+            noPagination={_.slice(data, 0, n ? Number(n) : undefined).length <= 10}
             defaultPageSize={[10, 25, 50, 100].includes(Number(n)) ? Number(n) : 50}
             className="no-border striped"
           />

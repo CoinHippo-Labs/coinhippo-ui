@@ -226,3 +226,14 @@ input[type=number] {
 .linkify a {
   @apply text-blue-600 dark:text-white font-semibold;
 }
+
+.token-column {
+  div {
+    min-width: 1.5rem;
+  }
+
+  img {
+    height: auto !important;
+    min-height: 1rem !important;
+  }
+}
