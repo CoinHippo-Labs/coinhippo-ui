@@ -237,3 +237,86 @@ input[type=number] {
     min-height: 1rem !important;
   }
 }
+
+/* social media colors */
+.text-facebook {
+  color: #365397;
+}
+.text-twitter {
+  color: #00a9f1;
+}
+.text-telegram {
+  color: #0088cc;
+}
+.text-github {
+  color: #2f2f2f;
+}
+.text-bitbucket {
+  color: #1f6bff;
+}
+.text-linkedin {
+  color: #006db3;
+}
+.text-apple {
+  color: #737373;
+}
+.text-google {
+  color: #4285f4;
+}
+.text-google-plus {
+  color: #e0452c;
+}
+.text-youtube {
+  color: #ff3333;
+}
+.text-vimeo {
+  color: #48b6ed;
+}
+.text-pinterest {
+  color: #ce1a19;
+}
+.text-yelp {
+  color: #c30f00;
+}
+.text-dribbble {
+  color: #ed4584;
+}
+.text-amazon {
+  color: #ff9700;
+}
+.text-skype {
+  color: #00acf4;
+}
+.text-instagram {
+  color: #396d9a;
+}
+.text-dropbox {
+  color: #0d84de;
+}
+.text-flickr {
+  color: #ea0066;
+}
+.text-tumblr {
+  color: #304c68;
+}
+.text-foursquare {
+  color: #207dc5;
+}
+.text-reddit {
+  color: #fb2c07;
+}
+.text-slack {
+  color: #4e1056;
+}
+.text-medium {
+  color: #000000;
+}
+.text-weibo {
+  color: #de0023;
+}
+.text-discord {
+  color: #4749ef;
+}
+.text-kakao {
+  color: #fadd08;
+}

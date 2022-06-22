@@ -6,7 +6,7 @@ import Image from '../image'
 import _ from 'lodash'
 import { coinsMarkets } from '../../lib/api/coingecko'
 import { currency, currency_btc } from '../../lib/object/currency'
-import { getName, numberFormat } from '../../lib/utils'
+import { getName, number_format } from '../../lib/utils'
 
 const per_page = 10
 
@@ -93,7 +93,7 @@ export default function TopCoins({ category, title, icon, noBorder }) {
                 <div className="flex items-center justify-center text-xs text-gray-600 dark:text-gray-400">
                   {!props.row.original.skeleton ?
                     props.value < Number.MAX_SAFE_INTEGER ?
-                      numberFormat(props.value, '0,0')
+                      number_format(props.value, '0,0')
                       :
                       '-'
                     :
@@ -149,7 +149,7 @@ export default function TopCoins({ category, title, icon, noBorder }) {
                       {props.value > -1 ?
                         <span className="space-x-1">
                           {currency.symbol}
-                          <span>{numberFormat(props.value, '0,0.00000000')}</span>
+                          <span>{number_format(props.value, '0,0.00000000')}</span>
                           {!(currency.symbol) && (<span className="uppercase">{currency.id}</span>)}
                         </span>
                         :
@@ -157,7 +157,7 @@ export default function TopCoins({ category, title, icon, noBorder }) {
                       }
                       <div className={`${props.row.original.price_change_percentage_24h_in_currency < 0 ? 'text-red-500 dark:text-red-400' : props.row.original.price_change_percentage_24h_in_currency > 0 ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'} font-medium text-right`}>
                         {props.row.original.price_change_percentage_24h_in_currency > Number.MIN_SAFE_INTEGER ?
-                          `${numberFormat(props.row.original.price_change_percentage_24h_in_currency, `+0,0.000${Math.abs(props.row.original.price_change_percentage_24h_in_currency) < 0.001 ? '000' : ''}`)}%`
+                          `${number_format(props.row.original.price_change_percentage_24h_in_currency, `+0,0.000${Math.abs(props.row.original.price_change_percentage_24h_in_currency) < 0.001 ? '000' : ''}`)}%`
                           :
                           '-'
                         }
@@ -185,7 +185,7 @@ export default function TopCoins({ category, title, icon, noBorder }) {
                       {props.value > -1 ?
                         <span className="space-x-1">
                           {currency.symbol}
-                          <span>{numberFormat(props.value, `0,0${Math.abs(props.value) < 1 ? '.000' : ''}`)}</span>
+                          <span>{number_format(props.value, `0,0${Math.abs(props.value) < 1 ? '.000' : ''}`)}</span>
                           {!currency.symbol && (<span className="uppercase">{currency.id}</span>)}
                         </span>
                         :
@@ -195,7 +195,7 @@ export default function TopCoins({ category, title, icon, noBorder }) {
                         <span className="text-gray-400 font-medium space-x-1">
                           {props.value > -1 ?
                             <>
-                              <span>{numberFormat(props.value * (rates_data ? rates_data[currencyBTC.id].value / rates_data[currency.id].value : 1), `0,0${Math.abs(props.value * (rates_data ? rates_data[currencyBTC.id].value / rates_data[currency.id].value : 1)) < 1 ? '.000' : ''}`)}</span>
+                              <span>{number_format(props.value * (rates_data ? rates_data[currencyBTC.id].value / rates_data[currency.id].value : 1), `0,0${Math.abs(props.value * (rates_data ? rates_data[currencyBTC.id].value / rates_data[currency.id].value : 1)) < 1 ? '.000' : ''}`)}</span>
                               <span className="uppercase">{currencyBTC.id}</span>
                             </>
                             :

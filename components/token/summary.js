@@ -10,7 +10,7 @@ import { GoBrowser } from 'react-icons/go'
 import { AiOutlineLineChart, AiOutlineAreaChart, AiOutlineLock, AiOutlineBarChart } from 'react-icons/ai'
 import _ from 'lodash'
 import { currencies } from '../../lib/menus'
-import { getName, numberFormat, ellipseAddress } from '../../lib/utils'
+import { getName, number_format, ellipseAddress } from '../../lib/utils'
 
 export default ({ coinData }) => {
   const { preferences, data } = useSelector(state => ({ preferences: state.preferences, data: state.data }), shallowEqual)
@@ -280,14 +280,14 @@ export default ({ coinData }) => {
               <>
                 <span className="space-x-1">
                   {currency.symbol}
-                  <span>{coinData.market_data.market_cap[currency.id] > -1 ? numberFormat(coinData.market_data.market_cap[currency.id], `0,0${Math.abs(coinData.market_data.market_cap[currency.id]) < 1 ? '.000' : ''}`) : '-'}</span>
+                  <span>{coinData.market_data.market_cap[currency.id] > -1 ? number_format(coinData.market_data.market_cap[currency.id], `0,0${Math.abs(coinData.market_data.market_cap[currency.id]) < 1 ? '.000' : ''}`) : '-'}</span>
                   {!currency.symbol && (<span className="uppercase">{currency.id}</span>)}
                 </span>
                 {exchange_rates_data && currency.id !== currencyBTC.id && (
                   <div className={`text-gray-400 text-xs font-medium space-x-1 mt-${isWidget ? 0 : 1}`}>
                     {coinData.market_data.market_cap[currency.id] > -1 ?
                       <>
-                        <span>{numberFormat(coinData.market_data.market_cap[currency.id] * (exchange_rates_data ? exchange_rates_data[currencyBTC.id].value / exchange_rates_data[currency.id].value : 1), `0,0${Math.abs(coinData.market_data.market_cap[currency.id] * (exchange_rates_data ? exchange_rates_data[currencyBTC.id].value / exchange_rates_data[currency.id].value : 1)) < 1 ? '.000' : ''}`)}</span>
+                        <span>{number_format(coinData.market_data.market_cap[currency.id] * (exchange_rates_data ? exchange_rates_data[currencyBTC.id].value / exchange_rates_data[currency.id].value : 1), `0,0${Math.abs(coinData.market_data.market_cap[currency.id] * (exchange_rates_data ? exchange_rates_data[currencyBTC.id].value / exchange_rates_data[currency.id].value : 1)) < 1 ? '.000' : ''}`)}</span>
                         <span className="uppercase">{currencyBTC.id}</span>
                       </>
                       :
@@ -318,14 +318,14 @@ export default ({ coinData }) => {
                 <>
                   <span className="space-x-1">
                     {currency.symbol}
-                    <span>{coinData.market_data.fully_diluted_valuation[currency.id] > -1 ? numberFormat(coinData.market_data.fully_diluted_valuation[currency.id], `0,0${Math.abs(coinData.market_data.fully_diluted_valuation[currency.id]) < 1 ? '.000' : ''}`) : '-'}</span>
+                    <span>{coinData.market_data.fully_diluted_valuation[currency.id] > -1 ? number_format(coinData.market_data.fully_diluted_valuation[currency.id], `0,0${Math.abs(coinData.market_data.fully_diluted_valuation[currency.id]) < 1 ? '.000' : ''}`) : '-'}</span>
                     {!currency.symbol && (<span className="uppercase">{currency.id}</span>)}
                   </span>
                   {exchange_rates_data && currency.id !== currencyBTC.id && (
                     <div className="text-gray-400 text-xs font-medium space-x-1 mt-1">
                       {coinData.market_data.fully_diluted_valuation[currency.id] > -1 ?
                         <>
-                          <span>{numberFormat(coinData.market_data.fully_diluted_valuation[currency.id] * (exchange_rates_data ? exchange_rates_data[currencyBTC.id].value / exchange_rates_data[currency.id].value : 1), `0,0${Math.abs(coinData.market_data.fully_diluted_valuation[currency.id] * (exchange_rates_data ? exchange_rates_data[currencyBTC.id].value / exchange_rates_data[currency.id].value : 1)) < 1 ? '.000' : ''}`)}</span>
+                          <span>{number_format(coinData.market_data.fully_diluted_valuation[currency.id] * (exchange_rates_data ? exchange_rates_data[currencyBTC.id].value / exchange_rates_data[currency.id].value : 1), `0,0${Math.abs(coinData.market_data.fully_diluted_valuation[currency.id] * (exchange_rates_data ? exchange_rates_data[currencyBTC.id].value / exchange_rates_data[currency.id].value : 1)) < 1 ? '.000' : ''}`)}</span>
                           <span className="uppercase">{currencyBTC.id}</span>
                         </>
                         :
@@ -355,12 +355,12 @@ export default ({ coinData }) => {
             description={<span className={`${isWidget ? 'text-base' : 'text-xl'}`}>
               <span className="space-x-1">
                 {(exchange_rates_data ? currency : currencyUSD).symbol}
-                <span>{numberFormat(coinData.market_data.total_value_locked[currencyUSD.id] * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1), `0,0${Math.abs(coinData.market_data.total_value_locked[currencyUSD.id] * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1)) < 1 ? '.000' : ''}`)}</span>
+                <span>{number_format(coinData.market_data.total_value_locked[currencyUSD.id] * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1), `0,0${Math.abs(coinData.market_data.total_value_locked[currencyUSD.id] * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1)) < 1 ? '.000' : ''}`)}</span>
                 {!((exchange_rates_data ? currency : currencyUSD).symbol) && (<span className="uppercase">{(exchange_rates_data ? currency : currencyUSD).id}</span>)}
               </span>
               {currency.id !== currencyBTC.id && (
                 <div className={`text-gray-400 text-xs font-medium space-x-1 mt-${isWidget ? 0 : 1}`}>
-                  <span>{numberFormat(coinData.market_data.total_value_locked[currencyBTC.id], `0,0${Math.abs(coinData.market_data.total_value_locked[currencyBTC.id]) < 1 ? '.000' : ''}`)}</span>
+                  <span>{number_format(coinData.market_data.total_value_locked[currencyBTC.id], `0,0${Math.abs(coinData.market_data.total_value_locked[currencyBTC.id]) < 1 ? '.000' : ''}`)}</span>
                   <span className="uppercase">{currencyBTC.id}</span>
                 </div>
               )}
@@ -382,14 +382,14 @@ export default ({ coinData }) => {
               <>
                 <span className="space-x-1">
                   {currency.symbol}
-                  <span>{coinData.market_data.total_volume[currency.id] > -1 ? numberFormat(coinData.market_data.total_volume[currency.id], `0,0${Math.abs(coinData.market_data.total_volume[currency.id]) < 1 ? '.000' : ''}`) : '-'}</span>
+                  <span>{coinData.market_data.total_volume[currency.id] > -1 ? number_format(coinData.market_data.total_volume[currency.id], `0,0${Math.abs(coinData.market_data.total_volume[currency.id]) < 1 ? '.000' : ''}`) : '-'}</span>
                   {!currency.symbol && (<span className="uppercase">{currency.id}</span>)}
                 </span>
                 {exchange_rates_data && currency.id !== currencyBTC.id && (
                   <div className={`text-gray-400 text-xs font-medium space-x-1 mt-${isWidget ? 0 : 1}`}>
                     {coinData.market_data.total_volume[currency.id] > -1 ?
                       <>
-                        <span>{numberFormat(coinData.market_data.total_volume[currency.id] * (exchange_rates_data ? exchange_rates_data[currencyBTC.id].value / exchange_rates_data[currency.id].value : 1), `0,0${Math.abs(coinData.market_data.total_volume[currency.id] * (exchange_rates_data ? exchange_rates_data[currencyBTC.id].value / exchange_rates_data[currency.id].value : 1)) < 1 ? '.000' : ''}`)}</span>
+                        <span>{number_format(coinData.market_data.total_volume[currency.id] * (exchange_rates_data ? exchange_rates_data[currencyBTC.id].value / exchange_rates_data[currency.id].value : 1), `0,0${Math.abs(coinData.market_data.total_volume[currency.id] * (exchange_rates_data ? exchange_rates_data[currencyBTC.id].value / exchange_rates_data[currency.id].value : 1)) < 1 ? '.000' : ''}`)}</span>
                         <span className="uppercase">{currencyBTC.id}</span>
                       </>
                       :
@@ -419,20 +419,20 @@ export default ({ coinData }) => {
               {coinData ?
                 coinData.market_data.circulating_supply > -1 ?
                   <>
-                    <span>{numberFormat(coinData.market_data.circulating_supply, '0,0')}</span>
+                    <span>{number_format(coinData.market_data.circulating_supply, '0,0')}</span>
                     {coinData.market_data.max_supply > 0 ?
                       <>
                         <div className="flex items-center text-xs space-x-1.5 mt-1">
                           <ProgressBarWithText
                             width={coinData.market_data.circulating_supply * 100 / coinData.market_data.max_supply}
-                            text={<div className="text-gray-600 dark:text-gray-400 font-normal mx-1" style={{ fontSize: coinData.market_data.circulating_supply * 100 / coinData.market_data.max_supply < 25 ? '.45rem' : '.55rem' }}>{numberFormat(coinData.market_data.circulating_supply * 100 / coinData.market_data.max_supply, `0,0.000${Math.abs(coinData.market_data.circulating_supply * 100 / coinData.market_data.max_supply) < 0.001 ? '000' : ''}`)}%</div>}
+                            text={<div className="text-gray-600 dark:text-gray-400 font-normal mx-1" style={{ fontSize: coinData.market_data.circulating_supply * 100 / coinData.market_data.max_supply < 25 ? '.45rem' : '.55rem' }}>{number_format(coinData.market_data.circulating_supply * 100 / coinData.market_data.max_supply, `0,0.000${Math.abs(coinData.market_data.circulating_supply * 100 / coinData.market_data.max_supply) < 0.001 ? '000' : ''}`)}%</div>}
                             color="bg-gray-200 dark:bg-gray-600 rounded"
                             backgroundClassName="h-3 bg-gray-100 dark:bg-gray-800 rounded"
                             className={`h-3 flex items-center justify-${coinData.market_data.circulating_supply * 100 / coinData.market_data.max_supply < 25 ? 'start' : 'end'}`}
                           />
                           <span className="text-gray-400 dark:text-gray-500 font-normal ml-auto" style={{ fontSize: '.65rem' }}>
                             <span className="font-medium mr-1">Max</span>
-                            {numberFormat(coinData.market_data.max_supply, '0,0')}
+                            {number_format(coinData.market_data.max_supply, '0,0')}
                           </span>
                         </div>
                       </>
@@ -442,14 +442,14 @@ export default ({ coinData }) => {
                           <div className="flex items-center text-xs space-x-1.5 mt-1">
                             <ProgressBarWithText
                               width={coinData.market_data.circulating_supply * 100 / coinData.market_data.total_supply}
-                              text={<div className="text-gray-600 dark:text-gray-400 font-normal mx-1" style={{ fontSize: coinData.market_data.circulating_supply * 100 / coinData.market_data.total_supply < 25 ? '.45rem' : '.55rem' }}>{numberFormat(coinData.market_data.circulating_supply * 100 / coinData.market_data.total_supply, `0,0.000${Math.abs(coinData.market_data.circulating_supply * 100 / coinData.market_data.total_supply) < 0.001 ? '000' : ''}`)}%</div>}
+                              text={<div className="text-gray-600 dark:text-gray-400 font-normal mx-1" style={{ fontSize: coinData.market_data.circulating_supply * 100 / coinData.market_data.total_supply < 25 ? '.45rem' : '.55rem' }}>{number_format(coinData.market_data.circulating_supply * 100 / coinData.market_data.total_supply, `0,0.000${Math.abs(coinData.market_data.circulating_supply * 100 / coinData.market_data.total_supply) < 0.001 ? '000' : ''}`)}%</div>}
                               color="bg-gray-200 dark:bg-gray-600 rounded"
                               backgroundClassName="h-3 bg-gray-100 dark:bg-gray-800 rounded"
                               className={`h-3 flex items-center justify-${coinData.market_data.circulating_supply * 100 / coinData.market_data.total_supply < 25 ? 'start' : 'end'}`}
                             />
                             <span className="text-gray-400 dark:text-gray-500 font-normal ml-auto" style={{ fontSize: '.65rem' }}>
                               <span className="font-medium mr-1">Total</span>
-                              {numberFormat(coinData.market_data.total_supply, '0,0')}
+                              {number_format(coinData.market_data.total_supply, '0,0')}
                             </span>
                           </div>
                         </>

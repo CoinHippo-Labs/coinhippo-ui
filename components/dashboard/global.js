@@ -7,7 +7,7 @@ import { GiCoins, GiChargingBull, GiBearHead, GiCamel } from 'react-icons/gi'
 import { BiTransferAlt } from 'react-icons/bi'
 import { AiOutlineStock, AiOutlineBarChart } from 'react-icons/ai'
 import { currency } from '../../lib/object/currency'
-import { numberFormat } from '../../lib/utils'
+import { number_format } from '../../lib/utils'
 
 export default ({ bitcoin, marketStatus }) => {
   const { tokens, status } = useSelector(state => ({ tokens: state.tokens, status: state.status }), shallowEqual)
@@ -31,10 +31,10 @@ export default ({ bitcoin, marketStatus }) => {
                     <div className={`h-5 flex items-center ${bitcoin[`${currency.id}_24h_change`] < 0 ? 'text-red-500 dark:text-red-400' : bitcoin[`${currency.id}_24h_change`] > 0 ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'} font-bold`}>
                       <span className="space-x-1 mr-1.5">
                         {currency.symbol}
-                        <span>{numberFormat(bitcoin[vs_currency], '0,0')}</span>
+                        <span>{number_format(bitcoin[vs_currency], '0,0')}</span>
                         {!currency.symbol && (<span className="uppercase">{currency.id}</span>)}
                       </span>
-                      <span className="text-xs font-normal">{numberFormat(bitcoin[`${currency.id}_24h_change`], '+0,0.000')}%</span>
+                      <span className="text-xs font-normal">{number_format(bitcoin[`${currency.id}_24h_change`], '+0,0.000')}%</span>
                       {bitcoin[`${currency.id}_24h_change`] < 0 ? <FiArrowDown size={12} className="ml-0.5 mb-0.5" /> : bitcoin[`${currency.id}_24h_change`] > 0 ? <FiArrowUp size={12} className="ml-0.5 mb-0.5" /> : null}
                     </div>
                     :
@@ -53,7 +53,7 @@ export default ({ bitcoin, marketStatus }) => {
                   title={<span className="uppercase text-gray-500 dark:text-gray-300 text-xs">Cryptos</span>}
                   description={<span className="text-gray-900 dark:text-white text-sm xs:text-base md:text-xs">
                     {status_data ?
-                      numberFormat(status_data.active_cryptocurrencies, '0,0')
+                      number_format(status_data.active_cryptocurrencies, '0,0')
                       :
                       <div className="skeleton w-10 h-4 rounded mt-1" />
                     }
@@ -69,7 +69,7 @@ export default ({ bitcoin, marketStatus }) => {
                   title={<span className="uppercase text-gray-500 dark:text-gray-300 text-xs">Exchanges</span>}
                   description={<span className="text-gray-900 dark:text-white text-sm xs:text-base md:text-xs">
                     {cryptos_data ?
-                      numberFormat(cryptos_data.exchanges && cryptos_data.exchanges.length, '0,0')
+                      number_format(cryptos_data.exchanges && cryptos_data.exchanges.length, '0,0')
                       :
                       <div className="skeleton w-10 h-4 rounded mt-1" />
                     }
@@ -87,7 +87,7 @@ export default ({ bitcoin, marketStatus }) => {
                   Market Cap
                   {status_data && (
                     <div className={`flex items-center ${status_data.market_cap_change_percentage_24h_usd < 0 ? 'text-red-500 dark:text-red-400' : status_data.market_cap_change_percentage_24h_usd > 0 ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'} font-medium ml-1`}>
-                      {numberFormat(status_data.market_cap_change_percentage_24h_usd, '+0,0.000')}%
+                      {number_format(status_data.market_cap_change_percentage_24h_usd, '+0,0.000')}%
                       {status_data.market_cap_change_percentage_24h_usd < 0 ? <FiArrowDown size={12} className="mb-0.5" /> : status_data.market_cap_change_percentage_24h_usd > 0 ? <FiArrowUp size={12} className="mb-0.5" /> : null}
                     </div>
                   )}
@@ -96,7 +96,7 @@ export default ({ bitcoin, marketStatus }) => {
                   {status_data ?
                     <>
                       {currency.symbol}
-                      <span>{numberFormat(status_data.total_market_cap && status_data.total_market_cap[vs_currency], '0,0')}</span>
+                      <span>{number_format(status_data.total_market_cap && status_data.total_market_cap[vs_currency], '0,0')}</span>
                       {!currency.symbol && (<span className="uppercase">{currency.id}</span>)}
                     </>
                     :
@@ -116,7 +116,7 @@ export default ({ bitcoin, marketStatus }) => {
                   {status_data ?
                     <>
                       {currency.symbol}
-                      <span>{numberFormat(status_data.total_volume && status_data.total_volume[vs_currency], '0,0')}</span>
+                      <span>{number_format(status_data.total_volume && status_data.total_volume[vs_currency], '0,0')}</span>
                       {!currency.symbol && (<span className="uppercase">{currency.id}</span>)}
                     </>
                     :

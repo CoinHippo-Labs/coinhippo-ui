@@ -1,7 +1,7 @@
 import { FiArrowUp, FiArrowDown } from 'react-icons/fi'
 import moment from 'moment'
 import { currency } from '../../lib/object/currency'
-import { numberFormat } from '../../lib/utils'
+import { number_format } from '../../lib/utils'
 
 export default ({ coinData }) => {
   return (
@@ -23,7 +23,7 @@ export default ({ coinData }) => {
                 <span className="uppercase text-gray-700 dark:text-gray-300 font-semibold">{field.split('_')[3]}</span>
                 {coinData.market_data[field][currency.id] > Number.MIN_SAFE_INTEGER ?
                   <span className={`flex items-center ${coinData.market_data[field][currency.id] < 0 ? 'text-red-500 dark:text-red-400' : coinData.market_data[field][currency.id] > 0 ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'} text-sm font-bold space-x-0.5`}>
-                    <span>{numberFormat(coinData.market_data[field][currency.id], '+0,0.000')}%</span>
+                    <span>{number_format(coinData.market_data[field][currency.id], '+0,0.000')}%</span>
                     {coinData.market_data[field][currency.id] < 0 ? <FiArrowDown size={14} className="ml-0.5 mb-0.5" /> : coinData.market_data[field][currency.id] > 0 ? <FiArrowUp size={14} className="ml-0.5 mb-0.5" /> : null}
                   </span>
                   :
@@ -38,14 +38,14 @@ export default ({ coinData }) => {
                   <div className="flex flex-wrap items-center space-x-1">
                     {coinData.market_data[field][currency.id] > -1 ?
                       <span className="flex items-center text-gray-500 dark:text-gray-300 text-sm font-medium">
-                        {numberFormat(coinData.market_data[field][currency.id], '0,0.00000000')}
+                        {number_format(coinData.market_data[field][currency.id], '0,0.00000000')}
                       </span>
                       :
                       <span className="text-gray-400 dark:text-gray-600">-</span>
                     }
                     {coinData.market_data[`${field}_change_percentage`][currency.id] > Number.MIN_SAFE_INTEGER && (
                       <div className={`h-4 flex items-center ${coinData.market_data[`${field}_change_percentage`][currency.id] < 0 ? 'text-red-500 dark:text-red-400' : coinData.market_data[`${field}_change_percentage`][currency.id] > 0 ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'} text-xs font-bold`}>
-                        {numberFormat(coinData.market_data[`${field}_change_percentage`][currency.id], '+0,0.000')}%
+                        {number_format(coinData.market_data[`${field}_change_percentage`][currency.id], '+0,0.000')}%
                       </div>
                     )}
                   </div>

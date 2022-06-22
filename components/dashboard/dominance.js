@@ -6,7 +6,7 @@ import { ProgressBar } from '../progress-bars'
 import { AiOutlinePieChart } from 'react-icons/ai'
 import { BiPieChartAlt } from 'react-icons/bi'
 import _ from 'lodash'
-import { numberFormat } from '../../lib/utils'
+import { number_format } from '../../lib/utils'
 
 export default ({ noBorder }) => {
   const { tokens, status } = useSelector(state => ({ tokens: state.tokens, status: state.status }), shallowEqual)
@@ -62,7 +62,7 @@ export default ({ noBorder }) => {
                     </a>
                   </Link>
                   <span className="text-gray-500 dark:text-gray-300 text-xs font-normal ml-auto">
-                    {numberFormat(coinData.dominance / 100, '0,0.00%')}
+                    {number_format(coinData.dominance / 100, '0,0.00%')}
                   </span>
                 </div>
                 <div className="mt-1">

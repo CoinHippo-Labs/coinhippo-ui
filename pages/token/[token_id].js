@@ -13,7 +13,7 @@ import { coin } from '../../lib/api/coingecko'
 import { trades } from '../../lib/exchanges'
 import meta from '../../lib/meta'
 import { currencies } from '../../lib/menus'
-import { getName, numberFormat } from '../../lib/utils'
+import { getName, number_format } from '../../lib/utils'
 
 export default function CoinId() {
   const { preferences, data } = useSelector(state => ({ preferences: state.preferences, data: state.data }), shallowEqual)
@@ -165,7 +165,7 @@ export default function CoinId() {
           <span>Cryptocurrency</span>
           {['widget'].includes(view) && coinData && (
             <span className="normal-case text-gray-800 dark:text-gray-200 font-semibold ml-auto">
-              Rank #{coinData.market_cap_rank > -1 ? numberFormat(coinData.market_cap_rank, '0,0')  : '-'}
+              Rank #{coinData.market_cap_rank > -1 ? number_format(coinData.market_cap_rank, '0,0')  : '-'}
             </span>
           )}
         </div>}
@@ -191,7 +191,7 @@ export default function CoinId() {
                 {coinData.market_data.current_price[currency.id] > -1 ?
                   <>
                     {currency.symbol}
-                    <span>{numberFormat(coinData.market_data.current_price[currency.id], '0,0.0000000000')}</span>
+                    <span>{number_format(coinData.market_data.current_price[currency.id], '0,0.0000000000')}</span>
                     {!currency.symbol && (<span className="uppercase">{currency.id}</span>)}
                   </>
                   :
@@ -199,14 +199,14 @@ export default function CoinId() {
                 }
               </span>
               <span className="flex items-center pr-1">
-                <span className="text-sm font-normal">{numberFormat(coinData.market_data.price_change_percentage_24h_in_currency[currency.id], '+0,0.000')}%</span>
+                <span className="text-sm font-normal">{number_format(coinData.market_data.price_change_percentage_24h_in_currency[currency.id], '+0,0.000')}%</span>
                 {coinData.market_data.price_change_percentage_24h_in_currency[currency.id] < 0 ? <FiArrowDown size={14} className="ml-0.5 mb-0.5" /> : coinData.market_data.price_change_percentage_24h_in_currency[currency.id] > 0 ? <FiArrowUp size={14} className="ml-0.5 mb-0.5" /> : null}
               </span>
             </div>
             <div className="w-full max-w-xs flex items-center space-x-1.5 my-1 mr-1">
               <span className="text-gray-400 dark:text-gray-500 text-xs font-semibold space-x-1">
                 {currency.symbol}
-                <span>{numberFormat(coinData.market_data.low_24h[currency.id], '0,0.00000000')}</span>
+                <span>{number_format(coinData.market_data.low_24h[currency.id], '0,0.00000000')}</span>
                 {!(currency.symbol) && (<span className="uppercase">{currency.id}</span>)}
               </span>
               <ProgressBarWithText
@@ -218,7 +218,7 @@ export default function CoinId() {
               />
               <span className="text-gray-400 dark:text-gray-500 text-xs font-semibold space-x-1 ml-auto">
                 {currency.symbol}
-                <span>{numberFormat(coinData.market_data.high_24h[currency.id], '0,0.00000000')}</span>
+                <span>{number_format(coinData.market_data.high_24h[currency.id], '0,0.00000000')}</span>
                 {!(currency.symbol) && (<span className="uppercase">{currency.id}</span>)}
               </span>
             </div>
@@ -238,7 +238,7 @@ export default function CoinId() {
             {coinData && token_id === coinData.id ?
               <>
                 <span className="max-w-screen-sm flex flex-wrap items-center justify-start sm:justify-end my-1 ml-0 sm:ml-auto">
-                  <div rounded color="bg-transparent flex items-center normal-case text-gray-800 dark:text-gray-200 my-1 ml-0 sm:ml-2 mr-2 sm:mr-0 px-0">Rank #{coinData.market_cap_rank > -1 ? numberFormat(coinData.market_cap_rank, '0,0')  : '-'}</div>
+                  <div rounded color="bg-transparent flex items-center normal-case text-gray-800 dark:text-gray-200 my-1 ml-0 sm:ml-2 mr-2 sm:mr-0 px-0">Rank #{coinData.market_cap_rank > -1 ? number_format(coinData.market_cap_rank, '0,0')  : '-'}</div>
                   {((coinData.categories && coinData.categories.filter(category => ['cryptocurrency'].findIndex(keyword => keyword === category?.toLowerCase()) < 0)) || []).concat(coinData.hashing_algorithm || []).map((tag, i) => (
                     <div key={i} rounded color="hidden sm:block bg-gray-200 flex items-center text-gray-700 dark:bg-gray-700 dark:text-gray-400 font-normal my-1 ml-0 sm:ml-2 mr-2 sm:mr-0">{tag}</div>
                   ))}

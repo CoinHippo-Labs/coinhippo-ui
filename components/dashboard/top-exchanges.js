@@ -6,7 +6,7 @@ import Image from '../image'
 import _ from 'lodash'
 import { exchanges } from '../../lib/api/coingecko'
 import { currency, currency_btc } from '../../lib/object/currency'
-import { getName, numberFormat } from '../../lib/utils'
+import { getName, number_format } from '../../lib/utils'
 
 const per_page = 10
 
@@ -82,7 +82,7 @@ export default function TopExchanges({ exchange_type, title, icon, noBorder }) {
               Cell: props => (
                 <div className="flex items-center justify-center text-xs text-gray-600 dark:text-gray-400">
                   {!props.row.original.skeleton ?
-                    numberFormat(props.value + 1, '0,0')
+                    number_format(props.value + 1, '0,0')
                     :
                     <div className="skeleton w-4 h-3 rounded" />
                   }
@@ -132,7 +132,7 @@ export default function TopExchanges({ exchange_type, title, icon, noBorder }) {
                       {props.value > -1 ?
                         <span className="space-x-1">
                           {(rates_data ? currency : currencyBTC).symbol}
-                          <span>{numberFormat(props.value * (rates_data ? rates_data[currency.id].value / rates_data[currencyBTC.id].value : 1), `0,0${Math.abs(props.value * (rates_data ? rates_data[currency.id].value / rates_data[currencyBTC.id].value : 1)) < 1 ? '.000' : ''}`)}</span>
+                          <span>{number_format(props.value * (rates_data ? rates_data[currency.id].value / rates_data[currencyBTC.id].value : 1), `0,0${Math.abs(props.value * (rates_data ? rates_data[currency.id].value / rates_data[currencyBTC.id].value : 1)) < 1 ? '.000' : ''}`)}</span>
                           {!((rates_data ? currency : currencyBTC).symbol) && (<span className="uppercase">{(rates_data ? currency : currencyBTC).id}</span>)}
                         </span>
                         :
@@ -142,7 +142,7 @@ export default function TopExchanges({ exchange_type, title, icon, noBorder }) {
                         <span className="text-gray-400 font-medium space-x-1">
                           {props.value > -1 ?
                             <>
-                              <span>{numberFormat(props.value, `0,0${Math.abs(props.value) < 1 ? '.000' : ''}`)}</span>
+                              <span>{number_format(props.value, `0,0${Math.abs(props.value) < 1 ? '.000' : ''}`)}</span>
                               <span className="uppercase">{currencyBTC.id}</span>
                             </>
                             :

@@ -16,7 +16,7 @@ import { AdvancedRealTimeChart } from 'react-ts-tradingview-widgets'
 import _ from 'lodash'
 import { coinTickers } from '../../lib/api/coingecko'
 import { currencies } from '../../lib/menus'
-import { getName, numberFormat, ellipseAddress } from '../../lib/utils'
+import { getName, number_format, ellipseAddress } from '../../lib/utils'
 
 const per_page = 100
 
@@ -127,7 +127,7 @@ export default ({ coinData }) => {
                   Cell: props => (
                     <div className="flex items-center justify-center text-gray-600 dark:text-gray-400">
                       {!props.row.original.skeleton ?
-                        numberFormat(props.value + 1, '0,0')
+                        number_format(props.value + 1, '0,0')
                         :
                         <div className="skeleton w-4 h-3 rounded" />
                       }
@@ -226,7 +226,7 @@ export default ({ coinData }) => {
                           {props.value > -1 ?
                             <span className="space-x-1">
                               {currencyUSD.symbol}
-                              <span>{numberFormat(props.value, '0,0.00000000')}</span>
+                              <span>{number_format(props.value, '0,0.00000000')}</span>
                               {!currencyUSD.symbol && (<span className="uppercase">{currencyUSD.id}</span>)}
                             </span>
                             :
@@ -236,7 +236,7 @@ export default ({ coinData }) => {
                             <span className="text-gray-400 font-medium space-x-1" style={{ fontSize: '.65rem' }}>
                               {props.value > -1 ?
                                 <>
-                                  <span>{numberFormat(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1), `0,0.00${Math.abs(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1)) < 0.01 ? '0000' : ''}`)}</span>
+                                  <span>{number_format(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1), `0,0.00${Math.abs(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1)) < 0.01 ? '0000' : ''}`)}</span>
                                   <span className="uppercase">{currency.id}</span>
                                 </>
                                 :
@@ -246,7 +246,7 @@ export default ({ coinData }) => {
                           )}
                           {props.row.original.target && !([currency.id, currencyUSD.id].includes(props.row.original.target.toLowerCase())) && typeof props.row.original.last === 'number' && (
                             <span className="text-gray-400 font-medium space-x-1" style={{ fontSize: '.65rem' }}>
-                              <span>{numberFormat(props.row.original.last, `0,0.00${props.row.original.last < 0.01 ? '0000' : ''}`)}</span>
+                              <span>{number_format(props.row.original.last, `0,0.00${props.row.original.last < 0.01 ? '0000' : ''}`)}</span>
                               <span className="uppercase">
                                 {props.row.original.target.startsWith('0X') ?
                                   props.row.original.target_coin_id && all_crypto_data && all_crypto_data.coins && all_crypto_data.coins.findIndex(coinData => coinData.id === props.row.original.target_coin_id) > -1 ?
@@ -277,7 +277,7 @@ export default ({ coinData }) => {
                   Cell: props => (
                     <div className="text-gray-400 dark:text-gray-500 font-normal text-right mr-2">
                       {!props.row.original.skeleton ?
-                        props.value > -1 ? `${numberFormat(props.value, `0,0.000${Math.abs(props.value) < 0.001 ? '000' : ''}`)}%` : '-'
+                        props.value > -1 ? `${number_format(props.value, `0,0.000${Math.abs(props.value) < 0.001 ? '000' : ''}`)}%` : '-'
                         :
                         <div className="skeleton w-10 h-3 rounded ml-auto" />
                       }
@@ -296,7 +296,7 @@ export default ({ coinData }) => {
                           {props.value > -1 ?
                             <span className="space-x-1">
                               {currencyUSD.symbol}
-                              <span>{numberFormat(props.value, '0,0.00000000')}</span>
+                              <span>{number_format(props.value, '0,0.00000000')}</span>
                               {!currencyUSD.symbol && (<span className="uppercase">{currencyUSD.id}</span>)}
                             </span>
                             :
@@ -306,7 +306,7 @@ export default ({ coinData }) => {
                             <span className="text-gray-400 font-medium space-x-1" style={{ fontSize: '.65rem' }}>
                               {props.value > -1 ?
                                 <>
-                                  <span>{numberFormat(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1), `0,0.00${Math.abs(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1)) < 0.01 ? '0000' : ''}`)}</span>
+                                  <span>{number_format(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1), `0,0.00${Math.abs(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1)) < 0.01 ? '0000' : ''}`)}</span>
                                   <span className="uppercase">{currency.id}</span>
                                 </>
                                 :
@@ -336,7 +336,7 @@ export default ({ coinData }) => {
                           {props.value > -1 ?
                             <span className="space-x-1">
                               {currencyUSD.symbol}
-                              <span>{numberFormat(props.value, '0,0.00000000')}</span>
+                              <span>{number_format(props.value, '0,0.00000000')}</span>
                               {!currencyUSD.symbol && (<span className="uppercase">{currencyUSD.id}</span>)}
                             </span>
                             :
@@ -346,7 +346,7 @@ export default ({ coinData }) => {
                             <span className="text-gray-400 font-medium space-x-1" style={{ fontSize: '.65rem' }}>
                               {props.value > -1 ?
                                 <>
-                                  <span>{numberFormat(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1), `0,0.00${Math.abs(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1)) < 0.01 ? '0000' : ''}`)}</span>
+                                  <span>{number_format(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1), `0,0.00${Math.abs(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1)) < 0.01 ? '0000' : ''}`)}</span>
                                   <span className="uppercase">{currency.id}</span>
                                 </>
                                 :
@@ -376,7 +376,7 @@ export default ({ coinData }) => {
                           {props.value > -1 ?
                             <span className="space-x-1">
                               {currencyUSD.symbol}
-                              <span>{numberFormat(props.value, '0,0')}</span>
+                              <span>{number_format(props.value, '0,0')}</span>
                               {!currencyUSD.symbol && (<span className="uppercase">{currencyUSD.id}</span>)}
                             </span>
                             :
@@ -386,7 +386,7 @@ export default ({ coinData }) => {
                             <span className="text-gray-400 font-medium space-x-1" style={{ fontSize: '.65rem' }}>
                               {props.value > -1 ?
                                 <>
-                                  <span>{numberFormat(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1), `0,0.00${Math.abs(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1)) < 0.01 ? '0000' : ''}`)}</span>
+                                  <span>{number_format(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1), `0,0.00${Math.abs(props.value * (exchange_rates_data ? exchange_rates_data[currency.id].value / exchange_rates_data[currencyUSD.id].value : 1)) < 0.01 ? '0000' : ''}`)}</span>
                                   <span className="uppercase">{currency.id}</span>
                                 </>
                                 :
@@ -396,7 +396,7 @@ export default ({ coinData }) => {
                           )}
                           {props.row.original.target && !([currency.id, currencyUSD.id].includes(props.row.original.target.toLowerCase())) && (typeof props.row.original.volume === 'number' || typeof props.row.original.h24_volume === 'number') && (
                             <span className="text-gray-400 font-medium space-x-1" style={{ fontSize: '.65rem' }}>
-                              <span>{numberFormat(typeof props.row.original.volume === 'number' ? props.row.original.volume : props.row.original.h24_volume, `0,0.00${typeof props.row.original.volume === 'number' ? props.row.original.volume : props.row.original.h24_volume < 0.01 ? '0000' : ''}`)}</span>
+                              <span>{number_format(typeof props.row.original.volume === 'number' ? props.row.original.volume : props.row.original.h24_volume, `0,0.00${typeof props.row.original.volume === 'number' ? props.row.original.volume : props.row.original.h24_volume < 0.01 ? '0000' : ''}`)}</span>
                               <span className="uppercase">
                                 {props.row.original.target.startsWith('0X') ?
                                   props.row.original.target_coin_id && all_crypto_data && all_crypto_data.coins && all_crypto_data.coins.findIndex(coinData => coinData.id === props.row.original.target_coin_id) > -1 ?
@@ -428,7 +428,7 @@ export default ({ coinData }) => {
                     <div className="flex flex-col text-gray-600 dark:text-gray-400 font-normal">
                       {!props.row.original.skeleton ?
                         <>
-                          <span>{props.value > -1 ? `${numberFormat(props.value * 100, `0,0.000${Math.abs(props.value * 100) < 0.001 ? '000' : ''}`)}%` : '-'}</span>
+                          <span>{props.value > -1 ? `${number_format(props.value * 100, `0,0.000${Math.abs(props.value * 100) < 0.001 ? '000' : ''}`)}%` : '-'}</span>
                           <ProgressBar width={props.value > -1 ? props.value * 100 : 0} color="bg-yellow-500" className="h-1" />
                         </>
                         :

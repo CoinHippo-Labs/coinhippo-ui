@@ -8,7 +8,7 @@ import { AiOutlineFire } from 'react-icons/ai'
 import _ from 'lodash'
 import { coinsMarkets } from '../../lib/api/coingecko'
 import { currency } from '../../lib/object/currency'
-import { numberFormat } from '../../lib/utils'
+import { number_format } from '../../lib/utils'
 
 export default ({ noBorder }) => {
   const { trending } = useSelector(state => ({ trending: state.trending }), shallowEqual)
@@ -71,22 +71,22 @@ export default ({ noBorder }) => {
                   </Link>
                   <span className={`${coinData.price_change_percentage_24h < 0 ? 'text-red-500 dark:text-red-400' : coinData.price_change_percentage_24h > 0 ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'} text-xs font-medium text-right space-x-1 ml-auto`}>
                     {currency.symbol}
-                    <span>{numberFormat(coinData.current_price, '0,0.00000000')}</span>
+                    <span>{number_format(coinData.current_price, '0,0.00000000')}</span>
                     {!currency.symbol && (<span className="uppercase">{currency.id}</span>)}
                   </span>
                 </div>
                 <div className="w-full flex items-center font-normal ml-0.5" style={{ fontSize: '.65rem' }}>
                   <div className="text-gray-600 dark:text-gray-400 mr-2">
-                    <span className="text-gray-600 dark:text-gray-400 font-semibold mr-1">#{numberFormat(coinData.market_cap_rank, '0,0')}</span>
+                    <span className="text-gray-600 dark:text-gray-400 font-semibold mr-1">#{number_format(coinData.market_cap_rank, '0,0')}</span>
                     <span className="text-gray-500 dark:text-gray-300 font-medium mr-1">MCap:</span>
                     <span className="space-x-1">
                       {currency.symbol}
-                      <span>{numberFormat(coinData.market_cap, '0,0.00000000')}</span>
+                      <span>{number_format(coinData.market_cap, '0,0.00000000')}</span>
                       {!currency.symbol && (<span className="uppercase">{currency.id}</span>)}
                     </span>
                   </div>
                   <div className={`flex items-center ${coinData.price_change_percentage_24h < 0 ? 'text-red-500 dark:text-red-400' : coinData.price_change_percentage_24h > 0 ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'} ml-auto`}>
-                    {numberFormat(coinData.price_change_percentage_24h / 100, '+0,0.00%')}
+                    {number_format(coinData.price_change_percentage_24h / 100, '+0,0.00%')}
                     {coinData.price_change_percentage_24h < 0 ? <FiArrowDown size={10} className="mb-0.5" /> : coinData.price_change_percentage_24h > 0 ? <FiArrowUp size={10} className="mb-0.5" /> : null}
                   </div>
                 </div>

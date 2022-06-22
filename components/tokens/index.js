@@ -173,7 +173,7 @@ export default () => {
                           />
                         )}
                         <span className="flex items-center whitespace-pre-wrap space-x-1">
-                          <span cclassName="text-blue-600 dark:text-blue-400 font-semibold">
+                          <span className="text-blue-600 dark:text-blue-400 font-semibold">
                             {props.value}
                           </span>
                           {props.row.original.symbol && (
