@@ -14,7 +14,7 @@ import Trending from './trending'
 import TopTokens from './top-tokens'
 import TopExchages from './top-exchanges'
 import Image from '../image'
-import { _global, simple_price } from '../../lib/api/coingecko'
+import { _global, simple_price, tokens_markets } from '../../lib/api/coingecko'
 import { fear_and_greed } from '../../lib/api/fear-and-greed'
 import { currency } from '../../lib/object/currency'
 import menus from '../sidebar/menus'
@@ -36,26 +36,8 @@ export default () => {
   })
   const [bitcoin, setBitcoin] = useState(null)
   const [fearAndGreed, setFearAndGreed] = useState(null)
+  const [tokens, setTokens] = useState(null)
   const [ecosystem, setEcosystem] = useState(_.head(ecosystems)?.id)
-
-  useEffect(() => {
-    const getData = async () => {
-      if (!widget || ['dominance'].includes(widget)) {
-        const response = await _global()
-        if (response?.data) {
-          dispatch({
-            type: STATUS_DATA,
-            value: response.data,
-          })
-        }
-      }
-    }
-    getData()
-    const interval = setInterval(() => getData(), 3 * 60 * 1000)
-    return () => {
-      clearInterval(interval)
-    }
-  }, [])
 
   useEffect(() => {
     const getData = async () => {
@@ -88,7 +70,49 @@ export default () => {
       }
     }
     getData()
-  }, [])
+  }, [widget])
+
+  useEffect(() => {
+    const getData = async () => {
+      if (!widget || ['dominance'].includes(widget)) {
+        const response = await _global()
+        if (response?.data) {
+          dispatch({
+            type: STATUS_DATA,
+            value: response.data,
+          })
+        }
+      }
+    }
+    getData()
+    const interval = setInterval(() => getData(), 3 * 60 * 1000)
+    return () => {
+      clearInterval(interval)
+    }
+  }, [widget])
+
+  useEffect(() => {
+    const getData = async () => {
+      if (['price-marquee'].includes(widget)) {
+        const response = await tokens_markets({
+          vs_currency: currency,
+          order: 'market_cap_desc',
+          per_page: 10,
+          page: 1,
+          price_change_percentage: '24h',
+          ...query,
+        })
+        if (!response?.error) {
+          setTokens(response)
+        }
+      }
+    }
+    getData()
+    const interval = setInterval(() => getData(), 3 * 60 * 1000)
+    return () => {
+      clearInterval(interval)
+    }
+  }, [widget])
 
   return (
     <>
@@ -114,13 +138,13 @@ export default () => {
           </div>
         </div>
       )}
-      {(!widget) && (
+      {!widget && (
         <Global bitcoin={bitcoin} />
       )}
       {(!widget || ['price-marquee', 'fear-and-greed', 'dominance', 'top-movers', 'trending'].includes(widget)) && (
         <div className={`w-full grid grid-flow-row grid-cols-1 ${!['price-marquee'].includes(widget) ? 'sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4' : ''} gap-4 lg:gap-2 xl:gap-4 mb-4 lg:mb-2 xl:mb-4`}>
           {['price-marquee'].includes(widget) && (
-            <MargueeTokens />
+            <MargueeTokens data={tokens} />
           )}
           {(!widget || ['fear-and-greed'].includes(widget)) && (
             <FearAndGreed data={fearAndGreed} />

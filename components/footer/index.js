@@ -108,17 +108,9 @@ export default () => {
             rel="noopener noreferrer"
           >
             <div className="min-w-max">
-              <div className="flex dark:hidden items-center">
+              <div className="flex items-center">
                 <Image
-                  src="/logos/externals/ens/logo.png"
-                  alt=""
-                  width={20}
-                  height={20}
-                />
-              </div>
-              <div className="hidden dark:flex items-center">
-                <Image
-                  src="/logos/externals/ens/logo_white.png"
+                  src="/logos/externals/ens.png"
                   alt=""
                   width={20}
                   height={20}

@@ -28,7 +28,7 @@ export default () => {
   return (
     <div className="sidebar sidebar-1 inline-table md:block">
       <Logo />
-      {typeof window !== 'undefined' && menus.map((m, i) => (
+      {menus.map((m, i) => (
         <Fragment key={i}>
           <div className="sidebar-title">
             <span className="font-bold">
