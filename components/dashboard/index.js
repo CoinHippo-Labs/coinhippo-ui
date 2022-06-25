@@ -28,13 +28,12 @@ export default () => {
   const { query } = { ...router }
   const { widget } = { ...query }
 
-  const ecosystems = menus?.find(m => m?.title === 'Cryptocurrencies')?.items?.flatMap(m => m?.items?.filter(_m => _m?.title === 'Categories'))
-    .flatMap(_m => _m?.items?.filter(__m => __m.is_ecosystem).map(__m => {
-      return {
-        ...__m,
-        id: _.last(__m?.url.split('/').filter(p => p)),
-      }
-    }))
+  const ecosystems = menus?.find(m => m?.title === 'Cryptocurrencies')?.items?.find(m => m?.title === 'Categories')?.items?.filter(m => m?.is_ecosystem).map(m => {
+    return {
+      ...m,
+      id: _.last(m?.url.split('/').filter(p => p)),
+    }
+  })
   const [bitcoin, setBitcoin] = useState(null)
   const [fearAndGreed, setFearAndGreed] = useState(null)
   const [ecosystem, setEcosystem] = useState(_.head(ecosystems)?.id)
@@ -137,7 +136,7 @@ export default () => {
           )}
         </div>
       )}
-      {false && !widget && (
+      {!widget && (
         <div className={`w-full grid grid-flow-row grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-2 xl:gap-4 mb-4 lg:mb-2 xl:mb-4`}>
           <TopTokens title="Top Market Cap" />
           <TopExchages title="Top Exchanges by Confidence" />
@@ -148,33 +147,30 @@ export default () => {
           <TopTokens
             category="decentralized-finance-defi"
             title="Top DeFi"
-            icon={<RiSeedlingLine size={28} />}
+            icon={<RiSeedlingLine size={20} />}
           />
           <TopExchages
             exchange_type="dex"
             title="Top DEX by Volume"
-            icon={<RiPlantLine size={28} />}
+            icon={<RiPlantLine size={20} />}
           />
           <TopTokens
             category={ecosystem}
-            title={<>
-              <div className="h-4 text-xs font-semibold">
+            title={<div className="flex flex-col">
+              <div className="text-xs font-semibold">
                 {ecosystems?.find(e => e?.id === ecosystem)?.title}
               </div>
-              <div className="h-4 text-slate-400 dark:text-slate-600 text-2xs font-medium">
-                Ecosystem
-              </div>
-            </>}
+            </div>}
             icon={ecosystems?.length > 0 && (
-              <div className="flex flex-wrap items-center space-x-1">
+              <div className="flex flex-wrap items-center space-x-1.5">
                 {ecosystems.map((e, i) => (
                   <div
                     key={i}
                     onClick={() => setEcosystem(e.id)}
-                    className={`btn btn-raised btn-circle cursor-pointer ${e.id === ecosystem ? 'bg-blue-50 dark:bg-slate-800' : 'bg-transparent hover:bg-slate-50 dark:hover:bg-slate-900'} p-2`}
+                    className={`w-6 h-6 rounded-full cursor-pointer shadow dark:shadow-slate-400 ${e.id === ecosystem ? 'bg-blue-50 dark:bg-slate-800' : 'bg-transparent hover:bg-slate-50 dark:hover:bg-slate-900'} p-1`}
                   >
                     <Image
-                      src={item.image}
+                      src={e.image}
                       alt=""
                       width={16}
                       height={16}

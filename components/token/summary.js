@@ -242,8 +242,8 @@ export default ({ data }) => {
         </div>
       )}
       <div className={`w-full ${is_widget ? 'flex flex-col' : `grid grid-flow-row grid-cols-1 sm:grid-cols-2 ${has_tvl ? 'lg:grid-cols-5' : 'lg:grid-cols-4'} gap-4`}`}>
-        <div className="space-y-2">
-          <div className="text-slate-400 dark:text-slate-500 font-semibold">
+        <div className={`${is_widget ? 'flex items-center justify-between space-x-2' : 'space-y-2'}`}>
+          <div className="whitespace-nowrap text-slate-400 dark:text-slate-500 font-semibold">
             Market Cap
           </div>
           {data && (
@@ -255,7 +255,7 @@ export default ({ data }) => {
         </div>
         {!is_widget && (
           <div className="space-y-2">
-            <div className="text-slate-400 dark:text-slate-500 font-semibold">
+            <div className="whitespace-nowrap text-slate-400 dark:text-slate-500 font-semibold">
               Fully Diluted MCap
             </div>
             {data && (
@@ -267,8 +267,8 @@ export default ({ data }) => {
           </div>
         )}
         {has_tvl && (
-          <div className="space-y-2">
-            <div className="text-slate-400 dark:text-slate-500 font-semibold">
+          <div className={`${is_widget ? 'flex items-center justify-between space-x-2' : 'space-y-2'}`}>
+            <div className="whitespace-nowrap text-slate-400 dark:text-slate-500 font-semibold">
               Total Value Locked
             </div>
             {data && (
@@ -279,8 +279,8 @@ export default ({ data }) => {
             )}
           </div>
         )}
-        <div className="space-y-2">
-          <div className="text-slate-400 dark:text-slate-500 font-semibold">
+        <div className={`${is_widget ? 'flex items-center justify-between space-x-2' : 'space-y-2'}`}>
+          <div className="whitespace-nowrap text-slate-400 dark:text-slate-500 font-semibold">
             Volume 24h
           </div>
           {data && (
@@ -292,7 +292,7 @@ export default ({ data }) => {
         </div>
         {!is_widget && (
           <div className="space-y-2">
-            <div className="text-slate-400 dark:text-slate-500 font-semibold">
+            <div className="whitespace-nowrap text-slate-400 dark:text-slate-500 font-semibold">
               Circulating Supply
             </div>
             {data && (

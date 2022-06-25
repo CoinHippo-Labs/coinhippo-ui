@@ -190,7 +190,7 @@ export default () => {
               {
                 Header: 'Price',
                 accessor: 'current_price',
-                sortType: (a, b) => a.original.current_price > b.original.current_price ? 1 : -1,
+                sortType: (a, b) => a.original.price_change_percentage_24h_in_currency > b.original.price_change_percentage_24h_in_currency ? 1 : -1,
                 Cell: props => (
                   <div className="flex flex-col items-start sm:items-end text-left sm:text-right space-y-0">
                     <div className="flex items-center uppercase font-semibold space-x-1">
@@ -498,7 +498,7 @@ export default () => {
                 />
               </div>
             )}
-            className={`no-border ${['/tokens/categories'].includes(pathname) ? 'striped' : ''}`}
+            className={`no-border ${!is_widget && ['/tokens/categories'].includes(pathname) ? 'striped' : ''}`}
           />
           :
           <TailSpin color={loader_color(theme)} width="32" height="32" />

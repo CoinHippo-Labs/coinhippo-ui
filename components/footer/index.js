@@ -23,8 +23,8 @@ export default () => {
           <Image
             src="/logos/externals/coingecko.png"
             alt=""
-            width={24}
-            height={24}
+            width={20}
+            height={20}
           />
         </a>
         <a
@@ -35,8 +35,8 @@ export default () => {
           <Image
             src="/logos/externals/alternative.png"
             alt=""
-            width={24}
-            height={24}
+            width={20}
+            height={20}
           />
         </a>
         <a
@@ -47,8 +47,8 @@ export default () => {
           <Image
             src="/logos/externals/whalealert.png"
             alt=""
-            width={24}
-            height={24}
+            width={20}
+            height={20}
           />
         </a>
         <a
@@ -59,8 +59,8 @@ export default () => {
           <Image
             src="/logos/externals/cryptopanic.png"
             alt=""
-            width={24}
-            height={24}
+            width={20}
+            height={20}
           />
         </a>
       </div>

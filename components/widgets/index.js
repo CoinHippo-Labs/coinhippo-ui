@@ -102,13 +102,13 @@ export default () => {
               src: `${process.env.NEXT_PUBLIC_SITE_URL}/exchanges?view=widget&n=10${theme === 'dark' ? `&theme=${theme}` : ''}`,
               title: 'Top Exchanges',
               width: 580,
-              height: 1050,
+              height: 1000,
             },
             {
               src: `${process.env.NEXT_PUBLIC_SITE_URL}/tokens?view=widget&n=10${theme === 'dark' ? `&theme=${theme}` : ''}`,
               title: 'Top Market Cap',
               width: 600,
-              height: 900,
+              height: 700,
             },
           ].map((w, i) => (
             <Iframe
@@ -124,13 +124,13 @@ export default () => {
               src: `${process.env.NEXT_PUBLIC_SITE_URL}/tokens/decentralized-finance-defi?view=widget&n=10${theme === 'dark' ? `&theme=${theme}` : ''}`,
               title: 'Top DeFi',
               width: 600,
-              height: 900,
+              height: 700,
             },
             {
               src: `${process.env.NEXT_PUBLIC_SITE_URL}/tokens/non-fungible-tokens-nft?view=widget&n=10${theme === 'dark' ? `&theme=${theme}` : ''}`,
               title: 'Top NFTs',
               width: 600,
-              height: 900,
+              height: 700,
             },
           ].map((w, i) => (
             <Iframe

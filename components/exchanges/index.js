@@ -159,7 +159,7 @@ export default () => {
                 ),
               },
               {
-                Header: '24h Open Interest',
+                Header: 'Open Interest 24h',
                 accessor: 'open_interest_btc',
                 sortType: (a, b) => a.original.open_interest_btc > b.original.open_interest_btc ? 1 : -1,
                 Cell: props => (
@@ -190,7 +190,7 @@ export default () => {
                 headerClassName: 'whitespace-nowrap justify-start sm:justify-end text-left sm:text-right',
               },
               {
-                Header: '24h Volume',
+                Header: 'Volume 24h',
                 accessor: 'trade_volume_24h_btc',
                 sortType: (a, b) => a.original.trade_volume_24h_btc > b.original.trade_volume_24h_btc ? 1 : -1,
                 Cell: props => (
@@ -326,7 +326,7 @@ export default () => {
             data={_.slice(data, 0, n ? Number(n) : undefined)}
             noPagination={_.slice(data, 0, n ? Number(n) : undefined).length <= 10}
             defaultPageSize={[10, 25, 50, 100].includes(Number(n)) ? Number(n) : 50}
-            className="no-border striped"
+            className={`no-border ${!is_widget ? 'striped' : ''}`}
           />
           :
           <TailSpin color={loader_color(theme)} width="32" height="32" />
