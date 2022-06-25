@@ -8,7 +8,7 @@ import Search from './search'
 import MargueeTokens from '../marquee-tokens'
 import Gas from './gas'
 import Theme from './theme'
-import { tokens_markets as getTokensMarkets } from '../../lib/api/coingecko'
+import { tokens_markets } from '../../lib/api/coingecko'
 import { chains as getChains } from '../../lib/api/data'
 import { currency } from '../../lib/object/currency'
 import { COLLAPSED, CHAINS_DATA } from '../../reducers/types'
@@ -35,7 +35,7 @@ export default ({
 
   useEffect(() => {
     const getData = async () => {
-      const response = await getTokensMarkets({
+      const response = await tokens_markets({
         vs_currency: currency,
         order: 'market_cap_desc',
         per_page: 10,

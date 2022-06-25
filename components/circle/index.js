@@ -15,7 +15,7 @@ export default ({
       lineWidth={size === 'sm' ? 30 : 40}
       progress={progress}
       progressColor={color}
-      bgColor={theme === 'dark' ? '#0f172a' : '#f1f5f9'}
+      bgColor={theme === 'dark' ? '#334155' : '#f1f5f9'}
       textColor={color}
       showPercentageSymbol={true}
       textStyle={{ font: 'normal 6rem Open Sans, Helvetica, sans-serif' }}

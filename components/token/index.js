@@ -29,10 +29,9 @@ import { name, number_format, ellipse, equals_ignore_case, loader_color } from '
 const per_page = 100
 
 export default () => {
-  const { preferences, cryptos, rates } = useSelector(state => ({ preferences: state.preferences, cryptos: state.cryptos, rates: state.rates }), shallowEqual)
+  const { preferences, cryptos } = useSelector(state => ({ preferences: state.preferences, cryptos: state.cryptos }), shallowEqual)
   const { theme } = { ...preferences }
   const { cryptos_data } = { ...cryptos }
-  const { rates_data } = { ...rates }
 
   const router = useRouter()
   const { query, asPath } = { ...router }
@@ -121,8 +120,8 @@ export default () => {
         const _tickers = !fetchTrigger ? [] : (tickers || [])
         const page = fetchTrigger === true || fetchTrigger === 1 ? Math.floor(_tickers.length / per_page) : 0
         const response = await token_tickers(id, {
-          page: page + 1,
           per_page,
+          page: page + 1,
           include_exchange_logo: true,
           order: 'trust_score_desc',
           depth: true,
