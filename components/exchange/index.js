@@ -40,7 +40,8 @@ export default () => {
         const { market_type } = { ...exchange_data }
         const response = await (market_type !== 'spot' ?
           getDerivativesExchange(exchange_id, { include_tickers: 'unexpired' }) :
-          getExchange(exchange_id))
+          getExchange(exchange_id)
+        )
         if (!response?.error) {
           const { trust_score_rank, trust_score } = { ...response }
           setData({
@@ -206,7 +207,7 @@ export default () => {
                     <Link href={`/token${props.row.original.token_id ? `/${props.row.original.token_id}` : 's'}`}>
                       <a
                         className="flex flex-col items-start space-y-1 -mt-0.5 mb-2"
-                        style={{ maxWidth: '10rem' }}
+                        style={{ maxWidth: '15rem' }}
                       >
                         <div className="token-column flex items-center space-x-2">
                           {props.row.original.token_data?.image && (
@@ -217,12 +218,12 @@ export default () => {
                               height={24}
                             />
                           )}
-                          <span className="flex items-center whitespace-pre-wrap space-x-1">
-                            <span className="text-blue-600 dark:text-blue-400 font-semibold">
+                          <span className="flex items-start space-x-2">
+                            <span className="whitespace-nowrap text-blue-600 dark:text-blue-400 text-sm font-bold">
                               {props.value}
                             </span>
                             {props.row.original.token_data?.symbol && (
-                              <span className={`uppercase text-slate-400 dark:text-slate-500 font-medium ${props.row.original.token_data.symbol.length > 6 ? 'break-all' : ''}`}>
+                              <span className={`${props.row.original.token_data.symbol.length > 6 ? 'break-all' : ''} uppercase text-slate-400 dark:text-slate-500 text-sm font-semibold`}>
                                 {props.row.original.token_data.symbol}
                               </span>
                             )}
@@ -272,22 +273,18 @@ export default () => {
                       {props.row.original.base?.toLowerCase().startsWith('0x') && (
                         <Copy
                           value={props.row.original.base}
-                          title={
-                            <span className="text-slate-400 dark:text-slate-500 text-xs font-medium">
-                              {ellipse(props.row.original.base, 6)}
-                            </span>
-                          }
+                          title={<span className="text-slate-400 dark:text-slate-500 text-xs font-medium">
+                            {ellipse(props.row.original.base, 6)}
+                          </span>}
                           size={18}
                         />
                       )}
                       {props.row.original.target?.toLowerCase().startsWith('0x') && (
                         <Copy
                           value={props.row.original.target}
-                          title={
-                            <span className="text-slate-400 dark:text-slate-500 text-xs font-medium">
-                              {ellipse(props.row.original.target, 6)}
-                            </span>
-                          }
+                          title={<span className="text-slate-400 dark:text-slate-500 text-xs font-medium">
+                            {ellipse(props.row.original.target, 6)}
+                          </span>}
                           size={18}
                         />
                       )}

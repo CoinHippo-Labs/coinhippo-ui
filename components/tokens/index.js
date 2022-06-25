@@ -172,12 +172,12 @@ export default () => {
                             height={24}
                           />
                         )}
-                        <span className="flex items-center whitespace-pre-wrap space-x-1">
-                          <span className="text-blue-600 dark:text-blue-400 font-semibold">
+                        <span className="flex items-start space-x-2">
+                          <span className="whitespace-pre-wrap text-blue-600 dark:text-blue-400 text-xs font-bold">
                             {props.value}
                           </span>
                           {props.row.original.symbol && (
-                            <span className={`uppercase text-slate-400 dark:text-slate-500 font-medium ${props.row.original.symbol.length > 6 ? 'break-all' : ''}`}>
+                            <span className={`${props.row.original.symbol.length > 6 ? 'break-all' : ''} uppercase text-slate-400 dark:text-slate-500 text-xs font-semibold`}>
                               {props.row.original.symbol}
                             </span>
                           )}
