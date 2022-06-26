@@ -7,12 +7,12 @@ export default ({ src, ...rest }) => {
     src?.includes('assets.coingecko.com') ?
       <img
         src={src}
-        {...rest}
+        { ...rest }
       />
       :
       <Image
         src={src}
-        {...rest}
+        { ...rest }
         loader={loader}
       />
   )
