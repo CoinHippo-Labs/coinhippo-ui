@@ -95,8 +95,8 @@ export default ({
               sortType: (a, b) => a.original.name > b.original.name ? 1 : -1,
               Cell: props => (
                 <Link href={`/token${props.row.original.id ? `/${props.row.original.id}` : 's'}`}>
-                  <a className="flex flex-col items-start space-y-1 mt-0.5 mb-2">
-                    <div className="token-column flex items-center space-x-1">
+                  <a className="flex flex-col items-start space-y-1 mb-2">
+                    <div className="token-column flex items-center space-x-1.5">
                       {props.row.original.image && (
                         <Image
                           src={props.row.original.image}
@@ -105,7 +105,7 @@ export default ({
                           height={24}
                         />
                       )}
-                      <span className="flex items-start space-x-2">
+                      <span className="flex items-center space-x-1">
                         <span className="whitespace-pre-wrap text-blue-600 dark:text-blue-400 text-xs font-bold">
                           {props.value}
                         </span>
