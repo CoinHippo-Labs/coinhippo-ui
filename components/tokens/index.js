@@ -195,14 +195,9 @@ export default () => {
                   <div className="flex flex-col items-start sm:items-end text-left sm:text-right space-y-0">
                     <div className="flex items-center uppercase font-semibold space-x-1">
                       <span>
-                        {rates_data && currency_symbol}
-                        {props.value > -1 ? number_format(props.value * (rates_data ? rates_data[currency]?.value / rates_data[currency_btc]?.value : 1), '0,0.00000000') : '-'}
+                        {currency_symbol}
+                        {props.value > -1 ? number_format(props.value, '0,0.00000000') : '-'}
                       </span>
-                      {!rates_data && (
-                        <span>
-                          {currency_btc}
-                        </span>
-                      )}
                     </div>
                     {props.value > -1 && (
                       <>
