@@ -30,27 +30,24 @@ export default ({
         <Link
           key={i}
           href={`/tokens/${_v.category_id || _v.id}`}
+          onClick={onClick}
+          className="dropdown-item w-full flex items-center justify-start space-x-2 py-2 px-3"
         >
-          <a
-            onClick={onClick}
-            className="dropdown-item w-full flex items-center justify-start space-x-2 py-2 px-3"
-          >
-            {_v.large && (
-              <Image
-                src={_v.large}
-                alt=""
-                width={24}
-                height={24}
-              />
-            )}
-            <div className="w-full flex items-center justify-between space-x-2">
-              <div className="flex items-center text-xs space-x-1.5">
-                <span className="font-semibold">
-                  {_v.name}
-                </span>
-              </div>
+          {_v.large && (
+            <Image
+              src={_v.large}
+              alt=""
+              width={24}
+              height={24}
+            />
+          )}
+          <div className="w-full flex items-center justify-between space-x-2">
+            <div className="flex items-center text-xs space-x-1.5">
+              <span className="font-semibold">
+                {_v.name}
+              </span>
             </div>
-          </a>
+          </div>
         </Link>
       ))}
     </div>

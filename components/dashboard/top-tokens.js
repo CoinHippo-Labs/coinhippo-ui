@@ -67,10 +67,11 @@ export default ({
   return (
     <div className="bg-white dark:bg-slate-900 rounded-lg space-y-2 p-4">
       <div className="flex items-center justify-between space-x-2 -mt-1">
-        <Link href={`/tokens${category ? `/${category}` : ''}`}>
-          <a className="uppercase text-slate-600 dark:text-slate-400 text-xs font-bold">
-            {title || name(category)}
-          </a>
+        <Link
+          href={`/tokens${category ? `/${category}` : ''}`}
+          className="uppercase text-slate-600 dark:text-slate-400 text-xs font-bold"
+        >
+          {title || name(category)}
         </Link>
         {icon}
       </div>
@@ -94,29 +95,30 @@ export default ({
               accessor: 'name',
               sortType: (a, b) => a.original.name > b.original.name ? 1 : -1,
               Cell: props => (
-                <Link href={`/token${props.row.original.id ? `/${props.row.original.id}` : 's'}`}>
-                  <a className="flex flex-col items-start space-y-1 mb-2">
-                    <div className="token-column flex items-center space-x-1.5">
-                      {props.row.original.image && (
-                        <Image
-                          src={props.row.original.image}
-                          alt=""
-                          width={24}
-                          height={24}
-                        />
-                      )}
-                      <span className="flex items-center space-x-1">
-                        <span className="whitespace-pre-wrap text-blue-600 dark:text-blue-400 text-xs font-bold">
-                          {props.value}
-                        </span>
-                        {props.row.original.symbol && (
-                          <span className={`${props.row.original.symbol.length > 6 ? 'break-all' : ''} uppercase text-slate-400 dark:text-slate-500 text-2xs font-semibold`}>
-                            {props.row.original.symbol}
-                          </span>
-                        )}
+                <Link
+                  href={`/token${props.row.original.id ? `/${props.row.original.id}` : 's'}`}
+                  className="flex flex-col items-start space-y-1 mb-2"
+                >
+                  <div className="token-column flex items-center space-x-1.5">
+                    {props.row.original.image && (
+                      <Image
+                        src={props.row.original.image}
+                        alt=""
+                        width={24}
+                        height={24}
+                      />
+                    )}
+                    <span className="flex items-center space-x-1">
+                      <span className="whitespace-pre-wrap text-blue-600 dark:text-blue-400 text-xs font-bold">
+                        {props.value}
                       </span>
-                    </div>
-                  </a>
+                      {props.row.original.symbol && (
+                        <span className={`${props.row.original.symbol.length > 6 ? 'break-all' : ''} uppercase text-slate-400 dark:text-slate-500 text-2xs font-semibold`}>
+                          {props.row.original.symbol}
+                        </span>
+                      )}
+                    </span>
+                  </div>
                 </Link>
               ),
             },
@@ -162,9 +164,12 @@ export default ({
           noPagination={data.length <= 10}
           defaultPageSize={per_page}
           className="no-border striped"
+        /> :
+        <TailSpin
+          color={loader_color(theme)}
+          width="32"
+          height="32"
         />
-        :
-        <TailSpin color={loader_color(theme)} width="32" height="32" />
       }
     </div>
   )

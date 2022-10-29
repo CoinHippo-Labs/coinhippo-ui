@@ -107,8 +107,14 @@ export default ({
               </span>
               <div className="text-3xl font-bold">
                 {data ?
-                  data.trust_score_rank > -1 ? `#${number_format(data.trust_score_rank, '0,0')}` : '-' :
-                  <TailSpin color={loader_color(theme)} width="36" height="36" />
+                  data.trust_score_rank > -1 ?
+                    `#${number_format(data.trust_score_rank, '0,0')}` :
+                    '-' :
+                  <TailSpin
+                    color={loader_color(theme)}
+                    width="36"
+                    height="36"
+                  />
                 }
               </div>
               <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
@@ -122,7 +128,11 @@ export default ({
               <div className="text-3xl font-bold">
                 {data && tickers ?
                   number_format(data.number_of_tokens, '0,0') :
-                  <TailSpin color={loader_color(theme)} width="36" height="36" />
+                  <TailSpin
+                    color={loader_color(theme)}
+                    width="36"
+                    height="36"
+                  />
                 }
               </div>
               <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
@@ -136,7 +146,11 @@ export default ({
               <div className="text-3xl font-bold">
                 {data && tickers ?
                   number_format(data.number_of_pairs, '0,0') :
-                  <TailSpin color={loader_color(theme)} width="36" height="36" />
+                  <TailSpin
+                    color={loader_color(theme)}
+                    width="36"
+                    height="36"
+                  />
                 }
               </div>
               <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
@@ -154,7 +168,11 @@ export default ({
               <div className="text-3xl font-bold">
                 {data ?
                   number_format(data.number_of_perpetual_pairs, '0,0') :
-                  <TailSpin color={loader_color(theme)} width="36" height="36" />
+                  <TailSpin
+                    color={loader_color(theme)}
+                    width="36"
+                    height="36"
+                  />
                 }
               </div>
               <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
@@ -168,7 +186,11 @@ export default ({
               <div className="text-3xl font-bold">
                 {data ?
                   number_format(data.number_of_futures_pairs, '0,0') :
-                  <TailSpin color={loader_color(theme)} width="36" height="36" />
+                  <TailSpin
+                    color={loader_color(theme)}
+                    width="36"
+                    height="36"
+                  />
                 }
               </div>
               <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
@@ -192,7 +214,11 @@ export default ({
                       </span>
                     )}
                   </div> :
-                  <TailSpin color={loader_color(theme)} width="36" height="36" />
+                  <TailSpin
+                    color={loader_color(theme)}
+                    width="36"
+                    height="36"
+                  />
                 }
               </div>
               <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
@@ -218,7 +244,11 @@ export default ({
                   </span>
                 )}
               </div> :
-              <TailSpin color={loader_color(theme)} width="36" height="36" />
+              <TailSpin
+                color={loader_color(theme)}
+                width="36"
+                height="36"
+              />
             }
           </div>
           <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">

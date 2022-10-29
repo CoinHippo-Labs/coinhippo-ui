@@ -15,7 +15,6 @@ export default ({ data }) => {
             <Copy
               value={item.text}
               title={item.value}
-              size={18}
             />
           </div>
         </div>

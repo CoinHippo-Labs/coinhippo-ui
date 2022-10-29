@@ -27,7 +27,11 @@ export default ({ data }) => {
         <div className="text-3xl font-bold">
           {data ?
             number_format(data.companies?.length || 0, '0,0') :
-            <TailSpin color={loader_color(theme)} width="36" height="36" />
+            <TailSpin
+              color={loader_color(theme)}
+              width="36"
+              height="36"
+            />
           }
         </div>
         <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
@@ -41,7 +45,11 @@ export default ({ data }) => {
         <div className="text-3xl font-bold">
           {data ?
             number_format(data.total_holdings, '0,0') :
-            <TailSpin color={loader_color(theme)} width="36" height="36" />
+            <TailSpin
+              color={loader_color(theme)}
+              width="36"
+              height="36"
+            />
           }
         </div>
         <span className="uppercase text-slate-400 dark:text-slate-600 text-sm font-medium">
@@ -55,7 +63,11 @@ export default ({ data }) => {
         <div className="text-3xl font-bold">
           {data ?
             `${currency_symbol}${number_format(data.total_value_usd, '0,0')}` :
-            <TailSpin color={loader_color(theme)} width="36" height="36" />
+            <TailSpin
+              color={loader_color(theme)}
+              width="36"
+              height="36"
+            />
           }
         </div>
         <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
@@ -69,7 +81,11 @@ export default ({ data }) => {
         <div className="text-3xl font-bold">
           {data ?
             `${number_format(data.market_cap_dominance || _.sumBy(data.companies, 'percentage_of_total_supply'), '0,0.00')}%` :
-            <TailSpin color={loader_color(theme)} width="36" height="36" />
+            <TailSpin
+              color={loader_color(theme)}
+              width="36"
+              height="36"
+            />
           }
         </div>
         <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">

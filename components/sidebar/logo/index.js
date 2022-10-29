@@ -14,44 +14,43 @@ export default ({
 
   return (
     <div className={`logo truncate ${className}`}>
-      <Link href="/">
-        <a
-          onClick={() => {
-            if (!collapsed) {
-              dispatch({
-                type: COLLAPSED,
-                value: !collapsed,
-              })
-            }
-          }}
-          className="w-full flex items-center justify-start space-x-3"
-        >
-          <div className="min-w-max">
-            <div className="flex dark:hidden items-center">
-              <img
-                src="/logos/logo.png"
-                alt=""
-                width={36}
-                height={36}
-                className="rounded-full"
-              />
-            </div>
-            <div className="hidden dark:flex items-center">
-              <img
-                src="/logos/logo_white.png"
-                alt=""
-                width={36}
-                height={36}
-                className="rounded-full"
-              />
-            </div>
+      <Link
+        href="/"
+        onClick={() => {
+          if (!collapsed) {
+            dispatch({
+              type: COLLAPSED,
+              value: !collapsed,
+            })
+          }
+        }}
+        className="w-full flex items-center justify-start space-x-3"
+      >
+        <div className="min-w-max">
+          <div className="flex dark:hidden items-center">
+            <img
+              src="/logos/logo.png"
+              alt=""
+              width={36}
+              height={36}
+              className="rounded-full"
+            />
           </div>
-          {!noSiderbar && (
-            <span className="normal-case text-blue-600 dark:text-white text-lg font-bold">
-              {process.env.NEXT_PUBLIC_APP_NAME}
-            </span>
-          )}
-        </a>
+          <div className="hidden dark:flex items-center">
+            <img
+              src="/logos/logo_white.png"
+              alt=""
+              width={36}
+              height={36}
+              className="rounded-full"
+            />
+          </div>
+        </div>
+        {!noSiderbar && (
+          <span className="normal-case text-blue-600 dark:text-white text-lg font-bold">
+            {process.env.NEXT_PUBLIC_APP_NAME}
+          </span>
+        )}
       </Link>
       {!noSiderbar && (
         <button

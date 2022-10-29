@@ -70,10 +70,11 @@ export default ({
   return (
     <div className="bg-white dark:bg-slate-900 rounded-lg space-y-2 p-4">
       <div className="flex items-center justify-between space-x-2 -mt-1">
-        <Link href={`/exchanges${exchange_type ? `/${exchange_type}` : ''}`}>
-          <a className="uppercase text-slate-600 dark:text-slate-400 text-xs font-bold">
-            {title || name(exchange_type)}
-          </a>
+        <Link
+          href={`/exchanges${exchange_type ? `/${exchange_type}` : ''}`}
+          className="uppercase text-slate-600 dark:text-slate-400 text-xs font-bold"
+        >
+          {title || name(exchange_type)}
         </Link>
         {icon}
       </div>
@@ -96,22 +97,23 @@ export default ({
               accessor: 'name',
               sortType: (a, b) => a.original.name > b.original.name ? 1 : -1,
               Cell: props => (
-                <Link href={`/exchange${props.row.original.id ? `/${props.row.original.id}` : 's'}`}>
-                  <a className="flex flex-col items-start space-y-1 mb-2">
-                    <div className="flex items-center space-x-2">
-                      {props.row.original.image && (
-                        <Image
-                          src={props.row.original.image}
-                          alt=""
-                          width={24}
-                          height={24}
-                        />
-                      )}
-                      <span className="text-xs font-semibold">
-                        {props.value}
-                      </span>
-                    </div>
-                  </a>
+                <Link
+                  href={`/exchange${props.row.original.id ? `/${props.row.original.id}` : 's'}`}
+                  className="flex flex-col items-start space-y-1 mb-2"
+                >
+                  <div className="flex items-center space-x-2">
+                    {props.row.original.image && (
+                      <Image
+                        src={props.row.original.image}
+                        alt=""
+                        width={24}
+                        height={24}
+                      />
+                    )}
+                    <span className="text-xs font-semibold">
+                      {props.value}
+                    </span>
+                  </div>
                 </Link>
               ),
             },
@@ -160,12 +162,12 @@ export default ({
                       className="min-w-max bg-blue-500 hover:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-500 shadow-lg rounded-lg uppercase text-white text-xs font-bold py-1.5 px-2"
                     >
                       Trade
-                    </a>
-                    :
-                    <Link href={`/exchange${props.row.original.id ? `/${props.row.original.id}` : 's'}`}>
-                      <a className="min-w-max bg-slate-50 hover:bg-slate-100 dark:bg-black dark:hover:bg-slate-900 rounded-lg text-xs font-semibold py-1.5 px-2">
-                        See More
-                      </a>
+                    </a> :
+                    <Link
+                      href={`/exchange${props.row.original.id ? `/${props.row.original.id}` : 's'}`}
+                      className="min-w-max bg-slate-50 hover:bg-slate-100 dark:bg-black dark:hover:bg-slate-900 rounded-lg text-xs font-semibold py-1.5 px-2"
+                    >
+                      See More
                     </Link>
                   }
                 </div>
@@ -177,9 +179,12 @@ export default ({
           noPagination={data.length <= 10}
           defaultPageSize={per_page}
           className="no-border striped"
+        /> :
+        <TailSpin
+          color={loader_color(theme)}
+          width="32"
+          height="32"
         />
-        :
-        <TailSpin color={loader_color(theme)} width="32" height="32" />
       }
     </div>
   )

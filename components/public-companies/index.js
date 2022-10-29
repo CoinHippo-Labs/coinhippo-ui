@@ -202,9 +202,12 @@ export default () => {
             noPagination={data.companies?.length <= 10}
             defaultPageSize={10}
             className="no-border striped"
+          /> :
+          <TailSpin
+            color={loader_color(theme)}
+            width="32"
+            height="32"
           />
-          :
-          <TailSpin color={loader_color(theme)} width="32" height="32" />
         }
       </div>
     </div>

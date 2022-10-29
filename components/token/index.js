@@ -365,26 +365,25 @@ export default () => {
                           accessor: 'market_name',
                           sortType: (a, b) => a.original.market_name > b.original.market_name ? 1 : -1,
                           Cell: props => (
-                            <Link href={`/exchange${props.row.original.market?.identifier ? `/${props.row.original.market.identifier}` : 's'}`}>
-                              <a
-                                target={is_widget ? '_blank' : '_self'}
-                                rel={is_widget ? 'noopener noreferrer' : ''}
-                                className="flex flex-col items-start space-y-1 -mt-0.5 mb-2"
-                              >
-                                <div className="flex items-center space-x-2">
-                                  {props.row.original.market?.logo && (
-                                    <Image
-                                      src={props.row.original.market.logo.replace('small', 'large')}
-                                      alt=""
-                                      width={24}
-                                      height={24}
-                                    />
-                                  )}
-                                  <span className="font-semibold">
-                                    {props.value}
-                                  </span>
-                                </div>
-                              </a>
+                            <Link
+                              href={`/exchange${props.row.original.market?.identifier ? `/${props.row.original.market.identifier}` : 's'}`}
+                              target={is_widget ? '_blank' : '_self'}
+                              rel={is_widget ? 'noopener noreferrer' : ''}
+                              className="flex flex-col items-start space-y-1 -mt-0.5 mb-2"
+                            >
+                              <div className="flex items-center space-x-2">
+                                {props.row.original.market?.logo && (
+                                  <Image
+                                    src={props.row.original.market.logo.replace('small', 'large')}
+                                    alt=""
+                                    width={24}
+                                    height={24}
+                                  />
+                                )}
+                                <span className="font-semibold">
+                                  {props.value}
+                                </span>
+                              </div>
                             </Link>
                           ),
                         },
@@ -431,7 +430,6 @@ export default () => {
                                   title={<span className="text-slate-400 dark:text-slate-500 text-xs font-medium">
                                     {ellipse(props.row.original.base, 6)}
                                   </span>}
-                                  size={18}
                                 />
                               )}
                               {props.row.original.target?.toLowerCase().startsWith('0x') && (
@@ -440,7 +438,6 @@ export default () => {
                                   title={<span className="text-slate-400 dark:text-slate-500 text-xs font-medium">
                                     {ellipse(props.row.original.target, 6)}
                                   </span>}
-                                  size={18}
                                 />
                               )}
                             </div>
@@ -591,9 +588,12 @@ export default () => {
                         }
                       </div>
                     )}
-                  </>
-                  :
-                  <TailSpin color={loader_color(theme)} width="32" height="32" />
+                  </> :
+                  <TailSpin
+                    color={loader_color(theme)}
+                    width="32"
+                    height="32"
+                  />
                 }
               </div>
             </>

@@ -120,41 +120,40 @@ export default () => {
                 accessor: 'name',
                 sortType: (a, b) => a.original.name > b.original.name ? 1 : -1,
                 Cell: props => (
-                  <Link href={`/exchange${props.row.original.id ? `/${props.row.original.id}` : 's'}`}>
-                    <a
-                      target={is_widget ? '_blank' : '_self'}
-                      rel={is_widget ? 'noopener noreferrer' : ''}
-                      className="flex flex-col items-start space-y-1 -mt-0.5 mb-2"
-                    >
-                      <div className="flex items-center space-x-2">
-                        {props.row.original.image && (
-                          <Image
-                            src={props.row.original.image}
-                            alt=""
-                            width={24}
-                            height={24}
-                          />
-                        )}
-                        <span className="font-semibold">
-                          {props.value}
-                        </span>
-                      </div>
-                      <span className="text-slate-400 dark:text-slate-600 font-medium">
-                        {name(props.row.original.exchange_type)}
+                  <Link
+                    href={`/exchange${props.row.original.id ? `/${props.row.original.id}` : 's'}`}
+                    target={is_widget ? '_blank' : '_self'}
+                    rel={is_widget ? 'noopener noreferrer' : ''}
+                    className="flex flex-col items-start space-y-1 -mt-0.5 mb-2"
+                  >
+                    <div className="flex items-center space-x-2">
+                      {props.row.original.image && (
+                        <Image
+                          src={props.row.original.image}
+                          alt=""
+                          width={24}
+                          height={24}
+                        />
+                      )}
+                      <span className="font-semibold">
+                        {props.value}
                       </span>
-                      <div className="flex items-center space-x-1.5">
-                        {props.row.original.country && (
-                          <div className="bg-blue-500 dark:bg-blue-600 rounded-lg text-xs text-white font-semibold py-0.5 px-2">
-                            {props.row.original.country}
-                          </div>
-                        )}
-                        {props.row.original.year_established && (
-                          <div className="bg-slate-200 dark:bg-slate-600 rounded-lg text-xs font-medium py-0.5 px-2">
-                            {props.row.original.year_established}
-                          </div>
-                        )}
-                      </div>
-                    </a>
+                    </div>
+                    <span className="text-slate-400 dark:text-slate-600 font-medium">
+                      {name(props.row.original.exchange_type)}
+                    </span>
+                    <div className="flex items-center space-x-1.5">
+                      {props.row.original.country && (
+                        <div className="bg-blue-500 dark:bg-blue-600 rounded-lg text-xs text-white font-semibold py-0.5 px-2">
+                          {props.row.original.country}
+                        </div>
+                      )}
+                      {props.row.original.year_established && (
+                        <div className="bg-slate-200 dark:bg-slate-600 rounded-lg text-xs font-medium py-0.5 px-2">
+                          {props.row.original.year_established}
+                        </div>
+                      )}
+                    </div>
                   </Link>
                 ),
               },
@@ -308,12 +307,12 @@ export default () => {
                         className="min-w-max bg-blue-500 hover:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-500 shadow-lg rounded-lg uppercase text-white text-xs font-bold py-1.5 px-2"
                       >
                         Start Trading
-                      </a>
-                      :
-                      <Link href={`/exchange${props.row.original.id ? `/${props.row.original.id}` : 's'}`}>
-                        <a className="min-w-max bg-slate-50 hover:bg-slate-100 dark:bg-black dark:hover:bg-slate-900 rounded-lg text-xs font-semibold py-1.5 px-2">
-                          See More
-                        </a>
+                      </a> :
+                      <Link
+                        href={`/exchange${props.row.original.id ? `/${props.row.original.id}` : 's'}`}
+                        className="min-w-max bg-slate-50 hover:bg-slate-100 dark:bg-black dark:hover:bg-slate-900 rounded-lg text-xs font-semibold py-1.5 px-2"
+                      >
+                        See More
                       </Link>
                     }
                   </div>
@@ -327,9 +326,12 @@ export default () => {
             noPagination={_.slice(data, 0, n ? Number(n) : undefined).length <= 10}
             defaultPageSize={[10, 25, 50, 100].includes(Number(n)) ? Number(n) : 50}
             className={`no-border ${!is_widget ? 'striped' : ''}`}
+          /> :
+          <TailSpin
+            color={loader_color(theme)}
+            width="32"
+            height="32"
           />
-          :
-          <TailSpin color={loader_color(theme)} width="32" height="32" />
         }
       </div>
     </div>

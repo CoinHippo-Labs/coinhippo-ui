@@ -90,7 +90,10 @@ export default ({ data }) => {
               </span>
               {icon}
               <span className="text-slate-400 dark:text-slate-500 text-xs font-medium text-right mt-2">
-                {moment(timestamp * 1000).format('MMM D, YYYY')}
+                {
+                  moment(timestamp * 1000)
+                    .format('MMM D, YYYY')
+                }
               </span>
             </div>
           </div>
@@ -106,9 +109,12 @@ export default ({ data }) => {
               </button>
             ))}
           </div>
-        </>
-        :
-        <TailSpin color={loader_color(theme)} width="32" height="32" />
+        </> :
+        <TailSpin
+          color={loader_color(theme)}
+          width="32"
+          height="32"
+        />
       }
     </div>
   )

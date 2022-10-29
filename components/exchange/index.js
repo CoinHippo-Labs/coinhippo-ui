@@ -204,32 +204,31 @@ export default () => {
                   accessor: 'name',
                   sortType: (a, b) => a.original.name > b.original.name ? 1 : -1,
                   Cell: props => (
-                    <Link href={`/token${props.row.original.token_id ? `/${props.row.original.token_id}` : 's'}`}>
-                      <a
-                        className="flex flex-col items-start space-y-1 -mt-0.5 mb-2"
-                        style={{ maxWidth: '15rem' }}
-                      >
-                        <div className="token-column flex items-center space-x-2">
-                          {props.row.original.token_data?.image && (
-                            <Image
-                              src={props.row.original.token_data.image}
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                          )}
-                          <span className="flex items-start space-x-2">
-                            <span className="whitespace-nowrap text-blue-600 dark:text-blue-400 text-sm font-bold">
-                              {props.value}
-                            </span>
-                            {props.row.original.token_data?.symbol && (
-                              <span className={`${props.row.original.token_data.symbol.length > 6 ? 'break-all' : ''} uppercase text-slate-400 dark:text-slate-500 text-sm font-semibold`}>
-                                {props.row.original.token_data.symbol}
-                              </span>
-                            )}
+                    <Link
+                      href={`/token${props.row.original.token_id ? `/${props.row.original.token_id}` : 's'}`}
+                      className="flex flex-col items-start space-y-1 -mt-0.5 mb-2"
+                      style={{ maxWidth: '15rem' }}
+                    >
+                      <div className="token-column flex items-center space-x-2">
+                        {props.row.original.token_data?.image && (
+                          <Image
+                            src={props.row.original.token_data.image}
+                            alt=""
+                            width={24}
+                            height={24}
+                          />
+                        )}
+                        <span className="flex items-start space-x-2">
+                          <span className="whitespace-nowrap text-blue-600 dark:text-blue-400 text-sm font-bold">
+                            {props.value}
                           </span>
-                        </div>
-                      </a>
+                          {props.row.original.token_data?.symbol && (
+                            <span className={`${props.row.original.token_data.symbol.length > 6 ? 'break-all' : ''} uppercase text-slate-400 dark:text-slate-500 text-sm font-semibold`}>
+                              {props.row.original.token_data.symbol}
+                            </span>
+                          )}
+                        </span>
+                      </div>
                     </Link>
                   ),
                 },
@@ -276,7 +275,6 @@ export default () => {
                           title={<span className="text-slate-400 dark:text-slate-500 text-xs font-medium">
                             {ellipse(props.row.original.base, 6)}
                           </span>}
-                          size={18}
                         />
                       )}
                       {props.row.original.target?.toLowerCase().startsWith('0x') && (
@@ -285,7 +283,6 @@ export default () => {
                           title={<span className="text-slate-400 dark:text-slate-500 text-xs font-medium">
                             {ellipse(props.row.original.target, 6)}
                           </span>}
-                          size={18}
                         />
                       )}
                     </div>
@@ -497,9 +494,12 @@ export default () => {
               noPagination={tickers.length <= 10}
               defaultPageSize={per_page}
               className="no-border striped"
+            /> :
+            <TailSpin
+              color={loader_color(theme)}
+              width="32"
+              height="32"
             />
-            :
-            <TailSpin color={loader_color(theme)} width="32" height="32" />
           }
         </div>
       </div>

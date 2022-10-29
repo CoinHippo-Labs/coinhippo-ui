@@ -57,32 +57,31 @@ export default () => {
                 className="space-y-1.5"
               >
                 <div className="flex items-center justify-between space-x-2">
-                  <Link href={`/token${d ? `/${d.id}` : 's'}`}>
-                    <a
-                      target={is_widget ? '_blank' : '_self'}
-                      rel={is_widget ? 'noopener noreferrer' : ''}
-                      className="flex items-center space-x-2"
-                    >
-                      {!d?.large && d?.name === 'Others' ?
-                        <BiPieChartAlt size={24} className="stroke-current text-gray-400" /> :
-                        d?.large && (
-                          <Image
-                            src={d.large}
-                            alt=""
-                            width={24}
-                            height={24}
-                          />
-                        )
-                      }
-                      <div className="flex items-center space-x-1.5">
-                        <span className="font-bold">
-                          {d?.name}
-                        </span>
-                        <span className="uppercase text-slate-400 dark:text-slate-500 font-medium">
-                          {d?.symbol}
-                        </span>
-                      </div>
-                    </a>
+                  <Link
+                    href={`/token${d ? `/${d.id}` : 's'}`}
+                    target={is_widget ? '_blank' : '_self'}
+                    rel={is_widget ? 'noopener noreferrer' : ''}
+                    className="flex items-center space-x-2"
+                  >
+                    {!d?.large && d?.name === 'Others' ?
+                      <BiPieChartAlt size={24} className="stroke-current text-gray-400" /> :
+                      d?.large && (
+                        <Image
+                          src={d.large}
+                          alt=""
+                          width={24}
+                          height={24}
+                        />
+                      )
+                    }
+                    <div className="flex items-center space-x-1.5">
+                      <span className="font-bold">
+                        {d?.name}
+                      </span>
+                      <span className="uppercase text-slate-400 dark:text-slate-500 font-medium">
+                        {d?.symbol}
+                      </span>
+                    </div>
                   </Link>
                   <span className="text-slate-500 dark:text-slate-400 text-xs font-medium">
                     {number_format(d?.dominance / 100, '0,0.00%')}
@@ -96,9 +95,12 @@ export default () => {
               </div>
             ))
           })}
-        </div>
-        :
-        <TailSpin color={loader_color(theme)} width="32" height="32" />
+        </div> :
+        <TailSpin
+          color={loader_color(theme)}
+          width="32"
+          height="32"
+        />
       }
     </div>
   )

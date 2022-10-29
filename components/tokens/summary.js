@@ -22,7 +22,11 @@ export default ({ data }) => {
         <div className="text-3xl font-bold">
           {data ?
             number_format(data.length, '0,0') :
-            <TailSpin color={loader_color(theme)} width="36" height="36" />
+            <TailSpin
+              color={loader_color(theme)}
+              width="36"
+              height="36"
+            />
           }
         </div>
         <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
@@ -41,7 +45,11 @@ export default ({ data }) => {
                 {number_format(_.sumBy(data.filter(d => d?.market_cap > 0), 'market_cap'), '0,0')}
               </span>
             </div> :
-            <TailSpin color={loader_color(theme)} width="36" height="36" />
+            <TailSpin
+              color={loader_color(theme)}
+              width="36"
+              height="36"
+            />
           }
         </div>
         <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
@@ -60,7 +68,11 @@ export default ({ data }) => {
                 {number_format(_.sumBy(data.filter(d => d?.volume_24h > 0), 'volume_24h'), '0,0')}
               </span>
             </div> :
-            <TailSpin color={loader_color(theme)} width="36" height="36" />
+            <TailSpin
+              color={loader_color(theme)}
+              width="36"
+              height="36"
+            />
           }
         </div>
         <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
@@ -75,8 +87,12 @@ export default ({ data }) => {
           {cryptos_data?.categories ?
             <div className="-mt-1">
               <Categories />
-            </div>:
-            <TailSpin color={loader_color(theme)} width="36" height="36" />
+            </div> :
+            <TailSpin
+              color={loader_color(theme)}
+              width="36"
+              height="36"
+            />
           }
         </div>
         <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">

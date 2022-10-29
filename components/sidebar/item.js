@@ -9,7 +9,7 @@ import { COLLAPSED } from '../../reducers/types'
 export default ({
   title,
   url,
-  is_exteral = false,
+  is_external = false,
   icon,
   items,
   hiddenItem,
@@ -43,38 +43,38 @@ export default ({
 
   if (!(items?.length > 0)) {
     return (
-      <Link href={url}>
-        <a
-          target={is_exteral ? '_blank' : '_self'}
-          rel={is_exteral ? 'noopener noreferrer' : ''}
-          onClick={() => {
-            if (!collapsed) {
-              dispatch({
-                type: COLLAPSED,
-                value: !collapsed,
-              })
-            }
-            else if (hiddenItems) {
-              hiddenItems()
-            }
-          }}
-          className={`sidebar-item ${active ? 'active' : ''}`}
-        >
-          {icon}
-          <span className="title flex flex-col">
-            <span className="font-semibold">
-              {title}
-            </span>
-            {is_exteral && (
-              <span className="text-blue-400 dark:text-blue-600">
-                {new URL(url).hostname}
-              </span>
-            )}
+      <Link
+        href={url}
+        target={is_external ? '_blank' : '_self'}
+        rel={is_external ? 'noopener noreferrer' : ''}
+        onClick={() => {
+          if (!collapsed) {
+            dispatch({
+              type: COLLAPSED,
+              value: !collapsed,
+            })
+          }
+          else if (hiddenItems) {
+            hiddenItems()
+          }
+        }}
+        className={`sidebar-item ${active ? 'active' : ''}`}
+      >
+        {icon}
+        <span className="title flex flex-col">
+          <span className="font-semibold">
+            {title}
           </span>
-        </a>
+          {is_external && (
+            <span className="text-blue-400 dark:text-blue-600">
+              {new URL(url).hostname}
+            </span>
+          )}
+        </span>
       </Link>
     )
   }
+
   return (
     <div
       onClick={() => {

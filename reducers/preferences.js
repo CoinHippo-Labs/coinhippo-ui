@@ -10,12 +10,14 @@ export default (
   switch (action.type) {
     case THEME:
       localStorage.setItem(THEME, action.value)
+
       return {
         ...state,
         [`${THEME}`]: action.value,
       }
     case COLLAPSED:
       localStorage.setItem(COLLAPSED, action.value)
+
       return {
         ...state,
         [`${COLLAPSED}`]: action.value,

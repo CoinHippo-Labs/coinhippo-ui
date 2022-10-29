@@ -156,34 +156,37 @@ export default () => {
                 accessor: 'name',
                 sortType: (a, b) => a.original.name > b.original.name ? 1 : -1,
                 Cell: props => (
-                  <Link href={`/token${props.row.original.id ? `${['/tokens/categories'].includes(pathname) ? 's' : ''}/${props.row.original.id}` : 's'}`}>
-                    <a
-                      target={is_widget ? '_blank' : '_self'}
-                      rel={is_widget ? 'noopener noreferrer' : ''}
-                      className="flex flex-col items-start space-y-1 -mt-0.5 mb-2"
-                      style={{ maxWidth: ['/tokens/categories'].includes(pathname) ? 'unset' : '10rem' }}
-                    >
-                      <div className="token-column flex items-center space-x-2">
-                        {!['/tokens/categories'].includes(pathname) && props.row.original.image && (
-                          <Image
-                            src={props.row.original.image}
-                            alt=""
-                            width={24}
-                            height={24}
-                          />
-                        )}
-                        <span className="flex items-start space-x-2">
-                          <span className="whitespace-pre-wrap text-blue-600 dark:text-blue-400 text-xs font-bold">
-                            {props.value}
-                          </span>
-                          {props.row.original.symbol && (
-                            <span className={`${props.row.original.symbol.length > 6 ? 'break-all' : ''} uppercase text-slate-400 dark:text-slate-500 text-xs font-semibold`}>
-                              {props.row.original.symbol}
-                            </span>
-                          )}
+                  <Link
+                    href={`/token${props.row.original.id ? `${['/tokens/categories'].includes(pathname) ? 's' : ''}/${props.row.original.id}` : 's'}`}
+                    target={is_widget ? '_blank' : '_self'}
+                    rel={is_widget ? 'noopener noreferrer' : ''}
+                    className="flex flex-col items-start space-y-1 -mt-0.5 mb-2"
+                    style={{
+                      maxWidth: ['/tokens/categories'].includes(pathname) ?
+                        'unset' :
+                        '10rem',
+                    }}
+                  >
+                    <div className="token-column flex items-center space-x-2">
+                      {!['/tokens/categories'].includes(pathname) && props.row.original.image && (
+                        <Image
+                          src={props.row.original.image}
+                          alt=""
+                          width={24}
+                          height={24}
+                        />
+                      )}
+                      <span className="flex items-start space-x-2">
+                        <span className="whitespace-pre-wrap text-blue-600 dark:text-blue-400 text-xs font-bold">
+                          {props.value}
                         </span>
-                      </div>
-                    </a>
+                        {props.row.original.symbol && (
+                          <span className={`${props.row.original.symbol.length > 6 ? 'break-all' : ''} uppercase text-slate-400 dark:text-slate-500 text-xs font-semibold`}>
+                            {props.row.original.symbol}
+                          </span>
+                        )}
+                      </span>
+                    </div>
                   </Link>
                 ),
               },
@@ -494,9 +497,12 @@ export default () => {
               </div>
             )}
             className={`no-border ${!is_widget && ['/tokens/categories'].includes(pathname) ? 'striped' : ''}`}
+          /> :
+          <TailSpin
+            color={loader_color(theme)}
+            width="32"
+            height="32"
           />
-          :
-          <TailSpin color={loader_color(theme)} width="32" height="32" />
         }
       </div>
     </div>

@@ -1,4 +1,6 @@
-export default ({ children }) => {
+export default ({
+  children,
+}) => {
   return (
     <>
       {children}

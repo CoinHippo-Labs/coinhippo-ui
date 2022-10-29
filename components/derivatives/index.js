@@ -84,25 +84,26 @@ export default () => {
                     exchange_data.image = exchange_data.large
                   }
                   return (
-                    <Link href={`/exchange${exchange_data?.id ? `/${exchange_data.id}` : 's/derivatives'}`}>
-                      <a className="flex flex-col items-start space-y-1 -mt-0.5 mb-2">
-                        <div className="flex items-center space-x-2">
-                          {exchange_data?.image && (
-                            <Image
-                              src={exchange_data.image}
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                          )}
-                          <span className="font-semibold">
-                            {exchange_data?.name || props.value}
-                          </span>
-                        </div>
-                        <span className="text-slate-400 dark:text-slate-600 font-medium">
-                          {name(exchange_data?.exchange_type)}
+                    <Link
+                      href={`/exchange${exchange_data?.id ? `/${exchange_data.id}` : 's/derivatives'}`}
+                      className="flex flex-col items-start space-y-1 -mt-0.5 mb-2"
+                    >
+                      <div className="flex items-center space-x-2">
+                        {exchange_data?.image && (
+                          <Image
+                            src={exchange_data.image}
+                            alt=""
+                            width={24}
+                            height={24}
+                          />
+                        )}
+                        <span className="font-semibold">
+                          {exchange_data?.name || props.value}
                         </span>
-                      </a>
+                      </div>
+                      <span className="text-slate-400 dark:text-slate-600 font-medium">
+                        {name(exchange_data?.exchange_type)}
+                      </span>
                     </Link>
                   )
                 },
@@ -235,9 +236,12 @@ export default () => {
             noPagination={data.length <= 10}
             defaultPageSize={50}
             className="no-border striped"
+          /> :
+          <TailSpin
+            color={loader_color(theme)}
+            width="32"
+            height="32"
           />
-          :
-          <TailSpin color={loader_color(theme)} width="32" height="32" />
         }
       </div>
     </div>

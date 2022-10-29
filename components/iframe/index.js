@@ -19,9 +19,9 @@ export default ({
       />
       <span className="flex items-center justify-center space-x-1">
         <Copy
+          size={20}
           value={value}
           title="Copy iframe"
-          size={20}
         />
       </span>
     </div>

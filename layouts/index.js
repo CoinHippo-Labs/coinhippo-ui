@@ -3,13 +3,31 @@ import { useRouter } from 'next/router'
 import Empty from './empty'
 import Layout from './layout'
 
-export default ({ children }) => {
+export default ({
+  children,
+}) => {
   const router = useRouter()
-  const { pathname, query } = { ...router }
-  const { view, widget, theme } = { ...query }
+  const {
+    pathname,
+    query,
+  } = { ...router }
+  const {
+    view,
+    widget,
+    theme,
+  } = { ...query }
 
-  if (['widget'].includes(view) || widget) {
-    if (['dark'].includes(theme)) {
+  if (
+    [
+      'widget',
+    ].includes(view) ||
+    widget
+  ) {
+    if (
+      [
+        'dark',
+      ].includes(theme)
+    ) {
       return (
         <Layout
           noSiderbar={true}
@@ -21,6 +39,7 @@ export default ({ children }) => {
         </Layout>
       )
     }
+
     return (
       <Empty>
         {children}

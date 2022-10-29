@@ -81,29 +81,28 @@ export default () => {
               className={`${i < 3 ? `bg-yellow-${i < 1 ? 200 : i < 2 ? 100 : 50} dark:bg-blue-${i < 1 ? 700 : i < 2 ? 800 : 900} rounded-lg pt-1 px-1` : ''} ${i > 0 ? i < 3 ? 'mt-1' : 'mt-2' : 'mt-0'}`}
             >
               <div className="flex items-center justify-between space-x-2">
-                <Link href={`/token${d ? `/${d.id}` : 's'}`}>
-                  <a
-                    target={is_widget ? '_blank' : '_self'}
-                    rel={is_widget ? 'noopener noreferrer' : ''}
-                    className="flex items-center space-x-2"
-                  >
-                    {d?.large && (
-                      <Image
-                        src={d.large}
-                        alt=""
-                        width={20}
-                        height={20}
-                      />
-                    )}
-                    <div className="flex items-center space-x-1.5">
-                      <span className="font-bold">
-                        {d?.name}
-                      </span>
-                      <span className="uppercase text-slate-400 dark:text-slate-500 font-medium">
-                        {d?.symbol}
-                      </span>
-                    </div>
-                  </a>
+                <Link
+                  href={`/token${d ? `/${d.id}` : 's'}`}
+                  target={is_widget ? '_blank' : '_self'}
+                  rel={is_widget ? 'noopener noreferrer' : ''}
+                  className="flex items-center space-x-2"
+                >
+                  {d?.large && (
+                    <Image
+                      src={d.large}
+                      alt=""
+                      width={20}
+                      height={20}
+                    />
+                  )}
+                  <div className="flex items-center space-x-1.5">
+                    <span className="font-bold">
+                      {d?.name}
+                    </span>
+                    <span className="uppercase text-slate-400 dark:text-slate-500 font-medium">
+                      {d?.symbol}
+                    </span>
+                  </div>
                 </Link>
                 <span className={`${d?.price_change_percentage_24h < 0 ? 'text-red-600 dark:text-red-400' : d?.price_change_percentage_24h > 0 ? 'text-green-600 dark:text-green-400' : 'text-slate-600 dark:text-slate-400'} text-xs font-semibold text-right space-x-1`}>
                   {currency_symbol}
@@ -135,9 +134,12 @@ export default () => {
               </div>
             </div>
           )
-        })
-        :
-        <TailSpin color={loader_color(theme)} width="32" height="32" />
+        }) :
+        <TailSpin
+          color={loader_color(theme)}
+          width="32"
+          height="32"
+        />
       }
     </div>
   )
