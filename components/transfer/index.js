@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch, shallowEqual } from 'react-redux'
 import _ from 'lodash'
-import { Squid } from '@0xsquid/sdk'
 
 import AddToken from '../add-token'
-import Balance from '../add-token'
+import Balance from '../balance'
 import Wallet from '../wallet'
 import { number_format, equals_ignore_case, loader_color } from '../../lib/utils'
 
@@ -38,6 +37,22 @@ export default ({
   const {
     balances_data,
   } = { ...balances }
+
+  const [sdk, setSdk] = useState(null)
+
+  // const init = async => {
+  //   setSdk(
+  //     new Squid(
+  //       {
+  //         baseUrl: `https://${environment}.api.0xsquid.com`,
+  //       },
+  //     )
+  //   )
+  // }
+
+  // useEffect(() => {
+  //   init()
+  // }, [environment])
 
   return (
     <div>

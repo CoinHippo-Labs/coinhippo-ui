@@ -12,7 +12,7 @@ const providerOptions = {}
 const getNetwork = chain_id => {
   return {
     1: 'mainnet',
-    10: 'optimism'
+    10: 'optimism',
     56: 'binance',
     137: 'matic',
     250: 'fantom',
