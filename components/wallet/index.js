@@ -95,8 +95,13 @@ export default ({
       web3Modal = new Web3Modal(
         {
           network:
-            getNetwork(defaultChainId) ||
-            'mainnet',
+            getNetwork(
+              defaultChainId ||
+              (environment === 'testnet' ?
+                5 :
+                1
+              )
+            ),
           cacheProvider: true,
           providerOptions,
         }
@@ -120,8 +125,8 @@ export default ({
     update()
   }, [theme])
 
-  const connect = useCallback(async () =>
-    {
+  const connect = useCallback(
+    async () => {
       const provider = await web3Modal.connect()
       const web3Provider = new providers.Web3Provider(provider)
       const network = await web3Provider.getNetwork()
@@ -148,30 +153,33 @@ export default ({
     [web3Modal],
   )
 
-  const disconnect = useCallback(async (
-    e,
-    is_reestablish,
-  ) => {
-    if (
-      web3Modal &&
-      !is_reestablish
-    ) {
-      await web3Modal.clearCachedProvider()
-    }
-
-    if (
-      provider?.disconnect &&
-      typeof provider.disconnect === 'function'
-    ) {
-      await provider.disconnect()
-    }
-
-    dispatch(
-      {
-        type: WALLET_RESET,
+  const disconnect = useCallback(
+    async (
+      e,
+      is_reestablish,
+    ) => {
+      if (
+        web3Modal &&
+        !is_reestablish
+      ) {
+        await web3Modal.clearCachedProvider()
       }
-    )
-  }, [web3Modal, provider])
+
+      if (
+        provider?.disconnect &&
+        typeof provider.disconnect === 'function'
+      ) {
+        await provider.disconnect()
+      }
+
+      dispatch(
+        {
+          type: WALLET_RESET,
+        }
+      )
+    },
+    [web3Modal, provider],
+  )
 
   const switchChain = async () => {
     if (
@@ -311,7 +319,7 @@ export default ({
             {
               children ||
               (
-                <div className="bg-slate-100 hover:bg-zinc-200 dark:bg-slate-800 dark:hover:bg-zinc-800 rounded whitespace-nowrap py-1 px-2">
+                <div className="bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 rounded-2xl whitespace-nowrap uppercase text-slate-600 dark:text-slate-200 text-xs font-medium py-1.5 px-3">
                   Switch Network
                 </div>
               )
@@ -325,7 +333,7 @@ export default ({
             {
               children ||
               (
-                <div className="bg-red-400 hover:bg-red-500 dark:bg-red-600 dark:hover:bg-red-500 rounded whitespace-nowrap text-white py-1 px-2">
+                <div className="bg-red-100 hover:bg-red-200 dark:bg-red-900 dark:hover:bg-red-800 rounded-2xl whitespace-nowrap uppercase text-red-500 dark:text-red-500 text-xs font-medium py-1.5 px-3">
                   Disconnect
                 </div>
               )
@@ -339,8 +347,8 @@ export default ({
           {
             children ||
             (
-              <div className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-500 dark:hover:bg-blue-400 rounded whitespace-nowrap text-white py-1 px-2">
-                Connect
+              <div className="bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-500 rounded-2xl whitespace-nowrap uppercase text-white text-xs font-medium py-1.5 px-3">
+                Connect Wallet
               </div>
             )
           }

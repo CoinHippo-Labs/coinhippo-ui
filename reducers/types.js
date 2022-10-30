@@ -9,6 +9,9 @@ export const TRENDING_DATA = 'trending_data'
 export const RATES_DATA = 'rates_data'
 export const CHAINS_DATA = 'chains_data'
 
+// ens
+export const ENS_DATA = 'ens_data'
+
 // wallet
 export const WALLET_DATA = 'wallet_data'
 export const WALLET_RESET = 'wallet_reset'

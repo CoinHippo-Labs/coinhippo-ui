@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/CoinHippo-Labs/coinhippo-ui#readme",
   "dependencies": {
+    "@0xsquid/sdk": "1.1.0-beta.7",
     "@redux-devtools/extension": "^3.2.3",
     "ethers": "^5.7.2",
     "html-react-parser": "^3.0.4",
