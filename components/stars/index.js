@@ -8,12 +8,24 @@ export default ({
 }) => {
   return (
     <div className={`flex items-center space-x-1 ${className}`}>
-      {[...Array(maxStar).keys()].map(i => score * maxStar / maxScore > i ?
-        score * maxStar / maxScore < i + 1 ?
-          <FaStarHalfAlt key={i} className="text-yellow-500 dark:text-yellow-300" /> :
-          <FaStar key={i} className="text-yellow-500 dark:text-yellow-300" /> :
-        <FaStar key={i} className="text-slate-200 dark:text-slate-800" />
-      )}
+      {[...Array(maxStar).keys()]
+        .map(i =>
+          score * maxStar / maxScore > i ?
+            score * maxStar / maxScore < i + 1 ?
+              <FaStarHalfAlt
+                key={i}
+                className="text-yellow-500 dark:text-yellow-300"
+              /> :
+              <FaStar
+                key={i}
+                className="text-yellow-500 dark:text-yellow-300"
+              /> :
+            <FaStar
+              key={i}
+              className="text-slate-200 dark:text-slate-800"
+            />
+        )
+      }
     </div>
   )
 }
