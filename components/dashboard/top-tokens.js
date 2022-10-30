@@ -69,9 +69,15 @@ export default ({
       <div className="flex items-center justify-between space-x-2 -mt-1">
         <Link
           href={`/tokens${category ? `/${category}` : ''}`}
+        >
+        <a
           className="uppercase text-slate-600 dark:text-slate-400 text-xs font-bold"
         >
-          {title || name(category)}
+          {
+            title ||
+            name(category)
+          }
+        </a>
         </Link>
         {icon}
       </div>
@@ -97,6 +103,8 @@ export default ({
               Cell: props => (
                 <Link
                   href={`/token${props.row.original.id ? `/${props.row.original.id}` : 's'}`}
+                >
+                <a
                   className="flex flex-col items-start space-y-1 mb-2"
                 >
                   <div className="token-column flex items-center space-x-1.5">
@@ -119,6 +127,7 @@ export default ({
                       )}
                     </span>
                   </div>
+                </a>
                 </Link>
               ),
             },

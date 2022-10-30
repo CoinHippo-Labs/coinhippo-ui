@@ -16,6 +16,8 @@ export default ({
     <div className={`logo truncate ${className}`}>
       <Link
         href="/"
+      >
+      <a
         onClick={() => {
           if (!collapsed) {
             dispatch({
@@ -51,6 +53,7 @@ export default ({
             {process.env.NEXT_PUBLIC_APP_NAME}
           </span>
         )}
+      </a>
       </Link>
       {!noSiderbar && (
         <button

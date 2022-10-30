@@ -206,6 +206,8 @@ export default () => {
                   Cell: props => (
                     <Link
                       href={`/token${props.row.original.token_id ? `/${props.row.original.token_id}` : 's'}`}
+                    >
+                    <a
                       className="flex flex-col items-start space-y-1 -mt-0.5 mb-2"
                       style={{ maxWidth: '15rem' }}
                     >
@@ -229,6 +231,7 @@ export default () => {
                           )}
                         </span>
                       </div>
+                    </a>
                     </Link>
                   ),
                 },

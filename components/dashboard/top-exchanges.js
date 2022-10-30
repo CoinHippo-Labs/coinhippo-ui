@@ -72,9 +72,15 @@ export default ({
       <div className="flex items-center justify-between space-x-2 -mt-1">
         <Link
           href={`/exchanges${exchange_type ? `/${exchange_type}` : ''}`}
+        >
+        <a
           className="uppercase text-slate-600 dark:text-slate-400 text-xs font-bold"
         >
-          {title || name(exchange_type)}
+          {
+            title ||
+            name(exchange_type)
+          }
+        </a>
         </Link>
         {icon}
       </div>
@@ -99,6 +105,8 @@ export default ({
               Cell: props => (
                 <Link
                   href={`/exchange${props.row.original.id ? `/${props.row.original.id}` : 's'}`}
+                >
+                <a
                   className="flex flex-col items-start space-y-1 mb-2"
                 >
                   <div className="flex items-center space-x-2">
@@ -114,6 +122,7 @@ export default ({
                       {props.value}
                     </span>
                   </div>
+                </a>
                 </Link>
               ),
             },
@@ -165,9 +174,12 @@ export default ({
                     </a> :
                     <Link
                       href={`/exchange${props.row.original.id ? `/${props.row.original.id}` : 's'}`}
+                    >
+                    <a
                       className="min-w-max bg-slate-50 hover:bg-slate-100 dark:bg-black dark:hover:bg-slate-900 rounded-lg text-xs font-semibold py-1.5 px-2"
                     >
                       See More
+                    </a>
                     </Link>
                   }
                 </div>

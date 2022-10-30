@@ -83,6 +83,8 @@ export default () => {
               <div className="flex items-center justify-between space-x-2">
                 <Link
                   href={`/token${d ? `/${d.id}` : 's'}`}
+                >
+                <a
                   target={is_widget ? '_blank' : '_self'}
                   rel={is_widget ? 'noopener noreferrer' : ''}
                   className="flex items-center space-x-2"
@@ -103,10 +105,14 @@ export default () => {
                       {d?.symbol}
                     </span>
                   </div>
+                </a>
                 </Link>
                 <span className={`${d?.price_change_percentage_24h < 0 ? 'text-red-600 dark:text-red-400' : d?.price_change_percentage_24h > 0 ? 'text-green-600 dark:text-green-400' : 'text-slate-600 dark:text-slate-400'} text-xs font-semibold text-right space-x-1`}>
                   {currency_symbol}
-                  {number_format(d?.current_price, '0,0.00000000')}
+                  {number_format(
+                    d?.current_price,
+                    '0,0.00000000',
+                  )}
                 </span>
               </div>
               <div className="w-full flex items-center justify-between text-2xs font-medium space-x-2 ml-0.5">

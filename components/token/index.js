@@ -367,6 +367,8 @@ export default () => {
                           Cell: props => (
                             <Link
                               href={`/exchange${props.row.original.market?.identifier ? `/${props.row.original.market.identifier}` : 's'}`}
+                            >
+                            <a
                               target={is_widget ? '_blank' : '_self'}
                               rel={is_widget ? 'noopener noreferrer' : ''}
                               className="flex flex-col items-start space-y-1 -mt-0.5 mb-2"
@@ -384,6 +386,7 @@ export default () => {
                                   {props.value}
                                 </span>
                               </div>
+                            </a>
                             </Link>
                           ),
                         },

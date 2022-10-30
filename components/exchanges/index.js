@@ -122,6 +122,8 @@ export default () => {
                 Cell: props => (
                   <Link
                     href={`/exchange${props.row.original.id ? `/${props.row.original.id}` : 's'}`}
+                  >
+                  <a
                     target={is_widget ? '_blank' : '_self'}
                     rel={is_widget ? 'noopener noreferrer' : ''}
                     className="flex flex-col items-start space-y-1 -mt-0.5 mb-2"
@@ -154,6 +156,7 @@ export default () => {
                         </div>
                       )}
                     </div>
+                  </a>
                   </Link>
                 ),
               },
@@ -310,9 +313,12 @@ export default () => {
                       </a> :
                       <Link
                         href={`/exchange${props.row.original.id ? `/${props.row.original.id}` : 's'}`}
+                      >
+                      <a
                         className="min-w-max bg-slate-50 hover:bg-slate-100 dark:bg-black dark:hover:bg-slate-900 rounded-lg text-xs font-semibold py-1.5 px-2"
                       >
                         See More
+                      </a>
                       </Link>
                     }
                   </div>

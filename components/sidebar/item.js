@@ -45,6 +45,8 @@ export default ({
     return (
       <Link
         href={url}
+      >
+      <a
         target={is_external ? '_blank' : '_self'}
         rel={is_external ? 'noopener noreferrer' : ''}
         onClick={() => {
@@ -71,6 +73,7 @@ export default ({
             </span>
           )}
         </span>
+      </a>
       </Link>
     )
   }

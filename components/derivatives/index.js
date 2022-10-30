@@ -86,6 +86,8 @@ export default () => {
                   return (
                     <Link
                       href={`/exchange${exchange_data?.id ? `/${exchange_data.id}` : 's/derivatives'}`}
+                    >
+                    <a
                       className="flex flex-col items-start space-y-1 -mt-0.5 mb-2"
                     >
                       <div className="flex items-center space-x-2">
@@ -104,6 +106,7 @@ export default () => {
                       <span className="text-slate-400 dark:text-slate-600 font-medium">
                         {name(exchange_data?.exchange_type)}
                       </span>
+                    </a>
                     </Link>
                   )
                 },

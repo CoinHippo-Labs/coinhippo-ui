@@ -128,9 +128,12 @@ export default () => {
                 <Link
                   key={i}
                   href={m.url}
+                >
+                <a
                   className="bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 rounded-lg text-blue-500 hover:text-blue-600 dark:text-slate-200 dark:hover:text-white font-semibold mt-1 mr-1 py-1 px-2"
                 >
                   {m.index_shortcut}
+                </a>
                 </Link>
               ))
             }

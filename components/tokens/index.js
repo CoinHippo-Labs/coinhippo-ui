@@ -158,6 +158,8 @@ export default () => {
                 Cell: props => (
                   <Link
                     href={`/token${props.row.original.id ? `${['/tokens/categories'].includes(pathname) ? 's' : ''}/${props.row.original.id}` : 's'}`}
+                  >
+                  <a
                     target={is_widget ? '_blank' : '_self'}
                     rel={is_widget ? 'noopener noreferrer' : ''}
                     className="flex flex-col items-start space-y-1 -mt-0.5 mb-2"
@@ -187,6 +189,7 @@ export default () => {
                         )}
                       </span>
                     </div>
+                  </a>
                   </Link>
                 ),
               },

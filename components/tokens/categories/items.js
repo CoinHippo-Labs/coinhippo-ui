@@ -30,6 +30,8 @@ export default ({
         <Link
           key={i}
           href={`/tokens/${_v.category_id || _v.id}`}
+        >
+        <a
           onClick={onClick}
           className="dropdown-item w-full flex items-center justify-start space-x-2 py-2 px-3"
         >
@@ -48,6 +50,7 @@ export default ({
               </span>
             </div>
           </div>
+        </a>
         </Link>
       ))}
     </div>

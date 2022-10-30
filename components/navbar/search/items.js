@@ -52,41 +52,48 @@ export default ({
               {k}
             </span>
           </div>
-          {v?.filter(_v => _v).map((_v, i) => (
-            <Link
-              key={i}
-              href={`/${k === 'exchanges' ? 'exchange' : k === 'categories' ? 'tokens' : 'token'}/${k === 'categories' && _v.category_id ? _v.category_id : _v.id}`}
-              onClick={onClick}
-              className="dropdown-item w-full flex items-center justify-start space-x-2 py-2 px-3"
-            >
-              {_v.large && (
-                <Image
-                  src={_v.large}
-                  alt=""
-                  width={24}
-                  height={24}
-                />
-              )}
-              <div className="w-full flex items-center justify-between space-x-2">
-                <div className="flex items-center text-xs space-x-1.5">
-                  <span className="font-semibold">
-                    {_v.name}
-                  </span>
-                  {_v.symbol && (
-                    <span className="uppercase text-slate-400 dark:text-slate-500 font-medium">
-                      {_v.symbol}
-                    </span>
+          {
+            (v || [])
+              .filter(_v => _v)
+              .map((_v, i) => (
+                <Link
+                  key={i}
+                  href={`/${k === 'exchanges' ? 'exchange' : k === 'categories' ? 'tokens' : 'token'}/${k === 'categories' && _v.category_id ? _v.category_id : _v.id}`}
+                >
+                <a
+                  onClick={onClick}
+                  className="dropdown-item w-full flex items-center justify-start space-x-2 py-2 px-3"
+                >
+                  {_v.large && (
+                    <Image
+                      src={_v.large}
+                      alt=""
+                      width={24}
+                      height={24}
+                    />
                   )}
-                </div>
-                <span className="uppercase text-slate-400 dark:text-slate-500 text-xs font-semibold">
-                  {typeof _v.market_cap_rank === 'number' ?
-                    `#${_v.market_cap_rank}` :
-                    _v.market_type
-                  }
-                </span>
-              </div>
-            </Link>
-          ))}
+                  <div className="w-full flex items-center justify-between space-x-2">
+                    <div className="flex items-center text-xs space-x-1.5">
+                      <span className="font-semibold">
+                        {_v.name}
+                      </span>
+                      {_v.symbol && (
+                        <span className="uppercase text-slate-400 dark:text-slate-500 font-medium">
+                          {_v.symbol}
+                        </span>
+                      )}
+                    </div>
+                    <span className="uppercase text-slate-400 dark:text-slate-500 text-xs font-semibold">
+                      {typeof _v.market_cap_rank === 'number' ?
+                        `#${_v.market_cap_rank}` :
+                        _v.market_type
+                      }
+                    </span>
+                  </div>
+                </a>
+                </Link>
+              ))
+          }
         </div>
       ))}
     </div>

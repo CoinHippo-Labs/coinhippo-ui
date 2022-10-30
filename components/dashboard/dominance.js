@@ -59,6 +59,8 @@ export default () => {
                 <div className="flex items-center justify-between space-x-2">
                   <Link
                     href={`/token${d ? `/${d.id}` : 's'}`}
+                  >
+                  <a
                     target={is_widget ? '_blank' : '_self'}
                     rel={is_widget ? 'noopener noreferrer' : ''}
                     className="flex items-center space-x-2"
@@ -82,9 +84,13 @@ export default () => {
                         {d?.symbol}
                       </span>
                     </div>
+                  </a>
                   </Link>
                   <span className="text-slate-500 dark:text-slate-400 text-xs font-medium">
-                    {number_format(d?.dominance / 100, '0,0.00%')}
+                    {number_format(
+                      d?.dominance / 100,
+                      '0,0.00%',
+                    )}
                   </span>
                 </div>
                 <ProgressBar
