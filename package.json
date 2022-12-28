@@ -4,8 +4,7 @@
   "description": "UI of CoinHippo",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
-    "deploy": "aws s3 sync out/ s3://coinhippo.io --acl public-read"
+    "build": "next build"
   },
   "repository": {
     "type": "git",
