@@ -39,7 +39,7 @@ export default (
       <img
         src={src}
         { ...rest }
-      />
+      /> :
       <Image
         { ...rest }
         loader={loader}
