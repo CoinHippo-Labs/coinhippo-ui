@@ -13,8 +13,8 @@ export default ({
   const { trending_data } = { ...trending }
 
   const _crypto_data = _.cloneDeep(cryptos_data)
-  Object.entries({ ..._crypto_data }).forEach(([k, v]) => {
-    _crypto_data[k] = _.slice(_.orderBy(v?.filter(_v => _v && inputSearch).map(_v => {
+  Object.entries({ ..._crypto_data }).filter(([k, v]) => Array.isArray(v)).forEach(([k, v]) => {
+    _crypto_data[k] = _.slice(_.orderBy(v.filter(_v => _v && inputSearch).map(_v => {
       const { market_cap_rank } = { ..._v }
       return {
         ..._v,
