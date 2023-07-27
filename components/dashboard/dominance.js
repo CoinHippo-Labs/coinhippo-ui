@@ -26,7 +26,7 @@ export default () => {
 
   return (
     <Card className="card">
-      <CardBody className="space-y-3 pt-4 2xl:pt-6 pb-1 2xl:pb-2 px-4 2xl:px-6">
+      <CardBody className="space-y-3 pt-4 2xl:pt-6 pb-3 2xl:pb-5 px-4 2xl:px-6">
         <span className="whitespace-nowrap text-blue-400 dark:text-blue-500 text-base">
           Dominance
         </span>
