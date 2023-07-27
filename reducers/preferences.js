@@ -1,26 +1,23 @@
-import { THEME, COLLAPSED } from './types'
+import { THEME, PAGE_VISIBLE } from './types'
 
 export default (
   state = {
-    [`${THEME}`]: 'light',
-    [`${COLLAPSED}`]: true,
+    [THEME]: 'light',
+    [PAGE_VISIBLE]: true,
   },
-  action
+  action,
 ) => {
   switch (action.type) {
     case THEME:
       localStorage.setItem(THEME, action.value)
-
       return {
         ...state,
-        [`${THEME}`]: action.value,
+        [THEME]: action.value,
       }
-    case COLLAPSED:
-      localStorage.setItem(COLLAPSED, action.value)
-
+    case PAGE_VISIBLE:
       return {
         ...state,
-        [`${COLLAPSED}`]: action.value,
+        [PAGE_VISIBLE]: action.value,
       }
     default:
       return state

@@ -1,52 +1,49 @@
 import { useState, useEffect } from 'react'
 import { useSelector, shallowEqual } from 'react-redux'
-import { providers, utils } from 'ethers'
+import { formatUnits } from 'ethers'
 import { MdLocalGasStation } from 'react-icons/md'
 
 import { ProgressBar } from '../../progress-bars'
-import { number_format } from '../../../lib/utils'
+import NumberDisplay from '../../number'
+import { getProvider } from '../../../lib/chain/evm'
 
-const gas_gwei_threshold = 15
-const refresh_rate_seconds = 15
+const GAS_GWEI_THRESHOLD = 15
+const REFRESH_RATE_SECONDS = 15
 
 export default () => {
   const { chains } = useSelector(state => ({ chains: state.chains }), shallowEqual)
   const { chains_data } = { ...chains }
 
-  const [provider, setProvider] = useState(null)
   const [gasPrice, setGasPrice] = useState(null)
-  const [refreshSeconds, setRefreshSeconds] = useState(refresh_rate_seconds)
+  const [refreshSeconds, setRefreshSeconds] = useState(REFRESH_RATE_SECONDS)
 
-  useEffect(() => {
-    const getData = async () => {
-      if (chains_data) {
-        const chain_data = chains_data.mainnet?.evm?.find(c => c?.id === 'ethereum')
-        const { rpcUrls } = { ...chain_data?.provider_params?.[0] }
-        if (rpcUrls) {
-          setProvider(new providers.FallbackProvider(rpcUrls.map(url => new providers.JsonRpcProvider(url))))
+  useEffect(
+    () => {
+      const getData = async () => {
+        if (refreshSeconds === REFRESH_RATE_SECONDS) {
+          const provider = getProvider('ethereum', chains_data)
+          if (provider) {
+            try {
+              const { gasPrice } = { ...await provider.getFeeData() }
+              setGasPrice(Number(formatUnits(gasPrice, 'gwei')))
+            } catch (error) {}
+          }
         }
       }
-    }
-    getData()
-  }, [chains_data])
+      getData()
+    },
+    [chains_data, refreshSeconds],
+  )
 
-  useEffect(() => {
-    const interval = setInterval(() => setRefreshSeconds(refreshSeconds - 1 || refresh_rate_seconds), 1000)
-    return () => {
-      clearInterval(interval)
-    }
-  }, [refreshSeconds])
+  useEffect(
+    () => {
+      const interval = setInterval(() => setRefreshSeconds(refreshSeconds - 1 || REFRESH_RATE_SECONDS), 1000)
+      return () => clearInterval(interval)
+    },
+    [refreshSeconds],
+  )
 
-  useEffect(() => {
-    const getData = async () => {
-      if (provider && refreshSeconds === refresh_rate_seconds) {
-        setGasPrice(Number(utils.formatUnits(await provider.getGasPrice(), 'gwei')))
-      }
-    }
-    getData()
-  }, [provider, refreshSeconds])
-
-  const color = typeof gasPrice === 'number' ? gasPrice <= gas_gwei_threshold ? 'green-600' : gasPrice <= gas_gwei_threshold * 2 ? 'green-400' : gasPrice <= gas_gwei_threshold * 4 ? 'red-400' : 'red-600' : 'slate-500'
+  const color = typeof gasPrice === 'number' ? gasPrice <= GAS_GWEI_THRESHOLD ? 'green-500' : gasPrice <= GAS_GWEI_THRESHOLD * 2 ? 'green-500' : gasPrice <= GAS_GWEI_THRESHOLD * 4 ? 'red-500' : 'red-500' : 'slate-500'
 
   return gasPrice && (
     <a
@@ -57,16 +54,18 @@ export default () => {
     >
       <MdLocalGasStation size={24} />
       <ProgressBar
-        width={refreshSeconds * 100 / refresh_rate_seconds}
+        width={refreshSeconds * 100 / REFRESH_RATE_SECONDS}
         color={`bg-${color}`}
         className="h-1 rounded-lg"
       />
-      <span
+      <NumberDisplay
+        value={gasPrice}
+        format="0,0"
+        maxDecimals={0}
+        noTooltip={true}
         className={`bg-${color} w-5 h-5 absolute leading-none rounded-full inline-flex items-center justify-center text-white text-2xs font-semibold ml-3`}
         style={{ top: 4 }}
-      >
-        {number_format(gasPrice, '0,0')}
-      </span>
+      />
     </a>
   )
 }

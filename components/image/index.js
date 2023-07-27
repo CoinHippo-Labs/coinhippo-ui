@@ -1,48 +1,16 @@
 import Image from 'next/image'
 
-const loader = (
-  {
-    src,
-    width,
-    quality = 75,
-  },
-) =>
-  `${
-    process.env.NEXT_PUBLIC_IMAGE_OPTIMIZER_URL ?
-      `${process.env.NEXT_PUBLIC_IMAGE_OPTIMIZER_URL}/_next` :
-      ''
-  }${
-    src?.startsWith('/') ?
-      '' :
-      '/'
-  }${src}${
-    process.env.NEXT_PUBLIC_IMAGE_OPTIMIZER_URL ?
-      `?url=${
-        src?.startsWith('/') ?
-          process.env.NEXT_PUBLIC_SITE_URL :
-          ''
-      }${src}&w=${width}&q=${quality}` :
-      ''
-  }`
+const IMAGE_OPTIMIZER_URL = ''
+const loader = ({ src, width, quality = 75 }) => `${IMAGE_OPTIMIZER_URL ? `${IMAGE_OPTIMIZER_URL}/_next` : ''}${src?.startsWith('/') ? '' : '/'}${src}${IMAGE_OPTIMIZER_URL ? `?url=${src?.startsWith('/') ? process.env.NEXT_PUBLIC_APP_URL : ''}${src}&w=${width}&q=${quality}` : ''}`
 
-export default (
-  {
-    src = '',
-    ...rest
-  }
-) => {
+export default ({ src, alt = '', ...rest }) => {
   return (
-    src
-      .includes(
-        'assets.coingecko.com'
-      ) ?
-      <img
-        src={src}
-        { ...rest }
-      /> :
-      <Image
-        { ...rest }
-        loader={loader}
-      />
+    <Image
+      alt={alt}
+      { ...rest }
+      src={src}
+      loader={() => loader({ ...rest, src })}
+      unoptimized={true}
+    />
   )
 }

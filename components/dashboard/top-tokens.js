@@ -1,185 +1,197 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { useSelector, shallowEqual } from 'react-redux'
+import { Card, CardBody } from '@material-tailwind/react'
 import _ from 'lodash'
-import { TailSpin } from 'react-loader-spinner'
 
+import Spinner from '../spinner'
 import Image from '../image'
+import NumberDisplay from '../number'
 import Datatable from '../datatable'
-import { tokens_markets } from '../../lib/api/coingecko'
-import { currency, currency_symbol } from '../../lib/object/currency'
-import { name, number_format, loader_color } from '../../lib/utils'
+import { getTokensMarkets } from '../../lib/api/coingecko'
+import { toArray, getTitle } from '../../lib/utils'
 
-const per_page = 10
+const PAGE_SIZE = 10
 
-export default ({
-  category,
-  title,
-  icon,
-}) => {
-  const { preferences } = useSelector(state => ({ preferences: state.preferences }), shallowEqual)
-  const { theme } = { ...preferences }
-
+export default ({ category, title, icon }) => {
   const [data, setData] = useState(null)
 
-  useEffect(() => {
-    const getData = async () => {
-      const response = await tokens_markets({
-        vs_currency: currency,
-        category,
-        order: 'market_cap_desc',
-        per_page,
-        page: 1,
-        price_change_percentage: '24h,7d,30d',
-      })
-      if (Array.isArray(response)) {
-        setData(_.slice(_.orderBy(_.uniqBy(response, 'id'), ['market_cap_rank'], ['asc']).map(d => {          
-          const { market_cap_rank, current_price, price_change_percentage_24h_in_currency, price_change_percentage_7d_in_currency, price_change_percentage_30d_in_currency, roi, atl, market_cap, fully_diluted_valuation, total_volume, circulating_supply, total_supply, max_supply } = { ...d }
-          return {
-            ...d,
-            market_cap_rank: typeof market_cap_rank === 'string' ? Number(market_cap_rank) : typeof market_cap_rank === 'number' ? market_cap_rank : Number.MAX_SAFE_INTEGER,
-            current_price: typeof current_price === 'string' ? Number(current_price) : typeof current_price === 'number' ? current_price : -1,
-            price_change_percentage_24h_in_currency: typeof price_change_percentage_24h_in_currency === 'string' ? Number(price_change_percentage_24h_in_currency) : typeof price_change_percentage_24h_in_currency === 'number' ? price_change_percentage_24h_in_currency : Number.MIN_SAFE_INTEGER,
-            price_change_percentage_7d_in_currency: typeof price_change_percentage_7d_in_currency === 'string' ? Number(price_change_percentage_7d_in_currency) : typeof price_change_percentage_7d_in_currency === 'number' ? price_change_percentage_7d_in_currency : Number.MIN_SAFE_INTEGER,
-            price_change_percentage_30d_in_currency: typeof price_change_percentage_30d_in_currency === 'string' ? Number(price_change_percentage_30d_in_currency) : typeof price_change_percentage_30d_in_currency === 'number' ? price_change_percentage_30d_in_currency : Number.MIN_SAFE_INTEGER,
-            roi: {
-              ...roi,
-              times: roi ? roi.times : atl > 0 ? (current_price - atl) / atl : null,
-              currency: roi?.currency ? roi.currency : currency,
-              percentage: roi ? roi.percentage : atl > 0 ? (current_price - atl) * 100 / atl : null,
-              from: !roi ? 'atl' : null,
-            },
-            market_cap: typeof market_cap === 'string' ? Number(market_cap) : typeof market_cap === 'number' ? market_cap : -1,
-            fully_diluted_valuation: typeof fully_diluted_valuation === 'string' ? Number(fully_diluted_valuation) : typeof fully_diluted_valuation === 'number' ? fully_diluted_valuation : (current_price * (max_supply || total_supply || circulating_supply)) || -1,
-            circulating_supply: typeof circulating_supply === 'string' ? Number(circulating_supply) : typeof circulating_supply === 'number' ? circulating_supply : -1,
-            total_volume: typeof total_volume === 'string' ? Number(total_volume) : typeof total_volume === 'number' ? total_volume : -1,
-          }
-        }), 0, per_page))
+  useEffect(
+    () => {
+      const getData = async () => {
+        const response = await getTokensMarkets({ vs_currency: 'usd', category, order: 'market_cap_desc', per_page: PAGE_SIZE, page: 1, price_change_percentage: '24h,7d,30d' })
+        setData(
+          _.slice(
+            _.orderBy(_.uniqBy(toArray(response), 'id'), ['market_cap_rank'], ['asc']).map(d => {
+              const { market_cap_rank, current_price, price_change_percentage_24h_in_currency, price_change_percentage_7d_in_currency, price_change_percentage_30d_in_currency, roi, atl, market_cap, fully_diluted_valuation, total_volume, circulating_supply, total_supply, max_supply } = { ...d }
+              return {
+                ...d,
+                market_cap_rank: ['number', 'string'].includes(typeof market_cap_rank) ? Number(market_cap_rank) : Number.MAX_SAFE_INTEGER,
+                current_price: ['number', 'string'].includes(typeof current_price) ? Number(current_price) : -1,
+                price_change_percentage_24h_in_currency: ['number', 'string'].includes(typeof price_change_percentage_24h_in_currency) ? Number(price_change_percentage_24h_in_currency) : Number.MIN_SAFE_INTEGER,
+                price_change_percentage_7d_in_currency: ['number', 'string'].includes(typeof price_change_percentage_7d_in_currency) ? Number(price_change_percentage_7d_in_currency) : Number.MIN_SAFE_INTEGER,
+                price_change_percentage_30d_in_currency: ['number', 'string'].includes(typeof price_change_percentage_30d_in_currency) ? Number(price_change_percentage_30d_in_currency) : Number.MIN_SAFE_INTEGER,
+                roi: {
+                  ...roi,
+                  times: roi ? roi.times : atl > 0 ? (current_price - atl) / atl : null,
+                  currency: roi?.currency ? roi.currency : 'usd',
+                  percentage: roi ? roi.percentage : atl > 0 ? (current_price - atl) * 100 / atl : null,
+                  from: !roi ? 'atl' : null,
+                },
+                market_cap: ['number', 'string'].includes(typeof market_cap) ? Number(market_cap) : -1,
+                fully_diluted_valuation: ['number', 'string'].includes(typeof fully_diluted_valuation) ? Number(fully_diluted_valuation) : (current_price * (max_supply || total_supply || circulating_supply)) || -1,
+                circulating_supply: ['number', 'string'].includes(typeof circulating_supply) ? Number(circulating_supply) : -1,
+                total_volume: ['number', 'string'].includes(typeof total_volume) ? Number(total_volume) : -1,
+              }
+            }),
+            0, PAGE_SIZE,
+          )
+        )
       }
-    }
-    getData()
-    const interval = setInterval(() => getData(), 3 * 60 * 1000)
-    return () => {
-      clearInterval(interval)
-    }
-  }, [category])
+
+      getData()
+      const interval = setInterval(() => getData(), 3 * 60 * 1000)
+      return () => clearInterval(interval)
+    },
+    [category],
+  )
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-lg space-y-2 p-4">
-      <div className="flex items-center justify-between space-x-2 -mt-1">
-        <Link
-          href={`/tokens${category ? `/${category}` : ''}`}
-        >
-        <a
-          className="uppercase text-slate-600 dark:text-slate-400 text-xs font-bold"
-        >
-          {
-            title ||
-            name(category)
-          }
-        </a>
-        </Link>
-        {icon}
-      </div>
-      {data ?
-        <Datatable
-          columns={[
-            {
-              Header: '#',
-              accessor: 'market_cap_rank',
-              sortType: (a, b) => a.original.market_cap_rank > b.original.market_cap_rank ? 1 : -1,
-              Cell: props => (
-                <span className="font-mono font-semibold">
-                  {props.value < Number.MAX_SAFE_INTEGER ?
-                    number_format(props.value, '0,0') : '-'
-                  }
-                </span>
-              ),
-            },
-            {
-              Header: 'Token',
-              accessor: 'name',
-              sortType: (a, b) => a.original.name > b.original.name ? 1 : -1,
-              Cell: props => (
-                <Link
-                  href={`/token${props.row.original.id ? `/${props.row.original.id}` : 's'}`}
-                >
-                <a
-                  className="flex flex-col items-start space-y-1 mb-2"
-                >
-                  <div className="token-column flex items-center space-x-1.5">
-                    {props.row.original.image && (
-                      <Image
-                        src={props.row.original.image}
-                        alt=""
-                        width={24}
-                        height={24}
-                      />
-                    )}
-                    <span className="flex items-center space-x-1">
-                      <span className="whitespace-pre-wrap text-blue-600 dark:text-blue-400 text-xs font-bold">
-                        {props.value}
+    <Card className="card">
+      <CardBody className="space-y-3 pt-4 2xl:pt-6 pb-1 2xl:pb-2 px-4 2xl:px-6">
+        <div className="flex items-center justify-between space-x-2">
+          <Link
+            href={`/tokens${category ? `/${category}` : ''}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center"
+          >
+            <span className="whitespace-nowrap uppercase text-blue-400 dark:text-blue-500 text-base">
+              {title || getTitle(category)}
+            </span>
+          </Link>
+          {icon}
+        </div>
+        {data ?
+          <Datatable
+            columns={[
+              {
+                Header: '#',
+                accessor: 'market_cap_rank',
+                sortType: (a, b) => a.original.market_cap_rank > b.original.market_cap_rank ? 1 : -1,
+                Cell: props => {
+                  const { value } = { ...props }
+                  return (
+                    value < Number.MAX_SAFE_INTEGER ?
+                      <NumberDisplay value={value} className="text-black dark:text-white font-medium" /> :
+                      <span className="text-black dark:text-white font-medium">
+                        -
                       </span>
-                      {props.row.original.symbol && (
-                        <span className={`${props.row.original.symbol.length > 6 ? 'break-all' : ''} uppercase text-slate-400 dark:text-slate-500 text-2xs font-semibold`}>
-                          {props.row.original.symbol}
+                  )
+                },
+              },
+              {
+                Header: 'Token',
+                accessor: 'name',
+                sortType: (a, b) => a.original.name > b.original.name ? 1 : -1,
+                Cell: props => {
+                  const { value, row } = { ...props }
+                  const { id, symbol, image } = { ...row.original }
+                  return (
+                    <Link
+                      href={`/token${id ? `/${id}` : 's'}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-col mb-6"
+                    >
+                      <div className="token-column flex items-center space-x-2">
+                        {image && (
+                          <Image
+                            src={image}
+                            width={24}
+                            height={24}
+                          />
+                        )}
+                        <span className="flex items-start space-x-2">
+                          <span className="whitespace-pre-wrap text-blue-400 dark:text-blue-500 text-xs font-bold">
+                            {value}
+                          </span>
+                          {symbol && (
+                            <span className={`${symbol.length > 6 ? 'break-all' : ''} uppercase text-slate-400 dark:text-slate-500 text-xs font-semibold`}>
+                              {symbol}
+                            </span>
+                          )}
                         </span>
+                      </div>
+                    </Link>
+                  )
+                },
+              },
+              {
+                Header: 'Price',
+                accessor: 'current_price',
+                sortType: (a, b) => a.original.price_change_percentage_24h_in_currency > b.original.price_change_percentage_24h_in_currency ? 1 : -1,
+                Cell: props => {
+                  const { value, row } = { ...props }
+                  const { price_change_percentage_24h_in_currency } = { ...row.original }
+                  return (
+                    <div className="flex flex-col items-start sm:items-end text-left sm:text-right">
+                      {value > -1 && (
+                        <>
+                          <NumberDisplay
+                            value={value}
+                            format="0,0.00000000"
+                            prefix="$"
+                            noTooltip={true}
+                            className="whitespace-nowrap text-xs font-semibold"
+                          />
+                          {value > Number.MIN_SAFE_INTEGER && (
+                            <NumberDisplay
+                              value={price_change_percentage_24h_in_currency * 100}
+                              format="0,0.00"
+                              maxDecimals={2}
+                              prefix={price_change_percentage_24h_in_currency < 0 ? '' : '+'}
+                              suffix="%"
+                              noTooltip={true}
+                              className={`whitespace-nowrap ${price_change_percentage_24h_in_currency < 0 ? 'text-red-500 dark:text-red-400' : price_change_percentage_24h_in_currency > 0 ? 'text-green-500 dark:text-green-400' : 'text-slate-500 dark:text-slate-400'} text-xs font-medium`}
+                            />
+                          )}
+                        </>
                       )}
-                    </span>
-                  </div>
-                </a>
-                </Link>
-              ),
-            },
-            {
-              Header: 'Price',
-              accessor: 'current_price',
-              sortType: (a, b) => a.original.price_change_percentage_24h_in_currency > b.original.price_change_percentage_24h_in_currency ? 1 : -1,
-              Cell: props => (
-                <div className="flex flex-col items-start sm:items-end text-left sm:text-right space-y-0">
-                  <div className="flex items-center uppercase text-xs font-semibold space-x-1">
-                    <span>
-                      {currency_symbol}
-                      {props.value > -1 ? number_format(props.value, '0,0.00000000') : '-'}
-                    </span>
-                  </div>
-                  <div className={`${props.row.original.price_change_percentage_24h_in_currency < 0 ? 'text-red-600 dark:text-red-400' : props.row.original.price_change_percentage_24h_in_currency > 0 ? 'text-green-600 dark:text-green-400' : 'text-slate-600 dark:text-slate-400'} text-xs font-semibold`}>
-                    {props.row.original.price_change_percentage_24h_in_currency > Number.MIN_SAFE_INTEGER ?
-                      `${number_format(props.row.original.price_change_percentage_24h_in_currency, `+0,0.000${Math.abs(props.row.original.price_change_percentage_24h_in_currency) < 0.001 ? '000' : ''}`)}%` : '-'
-                    }
-                  </div>
-                </div>
-              ),
-              headerClassName: 'justify-start sm:justify-end text-left sm:text-right',
-            },
-            {
-              Header: 'Market Cap',
-              accessor: 'market_cap',
-              sortType: (a, b) => a.original.market_cap > b.original.market_cap ? 1 : -1,
-              Cell: props => (
-                <div className="flex flex-col items-start sm:items-end text-left sm:text-right space-y-1">
-                  <div className="flex items-center uppercase text-xs font-bold space-x-1">
-                    <span>
-                      {currency_symbol}
-                      {props.value > -1 ? number_format(props.value, '0,0') : '-'}
-                    </span>
-                  </div>
-                </div>
-              ),
-              headerClassName: 'whitespace-nowrap justify-start sm:justify-end text-left sm:text-right',
-            },
-          ]}
-          data={data}
-          noPagination={data.length <= 10}
-          defaultPageSize={per_page}
-          className="no-border striped"
-        /> :
-        <TailSpin
-          color={loader_color(theme)}
-          width="32"
-          height="32"
-        />
-      }
-    </div>
+                    </div>
+                  )
+                },
+                headerClassName: 'whitespace-nowrap justify-start sm:justify-end text-left sm:text-right',
+              },
+              {
+                Header: 'Market Cap',
+                accessor: 'market_cap',
+                sortType: (a, b) => a.original.market_cap > b.original.market_cap ? 1 : -1,
+                Cell: props => {
+                  const { value } = { ...props }
+                  return (
+                    <div className="flex flex-col items-start sm:items-end text-left sm:text-right">
+                      {value > -1 && (
+                        <NumberDisplay
+                          value={value}
+                          format="0,0"
+                          prefix="$"
+                          noTooltip={true}
+                        />
+                      )}
+                    </div>
+                  )
+                },
+                headerClassName: 'whitespace-nowrap justify-start sm:justify-end text-left sm:text-right',
+              },
+            ]}
+            data={data}
+            defaultPageSize={PAGE_SIZE}
+            noPagination={data.length <= 10}
+            className="no-border no-shadow striped"
+          /> :
+          <Spinner name="ProgressBar" width={36} height={36} />
+        }
+      </CardBody>
+    </Card>
   )
 }

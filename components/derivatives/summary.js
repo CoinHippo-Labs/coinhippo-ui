@@ -1,87 +1,96 @@
-import { useRouter } from 'next/router'
-import { useSelector, shallowEqual } from 'react-redux'
+import { Card, CardBody, CardFooter, Tooltip } from '@material-tailwind/react'
 import _ from 'lodash'
-import { TailSpin } from 'react-loader-spinner'
 
-import { currency_symbol } from '../../lib/object/currency'
-import { number_format, loader_color } from '../../lib/utils'
+import Spinner from '../spinner'
+import NumberDisplay from '../number'
+
+const METRICS = ['contracts', 'open_interest', 'volume']
 
 export default ({ data }) => {
-  const { preferences } = useSelector(state => ({ preferences: state.preferences }), shallowEqual)
-  const { theme } = { ...preferences }
+  const render = id => {
+    const valueClassName = 'text-black dark:text-white text-3xl lg:text-2xl 2xl:text-3xl font-semibold'
+    const titleClassName = 'whitespace-nowrap text-blue-400 dark:text-blue-500 text-base'
 
-  const router = useRouter()
-  const { query } = { ...router }
-  const { derivative_type } = { ...query }
+    let title
+    let loading
+    let tooltip
+    let component
 
-  const metricClassName = 'bg-white dark:bg-black border hover:border-transparent dark:border-slate-900 hover:dark:border-transparent shadow hover:shadow-lg dark:shadow-slate-400 rounded-lg space-y-0.5 py-4 px-5'
+    switch (id) {
+      case 'contracts':
+        title = 'Contracts'
+        loading = !data
+        tooltip = 'Number of derivatives contracts'
+        component = (
+          <div>
+            <NumberDisplay
+              value={data.length}
+              format="0,0"
+              className={valueClassName}
+            />
+          </div>
+        )
+        break
+      case 'open_interest':
+        title = 'Open Interest 24h'
+        loading = !data
+        tooltip = 'Total 24h open interest in USD'
+        component = (
+          <div>
+            <NumberDisplay
+              value={_.sumBy(data.filter(d => d.open_interest > 0), 'open_interest')}
+              format="0,0"
+              prefix="$"
+              noTooltip={true}
+              className={valueClassName}
+            />
+          </div>
+        )
+        break
+      case 'volume':
+        title = 'Volume 24h'
+        loading = !data
+        tooltip = 'Total 24h volume in USD'
+        component = (
+          <div>
+            <NumberDisplay
+              value={_.sumBy(data.filter(d => d.volume_24h > 0), 'volume_24h')}
+              format="0,0"
+              prefix="$"
+              noTooltip={true}
+              className={valueClassName}
+            />
+          </div>
+        )
+        break
+      default:
+        break
+    }
+
+    return (
+      <Card key={id} className="card">
+        <CardBody className="mt-0.5 pt-4 2xl:pt-6 pb-1 2xl:pb-2 px-4 2xl:px-6">
+          {!loading ?
+            tooltip ?
+              <Tooltip placement="top-start" content={tooltip}>
+                {component}
+              </Tooltip> :
+              component :
+            <Spinner name="ProgressBar" width={36} height={36} />
+          }
+        </CardBody>
+        <CardFooter className="card-footer pb-4 2xl:pb-6 px-4 2xl:px-6">
+          <span className={titleClassName}>
+            {title}
+          </span>
+        </CardFooter>
+      </Card>
+    )
+  }
 
   return (
-    <div className="w-full grid grid-flow-row grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      <div className={`${metricClassName}`}>
-        <span className="text-slate-500 dark:text-slate-300 text-base font-semibold">
-          Contracts
-        </span>
-        <div className="text-3xl font-bold">
-          {data ?
-            number_format(data.length, '0,0') :
-            <TailSpin
-              color={loader_color(theme)}
-              width="36"
-              height="36"
-            />
-          }
-        </div>
-        <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
-          Number of derivatives contracts
-        </span>
-      </div>
-      <div className={`${metricClassName}`}>
-        <span className="text-slate-500 dark:text-slate-300 text-base font-semibold">
-          Open Interest 24h
-        </span>
-        <div className="text-3xl font-bold">
-          {data ?
-            <div className="flex items-center uppercase font-semibold space-x-2">
-              <span>
-                {currency_symbol}
-                {number_format(_.sumBy(data.filter(d => d?.open_interest > 0), 'open_interest'), '0,0')}
-              </span>
-            </div> :
-            <TailSpin
-              color={loader_color(theme)}
-              width="36"
-              height="36"
-            />
-          }
-        </div>
-        <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
-          Total 24h open interest in USD
-        </span>
-      </div>
-      <div className={`${metricClassName}`}>
-        <span className="text-slate-500 dark:text-slate-300 text-base font-semibold">
-          Volume 24h
-        </span>
-        <div className="text-3xl font-bold">
-          {data ?
-            <div className="flex items-center uppercase font-semibold space-x-2">
-              <span>
-                {currency_symbol}
-                {number_format(_.sumBy(data.filter(d => d?.volume_24h > 0), 'volume_24h'), '0,0')}
-              </span>
-            </div> :
-            <TailSpin
-              color={loader_color(theme)}
-              width="36"
-              height="36"
-            />
-          }
-        </div>
-        <span className="text-slate-400 dark:text-slate-600 text-sm font-medium">
-          Total 24h volume in USD
-        </span>
-      </div>
+    <div className="grid grid-cols-3 gap-4">
+      {METRICS.map(m => render(m))}
     </div>
   )
 }

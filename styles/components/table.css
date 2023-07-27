@@ -1,14 +1,17 @@
 .table {
-  @apply w-full table-auto block md:inline-table overflow-x-scroll;
+  @apply w-full table-auto block lg:inline-table overflow-x-scroll;
   &.inline-table {
     display: inline-table;
+  }
+  &.block-table {
+    display: block;
   }
   &.no-border thead tr th,
   &.no-border tbody tr td {
     @apply border-0 border-none;
   }
   thead tr th {
-    @apply px-3 py-2 border-b text-xs leading-4 font-medium uppercase tracking-wider;
+    @apply px-3 py-2 border-b uppercase tracking-widest leading-4 text-xs font-semibold;
   }
   tbody tr td {
     @apply px-3 py-2 border-b whitespace-nowrap align-top;
@@ -39,6 +42,9 @@
 
 .table {
   @apply shadow text-left;
+  &.no-shadow {
+    @apply shadow-none
+  }
   thead tr th,
   tbody tr td {
     @apply text-left;
@@ -56,8 +62,8 @@
     thead tr th {
       @apply border-slate-200;
       @apply text-slate-500;
-      background: color(theme('colors.slate.100') tint(3%));
-      border-color: color(theme('colors.slate.100') tint(3%));
+      background: color(theme('colors.slate.50') tint(3%));
+      border-color: color(theme('colors.slate.50') tint(3%));
     }
     tbody tr td {
       border-color: color(#fff shade(6%));
@@ -75,7 +81,7 @@
 
 [data-background="dark"] {
   .table {
-    @apply shadow-slate-400;
+    @apply shadow-slate-700;
     thead tr th {
       background: color(theme('colors.black') tint(5%));
       border-color: color(theme('colors.black') tint(5%));

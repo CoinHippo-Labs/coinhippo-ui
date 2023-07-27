@@ -1,39 +1,49 @@
 import { useEffect, useRef, forwardRef } from 'react'
+import _ from 'lodash'
 import { useTable, useSortBy, usePagination, useRowSelect } from 'react-table'
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
-import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi'
+import { BiChevronDown, BiChevronUp, BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi'
 
 import { PageWithText, Pagination } from '../paginations'
+import { toArray } from '../../lib/utils'
 
-const IndeterminateCheckbox = forwardRef(({ indeterminate, ...rest }, ref) => {
-  const defaultRef = useRef()
-  const resolvedRef = ref || defaultRef
+const IndeterminateCheckbox = forwardRef(
+  ({ indeterminate, ...rest }, ref) => {
+    const defaultRef = useRef()
+    const resolvedRef = ref || defaultRef
 
-  useEffect(() => {
-    resolvedRef.current.indeterminate = indeterminate
-  }, [resolvedRef, indeterminate])
+    useEffect(
+      () => {
+        resolvedRef.current.indeterminate = indeterminate
+      },
+      [resolvedRef, indeterminate],
+    )
 
-  return (
-    <input
-      ref={resolvedRef}
-      type="checkbox"
-      { ...rest }
-      className="form-checkbox w-4 h-4"
-    />
-  )
-})
+    return (
+      <input
+        ref={resolvedRef}
+        type="checkbox"
+        { ...rest }
+        className="form-checkbox w-4 h-4"
+      />
+    )
+  }
+)
 
-export default ({
-  columns,
-  data,
-  rowSelectEnable = false,
-  defaultPageSize = 10,
-  pageSizes = [10, 25, 50, 100],
-  noPagination = false,
-  noRecordPerPage = false,
-  className = '',
-  style,
-}) => {
+export default (
+  {
+    columns,
+    size,
+    data,
+    rowSelectEnable = false,
+    defaultPageSize = 10,
+    pageSizes = [10, 25, 50, 100],
+    noPagination = false,
+    noRecordPerPage = false,
+    extra,
+    className = '',
+    style,
+  },
+) => {
   const tableRef = useRef()
   const {
     getTableProps,
@@ -50,7 +60,11 @@ export default ({
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize, selectedRowIds }
+    state: {
+      pageIndex,
+      pageSize,
+      selectedRowIds,
+    }
   } = useTable(
     {
       columns,
@@ -63,157 +77,187 @@ export default ({
     usePagination,
     useRowSelect,
     hooks => {
-      hooks.visibleColumns.push(columns => [
-        rowSelectEnable ? {
-          id: 'selection',
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <IndeterminateCheckbox { ...getToggleAllRowsSelectedProps() } />
-          ),
-          Cell: ({ row }) => (
-            <IndeterminateCheckbox { ...row.getToggleRowSelectedProps() } />
-          )
-        } : undefined,
-        ...columns
-      ].filter(c => c))
+      hooks.visibleColumns.push(
+        columns => toArray([
+          rowSelectEnable && {
+            id: 'selection',
+            Header: ({ getToggleAllRowsSelectedProps }) => <IndeterminateCheckbox { ...getToggleAllRowsSelectedProps() } />,
+            Cell: ({ row }) => <IndeterminateCheckbox { ...row.getToggleRowSelectedProps() } />,
+          },
+          ...columns,
+        ])
+      )
     }
   )
 
-  useEffect(() => {
-    if (pageIndex + 1 > pageCount) {
-      gotoPage(pageCount - 1)
-    }
-  }, [pageIndex, pageCount])
+  useEffect(
+    () => {
+      if (pageIndex + 1 > pageCount) {
+        gotoPage(pageCount - 1)
+      }
+    },
+    [pageIndex, pageCount],
+  )
 
-  const loading = data?.findIndex(item => item.skeleton) > -1 ? true : false
+  const loading = toArray(data).findIndex(d => d.skeleton) > -1
 
   return (
     <>
-      <table ref={tableRef} { ...getTableProps() } className={`table rounded-lg ${className}`} style={{ ...style }}>
+      <table
+        ref={tableRef}
+        { ...getTableProps() }
+        className={`table rounded ${className}`}
+        style={{ ...style }}
+      >
         <thead>
-          {headerGroups.map(hg => (
+          {headerGroups.map(hg =>
             <tr { ...hg.getHeaderGroupProps() }>
-              {hg.headers.map((c, i) => (
-                <th { ...c.getHeaderProps(c.getSortByToggleProps()) } className={`${c.className} ${i === 0 ? 'rounded-tl-lg' : i === hg.headers.length - 1 ? 'rounded-tr-lg' : ''}`}>
+              {hg.headers.map((c, i) =>
+                <th
+                  { ...c.getHeaderProps(c.getSortByToggleProps()) }
+                  className={`${i === 0 ? 'rounded-tl' : i === hg.headers.length - 1 ? 'rounded-tr' : ''} ${c.className || ''}`}
+                >
                   <div className={`flex flex-row items-center ${c.headerClassName?.includes('justify-') ? '' : 'justify-start'} ${c.headerClassName || ''}`}>
-                    <span>
-                      {c.render('Header')}
-                    </span>
+                    <span>{c.render('Header')}</span>
                     {c.isSorted && (
-                      <span className="ml-2">
-                        {c.isSortedDesc ?
-                          <FiChevronDown className="stroke-current text-2xs" /> :
-                          <FiChevronUp className="stroke-current text-2xs" />
-                        }
+                      <span className="ml-1.5">
+                        {c.isSortedDesc ? <BiChevronDown className="stroke-current" /> : <BiChevronUp className="stroke-current" />}
                       </span>
                     )}
                   </div>
                 </th>
-              ))}
+              )}
             </tr>
-          ))}
+          )}
         </thead>
         <tbody { ...getTableBodyProps() }>
           {(noPagination ? rows : page).map((row, i) => {
             prepareRow(row)
             return (
               <tr { ...row.getRowProps() }>
-                {row.cells.map((cell, j) => (
-                  <td { ...cell.getCellProps() } className={headerGroups[0]?.headers[j]?.className}>
+                {row.cells.map((cell, j) =>
+                  <td
+                    { ...cell.getCellProps() }
+                    className={_.head(headerGroups)?.headers[j]?.className}
+                  >
                     {cell.render('Cell')}
                   </td>
-                ))}
+                )}
               </tr>
             )
           })}
         </tbody>
       </table>
       {!noPagination && data?.length > 0 && (
-        <div className={`flex flex-col sm:flex-row items-center justify-${noRecordPerPage ? 'center' : 'between'} my-4`}>
+        <div className={`${noRecordPerPage || pageCount <= 3 ? 'grid' : 'flex flex-col'} sm:grid grid-cols-3 items-center justify-between ${size === 'small' ? 'text-xs' : 'text-sm'} gap-4 sm:my-2`}>
           {!noRecordPerPage && (
             <select
               disabled={loading}
               value={pageSize}
-              onChange={event => setPageSize(Number(event.target.value))}
-              className="form-select dark:bg-slate-900 outline-none border-slate-200 dark:border-slate-900 appearance-none shadow-none focus:shadow-none rounded-lg text-xs p-2 pl-3.5"
+              onChange={e => setPageSize(Number(e.target.value))}
+              className={`${size === 'small' ? 'w-fit py-0.5 px-1' : 'w-20 py-1 px-1.5'} form-select bg-slate-50 hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 outline-none border-zinc-100 dark:border-zinc-900 appearance-none shadow rounded cursor-pointer font-medium text-center`}
             >
-              {pageSizes.map((s, i) => (
-                <option key={i} value={s}>
+              {pageSizes.map((s, i) =>
+                <option
+                  key={i}
+                  value={s}
+                  className="text-xs font-medium"
+                >
                   Show {s}
                 </option>
-              ))}
+              )}
             </select>
           )}
-          {pageCount > 1 && pageCount <= 4 && (
-            <span className="my-2 sm:my-0 mx-4">
-              Page <span className="font-bold">{pageIndex + 1}</span> of <span className="font-bold">{pageOptions.length}</span>
-            </span>
+          {pageCount > 1 && pageCount <= 1 && (
+            <div className="space-x-1 my-2.5 sm:my-0 mx-auto">
+              <span>Page</span>
+              <span className="font-bold">
+                {pageIndex + 1}
+              </span>
+              <span>of</span>
+              <span className="font-bold">
+                {pageOptions.length}
+              </span>
+            </div>
           )}
-          <div className="pagination flex flex-wrap items-center justify-end space-x-2">
-            {pageCount > 4 ?
-              <div className="flex flex-col sm:flex-row items-center justify-center mt-2 sm:mt-0">
+          <div className="pagination flex flex-wrap items-center justify-center space-x-2">
+            {pageCount > 1 ?
+              <div className="flex flex-col sm:flex-row items-center justify-center my-3 sm:my-0">
                 <Pagination
+                  size={size}
                   items={[...Array(pageCount).keys()]}
                   disabled={loading}
                   active={pageIndex + 1}
-                  previous={noRecordPerPage ? <BiLeftArrowAlt size={16} /> : 'Previous'}
-                  next={noRecordPerPage ? <BiRightArrowAlt size={16} /> : 'Next'}
-                  onClick={p => {
-                    gotoPage(p - 1)
-                    tableRef.current.scrollIntoView() 
-                  }}
-                  icons={noRecordPerPage ? true : false}
-                  className={noRecordPerPage ? 'space-x-0.5' : ''}
+                  previous={<BiLeftArrowAlt size={16} />}
+                  next={<BiRightArrowAlt size={16} />}
+                  onClick={p => gotoPage(p - 1)}
+                  icons={true}
+                  className="space-x-0.5"
                 />
-              </div>
-              :
+              </div> :
               <>
                 {pageIndex !== 0 && (
                   <PageWithText
+                    size={size}
                     disabled={loading}
-                    onClick={() => {
-                      gotoPage(0)
-                      tableRef.current.scrollIntoView() 
-                    }}
+                    onClick={
+                      () => {
+                        gotoPage(0)
+                        tableRef.current.scrollIntoView()
+                      }
+                    }
                   >
-                    First
+                    <span className={`${size === 'small' ? 'text-2xs' : ''}`}>
+                      First
+                    </span>
                   </PageWithText>
                 )}
                 {canPreviousPage && (
                   <PageWithText
+                    size={size}
                     disabled={loading}
-                    onClick={() => {
-                      previousPage()
-                      tableRef.current.scrollIntoView() 
-                    }}
+                    onClick={() => previousPage()}
                   >
-                    Previous
+                    <span className={`${size === 'small' ? 'text-2xs' : ''}`}>
+                      Prev
+                    </span>
                   </PageWithText>
                 )}
                 {canNextPage && (
                   <PageWithText
+                    size={size}
                     disabled={!canNextPage || loading}
-                    onClick={() => {
-                      nextPage()
-                      tableRef.current.scrollIntoView() 
-                    }}
+                    onClick={() => nextPage()}
                   >
-                    Next
+                    <span className={`${size === 'small' ? 'text-2xs' : ''}`}>
+                      Next
+                    </span>
                   </PageWithText>
                 )}
                 {pageIndex !== pageCount - 1 && (
                   <PageWithText
+                    size={size}
                     disabled={!canNextPage || loading}
-                    onClick={() => {
-                      gotoPage(pageCount - 1)
-                      tableRef.current.scrollIntoView() 
-                    }}
+                    onClick={
+                      () => {
+                        gotoPage(pageCount - 1)
+                        tableRef.current.scrollIntoView()
+                      }
+                    }
                   >
-                    Last
+                    <span className={`${size === 'small' ? 'text-2xs' : ''}`}>
+                      Last
+                    </span>
                   </PageWithText>
                 )}
               </>
             }
           </div>
+          {extra && (
+            <div className={`flex flex-col sm:flex-row items-center ${pageCount <= 3 ? 'justify-end' : ''} sm:justify-end sm:space-x-2`}>
+              {extra}
+            </div>
+          )}
         </div>
       )}
     </>

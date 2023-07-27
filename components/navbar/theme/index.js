@@ -1,5 +1,5 @@
 import { useSelector, useDispatch, shallowEqual } from 'react-redux'
-import { FiMoon, FiSun } from 'react-icons/fi'
+import { RiMoonLine, RiSunLine } from 'react-icons/ri'
 
 import { THEME } from '../../../reducers/types'
 
@@ -10,16 +10,14 @@ export default () => {
 
   return (
     <button
-      onClick={() => {
-        dispatch({
-          type: THEME,
-          value: theme === 'light' ? 'dark' : 'light',
-        })
-      }}
-      className="w-10 sm:w-12 h-16 btn-transparent flex items-center justify-center pl-1 pr-3"
+      onClick={() => dispatch({ type: THEME, value: theme === 'light' ? 'dark' : 'light' })}
+      className="w-8 3xl:w-10 h-16 3xl:h-20 flex items-center justify-center sm:mr-1"
     >
       <div className="w-6 h-6 flex items-center justify-center">
-        {theme === 'light' ? <FiMoon size={16} /> : <FiSun size={16} />}
+        {theme === 'light' ?
+          <RiMoonLine size={20} className="3xl:w-6 3xl:h-6 text-yellow-500" /> :
+          <RiSunLine size={20} className="3xl:w-6 3xl:h-6 text-red-500" />
+        }
       </div>
     </button>
   )
