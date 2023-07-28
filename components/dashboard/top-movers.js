@@ -67,7 +67,7 @@ export default () => {
           {direction === 'desc' ? <IoTrendingUp size={20} className="text-slate-500 dark:text-slate-400" /> : <IoTrendingDown size={20} className="text-slate-500 dark:text-slate-400" />}
         </div>
         {data ?
-          _.slice(_.orderBy(data, ['price_change_percentage_24h_in_currency'], [direction]), 0, n).map((d, i) => {
+          _.slice(_.orderBy(data.filter(d => typeof d.price_change_percentage_24h_in_currency === 'number'), ['price_change_percentage_24h_in_currency'], [direction]), 0, n).map((d, i) => {
             const { id, name, symbol, image, current_price, price_change_percentage_24h_in_currency, market_cap_rank, market_cap } = { ...d }
             const textColor = price_change_percentage_24h_in_currency < 0 ? 'text-red-500 dark:text-red-400' : price_change_percentage_24h_in_currency > 0 ? 'text-green-500 dark:text-green-400' : 'text-slate-500 dark:text-slate-400'
             return (
