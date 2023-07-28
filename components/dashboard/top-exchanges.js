@@ -130,11 +130,12 @@ export default ({ exchange_type, title, icon }) => {
                       {value > -1 && (
                         <>
                           <NumberDisplay
-                            value={value * (rates_data ? rates_data.btc?.value / rates_data.usd?.value : 1)}
+                            value={value * (rates_data ? rates_data.usd?.value / rates_data.btc?.value : 1)}
                             format="0,0"
                             prefix={rates_data && '$'}
                             suffix={!rates_data ? ' BTC' : ''}
                             noTooltip={true}
+                            className="whitespace-nowrap text-black dark:text-white font-semibold"
                           />
                           {rates_data && (
                             <NumberDisplay

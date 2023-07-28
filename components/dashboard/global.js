@@ -111,9 +111,9 @@ export default ({ bitcoin }) => {
                 prefix={change < 0 ? '' : '+'}
                 suffix="%"
                 noTooltip={true}
-                className={`${valueClassName} ${textColor}`}
+                className={`${valueClassName} ${textColor} text-xs`}
               />
-              {change !== 0 && (change < 0 ? <FiArrowDown size={16} /> : <FiArrowUp size={16} />)}
+              {change !== 0 && (change < 0 ? <FiArrowDown size={14} /> : <FiArrowUp size={14} />)}
             </div>
           </div>
         )

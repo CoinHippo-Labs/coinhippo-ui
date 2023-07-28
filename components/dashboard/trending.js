@@ -94,7 +94,7 @@ export default () => {
                       />
                     )}
                     <div className="flex items-center space-x-1.5">
-                      <span className="font-bold">
+                      <span className="text-black dark:text-white font-bold">
                         {ellipse(name, 8)}
                       </span>
                       <span className="uppercase text-slate-400 dark:text-slate-500 font-medium">

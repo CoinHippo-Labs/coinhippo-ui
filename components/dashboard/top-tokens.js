@@ -142,11 +142,11 @@ export default ({ category, title, icon }) => {
                             format="0,0.00000000"
                             prefix="$"
                             noTooltip={true}
-                            className="whitespace-nowrap text-xs font-semibold"
+                            className="whitespace-nowrap text-black dark:text-white text-xs font-semibold"
                           />
                           {value > Number.MIN_SAFE_INTEGER && (
                             <NumberDisplay
-                              value={price_change_percentage_24h_in_currency * 100}
+                              value={price_change_percentage_24h_in_currency}
                               format="0,0.00"
                               maxDecimals={2}
                               prefix={price_change_percentage_24h_in_currency < 0 ? '' : '+'}
@@ -176,6 +176,7 @@ export default ({ category, title, icon }) => {
                           format="0,0"
                           prefix="$"
                           noTooltip={true}
+                          className="whitespace-nowrap text-black dark:text-white text-xs font-semibold"
                         />
                       )}
                     </div>

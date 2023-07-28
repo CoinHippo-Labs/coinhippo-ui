@@ -114,7 +114,7 @@ export default ({ data, tickers }) => {
         component = (
           <div>
             <NumberDisplay
-              value={open_interest_btc * (rates_data ? rates_data.btc?.value / rates_data.usd?.value : 1)}
+              value={open_interest_btc * (rates_data ? rates_data.usd?.value / rates_data.btc?.value : 1)}
               format="0,0"
               prefix={rates_data && '$'}
               suffix={!rates_data ? ' BTC' : ''}
@@ -131,7 +131,7 @@ export default ({ data, tickers }) => {
         component = (
           <div>
             <NumberDisplay
-              value={trade_volume_24h_btc * (rates_data ? rates_data.btc?.value / rates_data.usd?.value : 1)}
+              value={trade_volume_24h_btc * (rates_data ? rates_data.usd?.value / rates_data.btc?.value : 1)}
               format="0,0"
               prefix={rates_data && '$'}
               suffix={!rates_data ? ' BTC' : ''}

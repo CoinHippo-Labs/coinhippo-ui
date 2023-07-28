@@ -57,7 +57,7 @@ export default () => {
                 <button
                   key={i}
                   onClick={() => setDirection(d.direction)}
-                  className={`btn btn-raised btn-sm btn-rounded min-w-max ${d.direction === direction ? 'bg-slate-100 dark:bg-slate-800' : 'bg-transparent hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-200'} text-xs font-medium ${i < DIRECTIONS.length - 1 ? 'mr-1.5' : 'mr-0'}`}
+                  className={`btn btn-raised btn-sm btn-rounded min-w-max ${d.direction === direction ? 'bg-slate-100 dark:bg-slate-800 text-black dark:text-white' : 'bg-transparent hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-200'} text-xs font-medium ${i < DIRECTIONS.length - 1 ? 'mr-1.5' : 'mr-0'}`}
                 >
                   {d.title}
                 </button>
@@ -87,7 +87,7 @@ export default () => {
                       />
                     )}
                     <div className="flex items-center space-x-1.5">
-                      <span className="font-bold">
+                      <span className="text-black dark:text-white font-bold">
                         {ellipse(name, 8)}
                       </span>
                       <span className="uppercase text-slate-400 dark:text-slate-500 font-medium">

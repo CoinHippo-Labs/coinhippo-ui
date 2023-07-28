@@ -224,7 +224,7 @@ export default () => {
                     <div className="flex flex-col items-start sm:items-end text-left sm:text-right">
                       {value > Number.MIN_SAFE_INTEGER && (
                         <NumberDisplay
-                          value={value * 100}
+                          value={value}
                           format="0,0.00"
                           maxDecimals={2}
                           prefix={value < 0 ? '' : '+'}
@@ -248,7 +248,7 @@ export default () => {
                     <div className="flex flex-col items-start sm:items-end text-left sm:text-right">
                       {value > Number.MIN_SAFE_INTEGER && (
                         <NumberDisplay
-                          value={value * 100}
+                          value={value}
                           format="0,0.00"
                           maxDecimals={2}
                           prefix={value < 0 ? '' : '+'}
@@ -272,7 +272,7 @@ export default () => {
                     <div className="flex flex-col items-start sm:items-end text-left sm:text-right">
                       {value > Number.MIN_SAFE_INTEGER && (
                         <NumberDisplay
-                          value={value * 100}
+                          value={value}
                           format="0,0.00"
                           maxDecimals={2}
                           prefix={value < 0 ? '' : '+'}
@@ -360,7 +360,7 @@ export default () => {
                     <div className="flex flex-col items-start sm:items-end text-left sm:text-right">
                       {value > Number.MIN_SAFE_INTEGER && (
                         <NumberDisplay
-                          value={value * 100}
+                          value={value}
                           format="0,0.00"
                           maxDecimals={2}
                           prefix={value < 0 ? '' : '+'}

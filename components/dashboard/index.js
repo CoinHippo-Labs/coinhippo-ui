@@ -139,7 +139,7 @@ export default () => {
           <TopTokens
             category={ecosystem}
             title={
-              <span className="text-xs font-semibold">
+              <span className="whitespace-nowrap uppercase text-blue-400 dark:text-blue-500 text-base">
                 {ecosystems.find(d => d.id === ecosystem)?.title}
               </span>
             }

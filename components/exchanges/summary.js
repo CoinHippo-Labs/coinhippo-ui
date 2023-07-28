@@ -48,7 +48,7 @@ export default ({ data }) => {
         component = (
           <div>
             <NumberDisplay
-              value={_.sumBy(toArray(data).filter(d => d.open_interest_btc > 0), 'open_interest_btc') * (rates_data ? rates_data.btc?.value / rates_data.usd?.value : 1)}
+              value={_.sumBy(toArray(data).filter(d => d.open_interest_btc > 0), 'open_interest_btc') * (rates_data ? rates_data.usd?.value / rates_data.btc?.value : 1)}
               format="0,0"
               prefix={rates_data && '$'}
               suffix={!rates_data ? ' BTC' : ''}
@@ -81,7 +81,7 @@ export default ({ data }) => {
         component = (
           <div>
             <NumberDisplay
-              value={_.sumBy(toArray(data).filter(d => d.trade_volume_24h_btc > 0), 'trade_volume_24h_btc') * (rates_data ? rates_data.btc?.value / rates_data.usd?.value : 1)}
+              value={_.sumBy(toArray(data).filter(d => d.trade_volume_24h_btc > 0), 'trade_volume_24h_btc') * (rates_data ? rates_data.usd?.value / rates_data.btc?.value : 1)}
               format="0,0"
               prefix={rates_data && '$'}
               suffix={!rates_data ? ' BTC' : ''}
