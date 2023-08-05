@@ -79,9 +79,4 @@ export default toArray([
     path: '/exchanges/derivatives',
     group: 'exchanges',
   },
-  {
-    title: 'Widgets',
-    path: '/widgets',
-    group: 'resources',
-  },
 ])

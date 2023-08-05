@@ -236,7 +236,7 @@ export default () => {
                     <div className="flex flex-col items-end my-1 ml-0 sm:ml-4 pr-1">
                       <div className="max-w-screen-sm hidden sm:flex flex-wrap items-center justify-end my-1 ml-0 sm:ml-auto">
                         {toArray(_.concat(categories, hashing_algorithm)).map((d, i) => (
-                          <div key={i} className="ml-0 sm:ml-1 mr-1 sm:mr-0">
+                          <div key={i} className="mb-1 ml-0 sm:ml-1 mr-1 sm:mr-0">
                             <Chip
                               color="teal"
                               value={d}
@@ -417,10 +417,10 @@ export default () => {
                                       rel="noopener noreferrer"
                                       className="text-blue-400 dark:text-blue-500 font-bold"
                                     >
-                                      {value}
+                                      {ellipse(value, 16)}
                                     </a> :
                                     <span className="font-semibold">
-                                      {value}
+                                      {ellipse(value, 16)}
                                     </span>
                                   }
                                   {token_info_url && (

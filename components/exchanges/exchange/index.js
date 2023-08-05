@@ -242,10 +242,10 @@ export default () => {
                               rel="noopener noreferrer"
                               className="text-blue-400 dark:text-blue-500 font-bold"
                             >
-                              {value}
+                              {ellipse(value, 16)}
                             </a> :
                             <span className="font-semibold">
-                              {value}
+                              {ellipse(value, 16)}
                             </span>
                           }
                           {token_info_url && (
