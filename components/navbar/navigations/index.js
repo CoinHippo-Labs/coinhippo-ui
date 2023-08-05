@@ -99,7 +99,7 @@ export default () => {
               </div>
             </Link>
         )
-        if (highlight) {
+        if (highlight && !selected) {
           component = (
             <Swing key={i} duration={1500} forever>
               {component}
