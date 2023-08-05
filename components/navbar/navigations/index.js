@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { Menu, MenuHandler, MenuList } from '@material-tailwind/react'
+import Swing from 'react-reveal/Swing'
 
 import routes from './routes'
 import { toArray, getTitle } from '../../../lib/utils'
@@ -66,19 +67,22 @@ export default () => {
 
   return (
     <div className="hidden xl:flex items-center xl:space-x-6 mx-auto">
-      {routes.map((r, i) => {
-        const { disabled, title, path, others_paths, group } = { ...r }
-        const is_group = group && i === routes.findIndex(r => r.group === group)
+      {routes.map((d, i) => {
+        const { disabled, title, path, others_paths, icon, group, highlight } = { ...d }
+        const is_group = group && i === routes.findIndex(d => d.group === group)
         const external = !path?.startsWith('/')
-        const items = routes.filter(r => r.group === group)
-        const selected = (!external && (pathname === path || toArray(others_paths).includes(pathname))) || (is_group && items.findIndex(r => pathname === r.path || toArray(r.others_paths).includes(pathname)) > -1)
+        const items = routes.filter(d => d.group === group)
+        const selected = (!external && (pathname === path || toArray(others_paths).includes(pathname))) || (is_group && items.findIndex(d => pathname === d.path || toArray(d.others_paths).includes(pathname)) > -1)
         const item = (
-          <span className="whitespace-nowrap tracking-wider">
-            {title}
-          </span>
+          <>
+            {icon}
+            <span className="whitespace-nowrap tracking-wider">
+              {title}
+            </span>
+          </>
         )
-        const className = `${disabled ? 'cursor-not-allowed' : 'cursor-pointer'} flex items-center uppercase ${selected ? 'text-blue-600 dark:text-white text-sm font-extrabold' : 'text-slate-700 hover:text-blue-400 dark:text-slate-200 dark:hover:text-slate-100 text-sm font-medium'} space-x-1.5`
-        const component = (
+        const className = `${disabled ? 'cursor-not-allowed' : 'cursor-pointer'} flex items-center uppercase ${selected ? 'text-blue-600 dark:text-white text-sm font-extrabold' : 'text-slate-700 hover:text-blue-400 dark:text-slate-200 dark:hover:text-slate-100 text-sm font-medium'} space-x-2`
+        let component = (
           external ?
             <a
               key={i}
@@ -95,6 +99,13 @@ export default () => {
               </div>
             </Link>
         )
+        if (highlight) {
+          component = (
+            <Swing key={i} duration={1500} forever>
+              {component}
+            </Swing>
+          )
+        }
         return (!group || is_group) && (
           is_group ?
             <Group

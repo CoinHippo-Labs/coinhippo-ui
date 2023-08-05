@@ -44,7 +44,7 @@ export default () => {
         </div>
       </div>
       {toArray(tokens).length > 0 && (
-        <div className="p-3">
+        <div className="pb-3 px-3">
           <MargueeTokens data={tokens} />
         </div>
       )}

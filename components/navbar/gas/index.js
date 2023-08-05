@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useSelector, shallowEqual } from 'react-redux'
-import { formatUnits } from 'ethers'
+import { utils } from 'ethers'
+const { formatUnits } = { ...utils }
 import { MdLocalGasStation } from 'react-icons/md'
 
 import { ProgressBar } from '../../progress-bars'

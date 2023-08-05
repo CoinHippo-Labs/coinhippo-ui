@@ -253,3 +253,7 @@ input[type=number] {
 .text-kakao {
   color: #fadd08;
 }
+
+#squid-widget {
+  @apply flex justify-center;
+}

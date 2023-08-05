@@ -5,4 +5,5 @@ module.exports = {
   experimental: {
     appDir: false,
   },
+  transpilePackages: ['@0xsquid/widget'],
 }
