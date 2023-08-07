@@ -73,7 +73,7 @@
         @apply bg-white;
       }
       tbody tr:nth-child(even) td {
-        background: color(theme('colors.slate.100') tint(3%));
+        background: color(theme('colors.slate.50') tint(3%));
       }
     }
   }
@@ -96,8 +96,8 @@
         border-color: color(theme('colors.black') tint(3%));
       }
       tbody tr:nth-child(even) td {
-        background: color(theme('colors.black') tint(5%));
-        border-color: color(theme('colors.black') tint(5%));
+        background: color(theme('colors.slate.900') tint(3%));
+        border-color: color(theme('colors.slate.900') tint(3%));
       }
     }
   }

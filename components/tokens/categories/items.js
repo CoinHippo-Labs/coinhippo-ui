@@ -12,7 +12,7 @@ export default ({ inputSearch = '', onClick }) => {
   const { categories } = { ...cryptos_data }
   const data = _.slice(
     _.orderBy(
-      toArray(categories).filter(d => inputSearch)
+      toArray(categories)
         .map(d => { return { ...d, scores: ['name', 'id'].map(f => typeof d[f] === 'string' && d[f].toLowerCase().includes(inputSearch.toLowerCase()) ? inputSearch.length > 1 ? inputSearch.length / d[f].length : .5 : -1) } })
         .map(d => {
           const { scores } = { ...d }

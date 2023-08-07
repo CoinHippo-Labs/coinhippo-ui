@@ -48,7 +48,7 @@ export default ({ data }) => {
         icon = <FaRegGrinSquint size={36} />
       }
       else {
-        color = 'yellow-600'
+        color = 'yellow-500'
         icon = <FaRegGrinBeamSweat size={36} />
       }
     }

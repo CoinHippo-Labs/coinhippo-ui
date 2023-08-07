@@ -57,9 +57,9 @@ export default () => {
         />
         <div
           ref={dropdownRef} 
-          className={`dropdown ${hidden ? '' : 'open'} absolute top-0 left-0 mt-12`}
+          className={`dropdown ${hidden ? '' : 'open'} absolute top-0 left-0 mt-8`}
         >
-          <div className="dropdown-content w-80 bottom-start">
+          <div className="dropdown-content bottom-start">
             <Items inputSearch={inputSearch} onClick={onSelect} />
           </div>
         </div>
