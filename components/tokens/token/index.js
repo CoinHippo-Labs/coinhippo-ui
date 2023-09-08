@@ -12,8 +12,8 @@ import { IoInformationCircleSharp } from 'react-icons/io5'
 import { HiShieldCheck, HiShieldExclamation } from 'react-icons/hi'
 import { BsArrowRightShort } from 'react-icons/bs'
 
-import SelectExchange from './select/exchange'
-import Summary from './summary'
+// import SelectExchange from './select/exchange'
+// import Summary from './summary'
 import History from './history'
 import WhatIs from './what-is'
 import Spinner from '../../spinner'
@@ -270,7 +270,7 @@ export default () => {
                             </a>
                           )
                         })}
-                        <SelectExchange data={_.slice(trades(data, coins, _tickers), 3)} />
+                        {/*<SelectExchange data={_.slice(trades(data, coins, _tickers), 3)} />*/}
                       </div>
                     </div>
                   )}
@@ -333,7 +333,7 @@ export default () => {
                 />
               </div>
             </div>
-            <Summary data={data} />
+            {/*<Summary data={data} />*/}
             {!is_widget && (
               <>
                 <History data={data} />
