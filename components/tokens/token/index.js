@@ -14,8 +14,8 @@ import { BsArrowRightShort } from 'react-icons/bs'
 
 // import SelectExchange from './select/exchange'
 // import Summary from './summary'
-import History from './history'
-import WhatIs from './what-is'
+// import History from './history'
+// import WhatIs from './what-is'
 import Spinner from '../../spinner'
 import Image from '../../image'
 import NumberDisplay from '../../number'
@@ -336,9 +336,9 @@ export default () => {
             {/*<Summary data={data} />*/}
             {!is_widget && (
               <>
-                <History data={data} />
+                {/*<History data={data} />*/}
                 <div className="flex flex-col xl:flex-row xl:justify-between space-y-8 xl:space-y-0 xl:space-x-8">
-                  <WhatIs data={data} />
+                  {/*<WhatIs data={data} />*/}
                   <div className="space-y-2">
                     <div className="text-base font-bold">
                       {name} Chart
