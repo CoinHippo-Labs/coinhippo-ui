@@ -1,7 +1,6 @@
 import { useSelector, shallowEqual } from 'react-redux'
 import moment from 'moment'
-import { FaHeart } from 'react-icons/fa'
-import { FaXTwitter } from 'react-icons/fa6'
+import { FaTwitter, FaHeart } from 'react-icons/fa'
 import { BsTelegram, BsGithub } from 'react-icons/bs'
 
 import Image from '../image'
@@ -33,7 +32,7 @@ export default () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaXTwitter size={20} className="text-black dark:text-white" />
+            <FaTwitter size={20} className="text-black dark:text-white" />
           </a>
         )}
         {process.env.NEXT_PUBLIC_TELEGRAM_USERNAME && (
