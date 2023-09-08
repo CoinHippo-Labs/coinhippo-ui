@@ -9,8 +9,8 @@ import { AdvancedRealTimeChart } from 'react-ts-tradingview-widgets'
 import { FiArrowUp, FiArrowDown } from 'react-icons/fi'
 import { MdArrowDropUp } from 'react-icons/md'
 import { IoInformationCircleSharp } from 'react-icons/io5'
-import { HiShieldCheck, HiShieldExclamation } from 'react-icons/hi'
-import { BsArrowRightShort } from 'react-icons/bs'
+// import { HiShieldCheck, HiShieldExclamation } from 'react-icons/hi'
+// import { BsArrowRightShort } from 'react-icons/bs'
 
 // import SelectExchange from './select/exchange'
 // import Summary from './summary'
@@ -432,7 +432,7 @@ export default () => {
                                       <IoInformationCircleSharp size={18} className="text-slate-400 dark:text-slate-500 mb-0.5" />
                                     </a>
                                   )}
-                                  {trust_score > -1 && (!trust_score ? <HiShieldExclamation size={18} className="text-red-400 dark:text-red5600 mb-0.5" /> : <HiShieldCheck size={18} className={`${trust_score === 1 ? 'text-green-400 dark:text-green-500' : 'text-yellow-400 dark:text-yellow-500'} mb-0.5`} />)}
+                                  {/*trust_score > -1 && (!trust_score ? <HiShieldExclamation size={18} className="text-red-400 dark:text-red5600 mb-0.5" /> : <HiShieldCheck size={18} className={`${trust_score === 1 ? 'text-green-400 dark:text-green-500' : 'text-yellow-400 dark:text-yellow-500'} mb-0.5`} />)*/}
                                 </div>
                                 {base?.toLowerCase().startsWith('0x') && (
                                   <Copy
@@ -626,7 +626,7 @@ export default () => {
                                 <span className="font-medium">
                                   Load more
                                 </span>
-                                <BsArrowRightShort size={18} />
+                                {/*<BsArrowRightShort size={18} />*/}
                               </button> :
                               <Spinner name="ProgressBar" width={32} height={32} />
                             }
