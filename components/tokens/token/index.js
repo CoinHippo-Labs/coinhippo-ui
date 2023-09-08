@@ -5,17 +5,17 @@ import { useState, useEffect } from 'react'
 import { useSelector, shallowEqual } from 'react-redux'
 import { Chip } from '@material-tailwind/react'
 import _ from 'lodash'
-// import { AdvancedRealTimeChart } from 'react-ts-tradingview-widgets'
-// import { FiArrowUp, FiArrowDown } from 'react-icons/fi'
-// import { MdArrowDropUp } from 'react-icons/md'
-// import { IoInformationCircleSharp } from 'react-icons/io5'
-// import { HiShieldCheck, HiShieldExclamation } from 'react-icons/hi'
-// import { BsArrowRightShort } from 'react-icons/bs'
+import { AdvancedRealTimeChart } from 'react-ts-tradingview-widgets'
+import { FiArrowUp, FiArrowDown } from 'react-icons/fi'
+import { MdArrowDropUp } from 'react-icons/md'
+import { IoInformationCircleSharp } from 'react-icons/io5'
+import { HiShieldCheck, HiShieldExclamation } from 'react-icons/hi'
+import { BsArrowRightShort } from 'react-icons/bs'
 
-// import SelectExchange from './select/exchange'
-// import Summary from './summary'
-// import History from './history'
-// import WhatIs from './what-is'
+import SelectExchange from './select/exchange'
+import Summary from './summary'
+import History from './history'
+import WhatIs from './what-is'
 import Spinner from '../../spinner'
 import Image from '../../image'
 import NumberDisplay from '../../number'
@@ -270,7 +270,7 @@ export default () => {
                             </a>
                           )
                         })}
-                        {/*<SelectExchange data={_.slice(trades(data, coins, _tickers), 3)} />*/}
+                        <SelectExchange data={_.slice(trades(data, coins, _tickers), 3)} />
                       </div>
                     </div>
                   )}
@@ -297,7 +297,7 @@ export default () => {
                           suffix="%"
                           className="whitespace-nowrap text-sm font-medium"
                         />
-                        {/*price_change_percentage_24h_in_currency.usd < 0 ? <FiArrowDown size={14} className="ml-0.5 mb-0.5" /> : price_change_percentage_24h_in_currency.usd > 0 ? <FiArrowUp size={14} className="ml-0.5 mb-0.5" /> : null*/}
+                        {price_change_percentage_24h_in_currency.usd < 0 ? <FiArrowDown size={14} className="ml-0.5 mb-0.5" /> : price_change_percentage_24h_in_currency.usd > 0 ? <FiArrowUp size={14} className="ml-0.5 mb-0.5" /> : null}
                       </span>
                     )}
                   </>
@@ -314,7 +314,7 @@ export default () => {
                 <ProgressBarWithText
                   width={percentage}
                   color="bg-slate-200 dark:bg-slate-600 rounded-lg"
-                  text={false && percentage > 0 && (
+                  text={percentage > 0 && (
                     <MdArrowDropUp
                       size={24}
                       className="text-slate-200 dark:text-slate-600 mt-0.5 ml-auto"
@@ -333,24 +333,24 @@ export default () => {
                 />
               </div>
             </div>
-            {/*<Summary data={data} />*/}
+            <Summary data={data} />
             {!is_widget && (
               <>
-                {/*<History data={data} />*/}
+                <History data={data} />
                 <div className="flex flex-col xl:flex-row xl:justify-between space-y-8 xl:space-y-0 xl:space-x-8">
-                  {/*<WhatIs data={data} />*/}
+                  <WhatIs data={data} />
                   <div className="space-y-2">
                     <div className="text-base font-bold">
                       {name} Chart
                     </div>
                     <div id="tv" className="overflow-x-auto">
-                      {/*<AdvancedRealTimeChart
+                      <AdvancedRealTimeChart
                         symbol={`${symbol ? symbol : 'btc'}usd`.toUpperCase()}
                         interval="D"
                         container_id="tv"
                         height={560}
                         theme={theme}
-                      />*/}
+                      />
                     </div>
                   </div>
                 </div>
@@ -423,7 +423,7 @@ export default () => {
                                       {ellipse(value, 16)}
                                     </span>
                                   }
-                                  {/*token_info_url && (
+                                  {token_info_url && (
                                     <a
                                       href={token_info_url}
                                       target="_blank"
@@ -431,8 +431,8 @@ export default () => {
                                     >
                                       <IoInformationCircleSharp size={18} className="text-slate-400 dark:text-slate-500 mb-0.5" />
                                     </a>
-                                  )*/}
-                                  {/*trust_score > -1 && (!trust_score ? <HiShieldExclamation size={18} className="text-red-400 dark:text-red5600 mb-0.5" /> : <HiShieldCheck size={18} className={`${trust_score === 1 ? 'text-green-400 dark:text-green-500' : 'text-yellow-400 dark:text-yellow-500'} mb-0.5`} />)*/}
+                                  )}
+                                  {trust_score > -1 && (!trust_score ? <HiShieldExclamation size={18} className="text-red-400 dark:text-red5600 mb-0.5" /> : <HiShieldCheck size={18} className={`${trust_score === 1 ? 'text-green-400 dark:text-green-500' : 'text-yellow-400 dark:text-yellow-500'} mb-0.5`} />)}
                                 </div>
                                 {base?.toLowerCase().startsWith('0x') && (
                                   <Copy
@@ -626,7 +626,7 @@ export default () => {
                                 <span className="font-medium">
                                   Load more
                                 </span>
-                                {/*<BsArrowRightShort size={18} />*/}
+                                <BsArrowRightShort size={18} />
                               </button> :
                               <Spinner name="ProgressBar" width={32} height={32} />
                             }
