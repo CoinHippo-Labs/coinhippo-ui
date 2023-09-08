@@ -6,9 +6,9 @@ import { useSelector, shallowEqual } from 'react-redux'
 import { Chip } from '@material-tailwind/react'
 import _ from 'lodash'
 import { AdvancedRealTimeChart } from 'react-ts-tradingview-widgets'
-import { FiArrowUp, FiArrowDown } from 'react-icons/fi'
-import { MdArrowDropUp } from 'react-icons/md'
-import { IoInformationCircleSharp } from 'react-icons/io5'
+// import { FiArrowUp, FiArrowDown } from 'react-icons/fi'
+// import { MdArrowDropUp } from 'react-icons/md'
+// import { IoInformationCircleSharp } from 'react-icons/io5'
 // import { HiShieldCheck, HiShieldExclamation } from 'react-icons/hi'
 // import { BsArrowRightShort } from 'react-icons/bs'
 
@@ -297,7 +297,7 @@ export default () => {
                           suffix="%"
                           className="whitespace-nowrap text-sm font-medium"
                         />
-                        {price_change_percentage_24h_in_currency.usd < 0 ? <FiArrowDown size={14} className="ml-0.5 mb-0.5" /> : price_change_percentage_24h_in_currency.usd > 0 ? <FiArrowUp size={14} className="ml-0.5 mb-0.5" /> : null}
+                        {/*price_change_percentage_24h_in_currency.usd < 0 ? <FiArrowDown size={14} className="ml-0.5 mb-0.5" /> : price_change_percentage_24h_in_currency.usd > 0 ? <FiArrowUp size={14} className="ml-0.5 mb-0.5" /> : null*/}
                       </span>
                     )}
                   </>
@@ -314,13 +314,13 @@ export default () => {
                 <ProgressBarWithText
                   width={percentage}
                   color="bg-slate-200 dark:bg-slate-600 rounded-lg"
-                  text={percentage > 0 && (
+                  text={/*percentage > 0 && (
                     <MdArrowDropUp
                       size={24}
                       className="text-slate-200 dark:text-slate-600 mt-0.5 ml-auto"
                       style={percentage <= 5 ? { marginLeft: '-.5rem' } : { marginRight: '-.5rem' }}
                     />
-                  )}
+                  )*/}
                   className="h-2 rounded-lg"
                   backgroundClassName="h-2 bg-slate-100 dark:bg-slate-800 rounded-lg"
                 />
@@ -423,7 +423,7 @@ export default () => {
                                       {ellipse(value, 16)}
                                     </span>
                                   }
-                                  {token_info_url && (
+                                  {/*token_info_url && (
                                     <a
                                       href={token_info_url}
                                       target="_blank"
@@ -431,7 +431,7 @@ export default () => {
                                     >
                                       <IoInformationCircleSharp size={18} className="text-slate-400 dark:text-slate-500 mb-0.5" />
                                     </a>
-                                  )}
+                                  )*/}
                                   {/*trust_score > -1 && (!trust_score ? <HiShieldExclamation size={18} className="text-red-400 dark:text-red5600 mb-0.5" /> : <HiShieldCheck size={18} className={`${trust_score === 1 ? 'text-green-400 dark:text-green-500' : 'text-yellow-400 dark:text-yellow-500'} mb-0.5`} />)*/}
                                 </div>
                                 {base?.toLowerCase().startsWith('0x') && (
