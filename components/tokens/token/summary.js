@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router'
 import { Card, CardBody, CardFooter, Tooltip } from '@material-tailwind/react'
 import _ from 'lodash'
-import { FaHome, FaFacebook, FaTelegram, FaReddit, FaSlack, FaYoutube, FaInstagram, FaGithub, FaBitbucket, FaLinkedin, FaDiscord, FaMedium, FaWeibo } from 'react-icons/fa'
-import { FaXTwitter } from 'react-icons/fa6'
+import { FaHome, FaFacebook, FaTwitter, FaTelegram, FaReddit, FaSlack, FaYoutube, FaInstagram, FaGithub, FaBitbucket, FaLinkedin, FaDiscord, FaMedium, FaWeibo } from 'react-icons/fa'
 import { RiKakaoTalkFill } from 'react-icons/ri'
 import { GoBrowser } from 'react-icons/go'
 
@@ -230,7 +229,7 @@ export default ({ data }) => {
                   new URL(d.url).hostname.includes('facebook.com') ?
                     <FaFacebook size={20} className="text-facebook" /> :
                     new URL(d.url).hostname.includes('twitter.com') ?
-                      <FaXTwitter size={20} className="text-black dark:text-white" /> :
+                      <FaTwitter size={20} className="text-black dark:text-white" /> :
                       new URL(d.url).hostname.includes('t.me') ?
                         <FaTelegram size={20} className="text-telegram" /> :
                         new URL(d.url).hostname.includes('reddit.com') ?
