@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, shallowEqual } from 'react-redux'
 import { Chip } from '@material-tailwind/react'
 import _ from 'lodash'
-import { AdvancedRealTimeChart } from 'react-ts-tradingview-widgets'
+// import { AdvancedRealTimeChart } from 'react-ts-tradingview-widgets'
 // import { FiArrowUp, FiArrowDown } from 'react-icons/fi'
 // import { MdArrowDropUp } from 'react-icons/md'
 // import { IoInformationCircleSharp } from 'react-icons/io5'
@@ -344,13 +344,13 @@ export default () => {
                       {name} Chart
                     </div>
                     <div id="tv" className="overflow-x-auto">
-                      <AdvancedRealTimeChart
+                      {/*<AdvancedRealTimeChart
                         symbol={`${symbol ? symbol : 'btc'}usd`.toUpperCase()}
                         interval="D"
                         container_id="tv"
                         height={560}
                         theme={theme}
-                      />
+                      />*/}
                     </div>
                   </div>
                 </div>
