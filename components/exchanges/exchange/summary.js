@@ -1,7 +1,8 @@
 import { useSelector, shallowEqual } from 'react-redux'
 import { Card, CardBody, CardFooter, Tooltip } from '@material-tailwind/react'
 import _ from 'lodash'
-import { FaFacebook, FaTwitter, FaTelegram, FaReddit, FaSlack, FaYoutube, FaInstagram, FaGithub, FaLinkedin, FaDiscord, FaMedium, FaWeibo } from 'react-icons/fa'
+import { FaFacebook, FaTelegram, FaReddit, FaSlack, FaYoutube, FaInstagram, FaGithub, FaLinkedin, FaDiscord, FaMedium, FaWeibo } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
 import { GoBrowser } from 'react-icons/go'
 
 import Spinner from '../../spinner'
@@ -207,7 +208,7 @@ export default ({ data, tickers }) => {
                 icon = <FaFacebook size={20} className="text-facebook" />
                 break
               case 'twitter_handle':
-                icon = <FaTwitter size={20} className="text-twitter" />
+                icon = <FaXTwitter size={20} className="text-black dark:text-white" />
                 break
               case 'telegram_url':
                 icon = <FaTelegram size={20} className="text-telegram" />
