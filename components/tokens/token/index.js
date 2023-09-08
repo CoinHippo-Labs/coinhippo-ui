@@ -314,13 +314,13 @@ export default () => {
                 <ProgressBarWithText
                   width={percentage}
                   color="bg-slate-200 dark:bg-slate-600 rounded-lg"
-                  text={/*percentage > 0 && (
+                  text={false && percentage > 0 && (
                     <MdArrowDropUp
                       size={24}
                       className="text-slate-200 dark:text-slate-600 mt-0.5 ml-auto"
                       style={percentage <= 5 ? { marginLeft: '-.5rem' } : { marginRight: '-.5rem' }}
                     />
-                  )*/}
+                  )}
                   className="h-2 rounded-lg"
                   backgroundClassName="h-2 bg-slate-100 dark:bg-slate-800 rounded-lg"
                 />
