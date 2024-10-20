@@ -1,5 +1,5 @@
 import { useSelector, useDispatch, shallowEqual } from 'react-redux'
-import { SquidWidget } from '@0xsquid/widget'
+// import { SquidWidget } from '@0xsquid/widget'
 
 export default () => {
   const { preferences } = useSelector(state => ({ preferences: state.preferences }), shallowEqual)
@@ -54,5 +54,5 @@ export default () => {
     },
   }
 
-  return <SquidWidget config={config} />
+  return// <SquidWidget config={config} />
 }

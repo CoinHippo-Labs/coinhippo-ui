@@ -80,16 +80,16 @@ export default toArray([
     path: '/exchanges/derivatives',
     group: 'exchanges',
   },
-  {
-    title: 'Swap',
-    path: '/swap',
-    icon: (
-      <Image
-        src="/logos/others/squid.svg"
-        width={24}
-        height={24}
-      />
-    ),
-    highlight: true,
-  },
+  // {
+  //   title: 'Swap',
+  //   path: '/swap',
+  //   icon: (
+  //     <Image
+  //       src="/logos/others/squid.svg"
+  //       width={24}
+  //       height={24}
+  //     />
+  //   ),
+  //   highlight: true,
+  // },
 ])
