@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/CoinHippo-Labs/coinhippo-ui#readme",
   "dependencies": {
-    "@0xsquid/widget": "^1.6.2",
+    "@0xsquid/widget": "^3.0.13",
     "@material-tailwind/react": "^2.1.10",
     "ethers": "^5.7.2",
     "html-react-parser": "^5.1.18",
