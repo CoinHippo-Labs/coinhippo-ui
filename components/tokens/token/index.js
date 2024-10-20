@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, shallowEqual } from 'react-redux'
 import { Chip } from '@material-tailwind/react'
 import _ from 'lodash'
-import { AdvancedRealTimeChart } from 'react-ts-tradingview-widgets'
+// import { AdvancedRealTimeChart } from 'react-ts-tradingview-widgets'
 import { FiArrowUp, FiArrowDown } from 'react-icons/fi'
 import { MdArrowDropUp } from 'react-icons/md'
 import { IoInformationCircleSharp } from 'react-icons/io5'
@@ -339,7 +339,7 @@ export default () => {
                 <History data={data} />
                 <div className="flex flex-col xl:flex-row xl:justify-between space-y-8 xl:space-y-0 xl:space-x-8">
                   <WhatIs data={data} />
-                  <div className="space-y-2">
+                  {/*<div className="space-y-2">
                     <div className="text-base font-bold">
                       {name} Chart
                     </div>
@@ -352,7 +352,7 @@ export default () => {
                         theme={theme}
                       />
                     </div>
-                  </div>
+                  </div>*/}
                 </div>
                 <div className="space-y-2">
                   <div className="text-base font-bold">
