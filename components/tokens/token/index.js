@@ -245,7 +245,7 @@ export default () => {
                           </div>
                         ))}
                       </div>
-                      <div className="flex flex-wrap items-center">
+                      {/*<div className="flex flex-wrap items-center">
                         {_.slice(trades(data, coins, _tickers), 0, 3).map((d, i) => {
                           const { url, exchange } = { ...d }
                           const { id, name, large } = { ...exchange }
@@ -271,7 +271,7 @@ export default () => {
                           )
                         })}
                         <SelectExchange data={_.slice(trades(data, coins, _tickers), 3)} />
-                      </div>
+                      </div>*/}
                     </div>
                   )}
                 </div>
