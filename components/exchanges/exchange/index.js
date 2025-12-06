@@ -155,7 +155,7 @@ export default () => {
                       {name}
                     </span>
                   </div>
-                  {_url && (
+                  {/*_url && (
                     <a
                       href={_url}
                       target="_blank"
@@ -164,7 +164,7 @@ export default () => {
                     >
                       Start Trading
                     </a>
-                  )}
+                  )*/}
                 </div>
                 <div className="flex items-center justify-between space-x-4">
                   <span className="text-base font-semibold">
@@ -235,7 +235,7 @@ export default () => {
                     return (
                       <div className="flex flex-col space-y-1">
                         <div className="flex items-center space-x-0.5">
-                          {trade_url || _url ?
+                          {false && (trade_url || _url) ?
                             <a
                               href={trade_url || _url}
                               target="_blank"

@@ -153,36 +153,36 @@ export default ({ exchange_type, title, icon }) => {
                 },
                 headerClassName: 'whitespace-nowrap justify-start sm:justify-end text-left sm:text-right',
               },
-              {
-                Header: 'Action',
-                accessor: 'url',
-                disableSortBy: true,
-                Cell: props => {
-                  const { value, row } = { ...props }
-                  const { id } = { ...row.original }
-                  return (
-                    <div className="flex flex-col items-start sm:items-end text-left sm:text-right space-y-1">
-                      {value ?
-                        <a
-                          href={value}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="min-w-max bg-blue-400 dark:bg-blue-500 shadow-lg rounded-lg uppercase text-white text-xs font-bold py-1.5 px-2"
-                        >
-                          Trade
-                        </a> :
-                        <Link
-                          href={`/exchange${id ? `/${id}` : 's'}`}
-                          className="min-w-max bg-slate-50 dark:bg-black rounded-lg text-xs font-semibold py-1.5 px-2"
-                        >
-                          See More
-                        </Link>
-                      }
-                    </div>
-                  )
-                },
-                headerClassName: 'whitespace-nowrap justify-start sm:justify-end text-left sm:text-right',
-              },
+              // {
+              //   Header: 'Action',
+              //   accessor: 'url',
+              //   disableSortBy: true,
+              //   Cell: props => {
+              //     const { value, row } = { ...props }
+              //     const { id } = { ...row.original }
+              //     return (
+              //       <div className="flex flex-col items-start sm:items-end text-left sm:text-right space-y-1">
+              //         {value ?
+              //           <a
+              //             href={value}
+              //             target="_blank"
+              //             rel="noopener noreferrer"
+              //             className="min-w-max bg-blue-400 dark:bg-blue-500 shadow-lg rounded-lg uppercase text-white text-xs font-bold py-1.5 px-2"
+              //           >
+              //             Trade
+              //           </a> :
+              //           <Link
+              //             href={`/exchange${id ? `/${id}` : 's'}`}
+              //             className="min-w-max bg-slate-50 dark:bg-black rounded-lg text-xs font-semibold py-1.5 px-2"
+              //           >
+              //             See More
+              //           </Link>
+              //         }
+              //       </div>
+              //     )
+              //   },
+              //   headerClassName: 'whitespace-nowrap justify-start sm:justify-end text-left sm:text-right',
+              // },
             ]}
             data={data}
             defaultPageSize={PAGE_SIZE}

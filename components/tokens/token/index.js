@@ -410,7 +410,7 @@ export default () => {
                             return (
                               <div className="flex flex-col space-y-1">
                                 <div className="flex items-center space-x-0.5">
-                                  {trade_url ?
+                                  {false && trade_url ?
                                     <a
                                       href={trade_url}
                                       target="_blank"
